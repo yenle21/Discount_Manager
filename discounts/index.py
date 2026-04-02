@@ -1,14 +1,32 @@
+<<<<<<< HEAD
+from flask import Flask, render_template
+from flask_login import LoginManager, current_user
+from discounts import app, login
+import json
+
+=======
 from flask import Flask, render_template, request
 import json
 
 from discounts import dao, app
 from discounts.dao import load_products, load_categories
 
+>>>>>>> 893d5ed7924071a573d8a43ef4dd187172844816
 # Đọc dữ liệu từ JSON
 @app.route("/")
+<<<<<<< HEAD
+def home():
+    products = load_products()
+    # return render_template("login.html", products=products)
+
+    return render_template("register.html", products=products)
+
+    # return render_template("customer.html", products=products)
+=======
 def index():
     # 1. Lấy cate_id từ URL (ví dụ: /?category_id=1)
     cate_id = request.args.get('category_id')
+>>>>>>> 893d5ed7924071a573d8a43ef4dd187172844816
 
     # 2. Lấy keyword từ ô Search (ví dụ: /?kw=sua)
     # Lưu ý: 'kw' phải khớp với thuộc tính 'name' của thẻ <input> trong HTML

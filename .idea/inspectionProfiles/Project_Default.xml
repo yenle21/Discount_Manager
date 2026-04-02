@@ -1,51 +1,29 @@
 <component name="InspectionProjectProfileManager">
   <profile version="1.0">
     <option name="myName" value="Project Default" />
-    <inspection_tool class="PyPackageRequirementsInspection" enabled="false" level="WARNING" enabled_by_default="false">
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="ignoredPackages">
         <list>
-          <option value="asgiref" />
           <option value="blinker" />
-          <option value="boltons" />
-          <option value="cachetools" />
+          <option value="certifi" />
           <option value="click" />
           <option value="cloudinary" />
-          <option value="cryptography" />
-          <option value="exceptiongroup" />
-          <option value="funcsigs" />
-          <option value="git-filter-repo" />
-          <option value="google-auth" />
-          <option value="google-auth-oauthlib" />
+          <option value="colorama" />
+          <option value="Flask" />
+          <option value="Flask-Admin" />
+          <option value="Flask-Login" />
+          <option value="Flask-SQLAlchemy" />
           <option value="greenlet" />
-          <option value="iniconfig" />
           <option value="itsdangerous" />
-          <option value="joblib" />
-          <option value="oauthlib" />
-          <option value="openpyxl" />
-          <option value="pandas" />
-          <option value="pluggy" />
-          <option value="pyasn1" />
-          <option value="pytest" />
-          <option value="pytest-timeout" />
-          <option value="python-crfsuite" />
-          <option value="pytz" />
-          <option value="pyvi" />
-          <option value="railroad" />
-          <option value="requests-oauthlib" />
-          <option value="rsa" />
-          <option value="scikit-learn" />
-          <option value="sklearn-crfsuite" />
-          <option value="sqlparse" />
-          <option value="tabulate" />
-          <option value="tensorboard" />
-          <option value="tensorboard-data-server" />
-          <option value="tensorflow-estimator" />
-          <option value="tensorflow-intel" />
-          <option value="tensorflow-io-gcs-filesystem" />
-          <option value="threadpoolctl" />
-          <option value="tomli" />
-          <option value="toolz" />
-          <option value="tqdm" />
+          <option value="Jinja2" />
+          <option value="MarkupSafe" />
+          <option value="PyMySQL" />
+          <option value="six" />
+          <option value="SQLAlchemy" />
+          <option value="typing_extensions" />
+          <option value="urllib3" />
+          <option value="Werkzeug" />
+          <option value="WTForms" />
         </list>
       </option>
     </inspection_tool>
