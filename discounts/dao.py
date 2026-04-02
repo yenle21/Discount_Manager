@@ -1,16 +1,23 @@
-import json
-
+from models import Category, Product
+from discounts import db
 
 def load_categories():
-    with open("data/category.json", encoding="utf-8") as f:
-        return json.load(f)
-def load_products(cate_id=None):
-    with open("data/product.json", encoding="utf-8") as f:
-        data = json.load(f)
+    """Lấy tất cả danh mục từ Database"""
+    return Category.query.all()
 
-        if cate_id:
-            # Ép kiểu int(p["category_id"]) để chắc chắn so sánh đúng với cate_id từ URL
-            return [p for p in data if int(p["category_id"]) == int(cate_id)]
+def load_products(cate_id=None, kw=None):
+    query = Product.query
 
-        return data
+    # Lọc theo danh mục nếu có truyền cate_id
+    if cate_id:
+        query = query.filter(Product.category_id == int(cate_id))
 
+    # Lọc theo từ khóa tìm kiếm nếu có truyền kw
+    if kw:
+        query = query.filter(Product.name.contains(kw))
+
+    return query.all()
+
+def get_product_by_id(product_id):
+    """Lấy chi tiết một sản phẩm theo ID"""
+    return db.session.get(Product, product_id)
