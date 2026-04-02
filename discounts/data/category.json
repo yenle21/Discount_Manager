@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "name": "Sữa tươi",
+        "description": "Các loại sữa tươi nguyên chất"
+    },
+    {
+        "id": 2,
+        "name": "Sữa dinh dưỡng",
+        "description": "Sữa bổ sung vitamin và khoáng chất"
+    },
+    {
+        "id": 3,
+        "name": "Sữa ít đường",
+        "description": "Sữa dành cho người ăn kiêng, ít đường"
+    },
+    {
+        "id": 4,
+        "name": "Sữa cho trẻ em",
+        "description": "Sữa dành riêng cho trẻ nhỏ"
+    }
+]

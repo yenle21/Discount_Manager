@@ -6,8 +6,8 @@ import cloudinary
 
 app = Flask(__name__)
 #app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:admin%40123@localhost/kidmanagerdb?charset=utf8mb4"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
-db = SQLAlchemy(app)
+#app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
+#db = SQLAlchemy(app)
 
 cloudinary.config(cloud_name='dubbmztca',
                   api_key='317478548846544',
