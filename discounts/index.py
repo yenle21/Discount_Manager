@@ -6,18 +6,22 @@ from discounts.dao import load_products, load_categories
 
 # Đọc dữ liệu từ JSON
 @app.route("/")
-def customer():
-    cate_id = request.args.get("cate_id", type=int)  # lấy từ URL
-    products = dao.load_products(cate_id=cate_id)
+def index():
+    # 1. Lấy cate_id từ URL (ví dụ: /?category_id=1)
+    cate_id = request.args.get('category_id')
+
+    # 2. Lấy keyword từ ô Search (ví dụ: /?kw=sua)
+    # Lưu ý: 'kw' phải khớp với thuộc tính 'name' của thẻ <input> trong HTML
+    kw = request.args.get('kw')
 
     categories = dao.load_categories()
 
-    return render_template(
-        "customer/customer.html",
-        products=products,
-        categories=categories,
-        cate_id=cate_id,
-    )
+    # 3. Truyền cả cate_id và kw vào hàm load
+    products = dao.load_products(cate_id=cate_id, kw=kw)
+
+    return render_template('customer/customer.html',
+                           categories=categories,
+                           products=products)
 @app.route("/cart")
 def cart():
     # Load danh mục để Sidebar vẫn hiển thị đúng
