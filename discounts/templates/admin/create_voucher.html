@@ -1,0 +1,109 @@
+{% extends 'layout/base.html' %}
+{% block content %}
+<body>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}?v=1.1">
+
+    <div class="app-container">
+        <aside class="sidebar">
+            <a href="/admin" class="nav-item">
+                <i class="fas fa-ticket-alt"></i> <span>Danh sách Voucher</span>
+            </a>
+            <a href="/create" class="nav-item active">
+                <i class="fas fa-plus-circle"></i> <span>Thêm Voucher</span>
+            </a>
+        </aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <h2>Thêm Voucher Mới</h2>
+                <a href="/" class="btn-outline"><i class="fas fa-arrow-left"></i> Quay lại</a>
+            </div>
+
+            <div class="card-form">
+                <form action="/add" method="POST">
+                    <div class="form-grid">
+
+                        <div class="form-left">
+                            <div class="form-group">
+                                <label>Mã Voucher</label>
+                                <input type="text" name="MaGG" placeholder="Ví dụ: SUMMER50K" required>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Hình thức</label>
+                                    <select name="Hinhthuc">
+                                        <option>Mã khuyến mãi</option>
+                                        <option>Tự động áp dụng</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Loại giảm giá</label>
+                                    <select name="LoaiGG">
+                                        <option>Giảm theo số tiền</option>
+                                        <option>Giảm theo %</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Giá trị giảm</label>
+                                    <div class="input-unit">
+                                        <input type="number" name="GiaTri">
+                                        <span>đ</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Số lượng phát hành</label>
+                                    <input type="number" name="SoLuong" value="100">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Ngày bắt đầu</label>
+                                    <input type="datetime-local" name="NgayBD">
+                                </div>
+                                <div class="form-group">
+                                    <label>Ngày kết thúc</label>
+                                    <input type="datetime-local" name="NgayKT">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-right">
+                            <div class="form-group full-height">
+                                <label>Mô tả Voucher</label>
+                                <textarea name="MoTa" placeholder="Nhập chi tiết điều kiện áp dụng..."></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Trạng thái khởi tạo</label>
+                                <div class="radio-group">
+                                    <label class="radio-item">
+                                        <input type="radio" name="TrangThai" value="active" checked>
+                                        <span>Kích hoạt ngay</span>
+                                    </label>
+                                    <label class="radio-item">
+                                        <input type="radio" name="TrangThai" value="inactive">
+                                        <span>Chờ kích hoạt</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-actions-footer">
+                        <button type="button" class="btn-cancel" onclick="window.history.back()">Hủy bỏ</button>
+                        <button type="submit" class="btn-submit">Lưu Voucher</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>
+{% endblock %}
