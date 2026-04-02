@@ -1,0 +1,39 @@
+{%extends 'layout/base.html'%}
+
+{%block content%}
+<!-- BODY LAYOUT -->
+<nav class="navbar navbar-expand-sm navbar-dark mb-1" style="background-color:#C28BEF;">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="/">Mầm Non ABC</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mynavbar">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Trang chủ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/teachers">Đội ngũ giảng viên</a>
+                </li>
+
+            </ul>
+
+            {% if current_user.is_authenticated %}
+            <div class="user-info">
+                <span><strong>{{ current_user.name }}</strong></span>
+
+                <a href="/logout" class="btn btn-danger btn-sm">Đăng xuất</a>
+            </div>
+            {% else %}
+            <a href="/login" class="btn btn-primary btn-sm">Đăng nhập</a>
+            {% endif %}
+
+        </div>
+    </div>
+</nav>
+
+
+{%endblock%}
+
