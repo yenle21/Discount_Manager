@@ -114,6 +114,7 @@ body {
     font-weight: 600 !important;
 }
 
+
 .filter-btn:hover {
     background: #bbb !important;
 }
@@ -152,11 +153,15 @@ body {
     margin-bottom: 15px;
 }
 
-.btn-add-cart {
-    background-color: #28a745 !important;
+.btn-add-to-cart {
+    background-color: green; !important;
     color: white !important;
-    border-radius: 25px !important;
-    padding: 8px 0 !important;
+    border-radius: 20px !important;
+    padding: 10px 10px !important;
     font-weight: bold !important;
     margin-top: 10px;
+}
+.search-section{
+     background-color: #ccc;
+     margin-bottom:10px;
 }
