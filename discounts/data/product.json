@@ -1,0 +1,30 @@
+[
+    {
+        "id": 1,
+        "name": "Sữa Dutch Lady Socola",
+        "price": 355000,
+        "category_id": 2,
+        "image": "https://cdnv2.tgdd.vn/bhx-static/bhx/Products/Images/2386/80464/bhx/sua-tt-cghl-socola-180mlloc_202504211506505688.jpg"
+    },
+    {
+        "id": 2,
+        "name": "Sữa TH True Milk",
+        "price": 270000,
+        "category_id": 1,
+        "image": "https://cdnv2.tgdd.vn/bhx-static/bhx/Products/Images/2386/80491/bhx/80491-thumb-moi_202410291604337509.jpg"
+    },
+    {
+        "id": 3,
+        "name": "Sữa Vinamilk",
+        "price": 353000,
+        "category_id": 1,
+        "image": "https://bizweb.dktcdn.net/thumb/large/100/469/765/products/z4923431239163-3101190fe8814dab7db0841977a6e3ef.jpg"
+    },
+    {
+        "id": 4,
+        "name": "Sữa Nuti",
+        "price": 390000,
+        "category_id": 2,
+        "image": "https://product.hstatic.net/200000984105/product/loc-4-hop-sua-tuoi-nutimilk-it-duong-tu-1-tuoi-1-loc-4-hop-110ml__2__bd2b0cadadbe41a4bb8cc62c1d98df34_grande.jpg"
+    }
+]
