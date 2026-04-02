@@ -1,0 +1,67 @@
+{% extends 'layout/base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+<div class="app-container">
+    <aside class="sidebar">
+        <nav>
+            <a href="/" class="nav-item">
+                <span>🏠 Trang chủ</span>
+            </a>
+            <a href="/cart" class="nav-item">
+                <div class="position-relative">
+                    <span>🛒 Giỏ hàng</span>
+                </div>
+            </a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div class="search-section">
+            <div class="search-group-wrapper">
+                <form action="/" method="get" class="input-group search-group-main">
+
+                    <button class="btn btn-category dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        Danh mục
+                    </button>
+                    <ul class="dropdown-menu">
+                        {% for c in categories %}
+                        <li><a class="dropdown-item" href="/?category_id={{ c.id }}">{{ c.name }}</a></li>
+                        {% endfor %}
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/">Tất cả sản phẩm</a></li>
+                    </ul>
+
+                    <input name="kw" class="form-control search-input"
+                           placeholder="Tìm kiếm sản phẩm..."
+                           value="{{ request.args.get('kw', '') }}">
+
+                    <button class="btn btn-filter-action" type="submit">
+                        Lọc
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="product-grid">
+            {% if products %}
+                {% for p in products %}
+                <div class="product-card">
+                    <div class="product-img-wrapper">
+                        <img src="{{ p.image }}" alt="{{ p.name }}">
+                    </div>
+                    <h6 class="product-title">{{ p.name }}</h6>
+                    <p class="product-price">{{ "{:,.0f}".format(p.price|float) }}đ</p>
+                    <button class="btn btn-add-to-cart">Thêm vào giỏ</button>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="text-center w-100 mt-5">
+                    <p class="text-muted">Không tìm thấy sản phẩm nào khớp với từ khóa "{{ request.args.get('kw') }}".</p>
+                </div>
+            {% endif %}
+        </div>
+    </main>
+</div>
+{% endblock %}
