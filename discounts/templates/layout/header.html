@@ -9,12 +9,27 @@
             <ul class="navbar-nav me-auto">
             </ul>
 
+            {% if current_user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link active" href="/login"style="padding: 0px 5px; font-size: 0.85rem;">
+                        Chào {{current_user.name}}
+                    </a>
+
+                <li class="nav-item">
+                    <a class="nav-link active" href="/logout" style="padding: 0px 5px; font-size: 0.85rem;">&#128220; Đăng xuất</a>
+                </li>
+                </li>
 
 
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link active" href="/login" style="padding: 0px 5px; font-size: 0.85rem;">&#128220;Đăng nhập</a>
+                </li>
 
-            <a href="/login" class="btn btn-primary btn-sm">Đăng nhập</a>
-
-
+                <li class="nav-item">
+                    <a class="nav-link active" href="/register" style="padding: 0px 5px; font-size: 0.85rem;">&#128105;Đăng ký</a>
+                </li>
+                {% endif %}
         </div>
     </div>
 </nav>

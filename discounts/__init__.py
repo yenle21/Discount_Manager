@@ -17,7 +17,8 @@ cloudinary.config(cloud_name='dubbmztca',
 
 app.secret_key = "fhdjkhgfsh"
 
-
+#NhuY
+login = LoginManager(app)
 
 
 
