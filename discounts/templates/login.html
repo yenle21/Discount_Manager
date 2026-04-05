@@ -48,12 +48,22 @@
             <div class="d-grid mb-3">
                 <button type="submit" class="btn btn-custom">Đăng nhập</button>
             </div>
-            <div style="text-align: center; margin-top: 15px;">
-                <a href="javascript:void(0);"
-                   onclick="startForgotPassword()"
-                   style="color: #8e24aa; text-decoration: none; font-weight: 500;">
-                    Quên mật khẩu?
-                </a>
+            <div id="auth-links-area">
+                <div style="text-align: center; margin-top: 15px;">
+                    <a href="javascript:void(0);"
+                       onclick="startForgotPassword()"
+                       style="color: #8e24aa; text-decoration: none; font-weight: 500;">
+                        Quên mật khẩu?
+                    </a>
+                </div>
+
+                <div style="text-align: center; margin-top: 10px;">
+                    <span class="text-muted small">Chưa có tài khoản?</span>
+                    <a href="/register"
+                       style="color: #6CD25B; text-decoration: none; font-weight: bold; margin-left: 5px;">
+                        Đăng ký tài khoản?
+                    </a>
+                </div>
             </div>
 
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -61,6 +71,52 @@
 
             <script src="{{ url_for('static', filename='js/login_reset.js') }}"></script>
         </form>
+
     </div>
 </div>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 1. Lấy các phần tử cần thiết
+        const roleSelect = document.querySelector('select[name="role"]');
+        const authLinksArea = document.getElementById('auth-links-area');
+
+        // 2. Hàm xử lý ẩn hiện
+        function toggleLinks() {
+            // Nếu giá trị là "1" (Admin) thì ẩn, ngược lại (Khách) thì hiện
+            if (roleSelect.value === "1") {
+                authLinksArea.style.display = "none";
+            } else {
+                authLinksArea.style.display = "block";
+            }
+        }
+
+        // 3. Lắng nghe sự kiện thay đổi trên thẻ Select
+        roleSelect.addEventListener('change', toggleLinks);
+
+        // 4. Chạy hàm một lần khi trang vừa load xong (để khớp với giá trị mặc định)
+        toggleLinks();
+    });
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    // 1. Lấy các phần tử cần thiết
+    const roleSelect = document.querySelector('select[name="role"]');
+    const authLinksArea = document.getElementById('auth-links-area');
+
+    // 2. Hàm xử lý ẩn hiện
+    function toggleLinks() {
+        // Nếu giá trị là "1" (Admin) thì ẩn, ngược lại (Khách) thì hiện
+        if (roleSelect.value === "1") {
+            authLinksArea.style.display = "none";
+        } else {
+            authLinksArea.style.display = "block";
+        }
+    }
+
+    // 3. Lắng nghe sự kiện thay đổi trên thẻ Select
+    roleSelect.addEventListener('change', toggleLinks);
+
+    // 4. Chạy hàm một lần khi trang vừa load xong (để khớp với giá trị mặc định)
+    toggleLinks();
+});
+
+</script>
 {% endblock %}

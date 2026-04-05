@@ -90,3 +90,6 @@
 .forgot-password-link:hover {
     text-decoration: underline;
 }
+#auth-links-area {
+    transition: all 0.3s ease-in-out;
+}
