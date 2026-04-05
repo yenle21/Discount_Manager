@@ -122,3 +122,141 @@
     border-radius: 50px; border: none; padding: 12px;
     font-weight: bold;
 }
+/* Trạng thái mã hợp lệ */
+.voucher-eligible {
+    border: 2px solid #0d6efd;
+    background-color: #fff;
+}
+
+/* Khung chứa từng mã giảm giá */
+.voucher-item-card {
+    position: relative;
+    background: #fff;
+    transition: all 0.3s ease;
+    border-width: 1.5px !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Hiệu ứng khi mã hợp lệ */
+.voucher-eligible {
+    border-color: #0d6efd !important;
+}
+
+/* Hiệu ứng khi mã bị khóa (Làm mờ) */
+.voucher-locked {
+    opacity: 0.6;
+    background-color: #f8f9fa;
+    cursor: not-allowed;
+}
+
+/* Badge (Nhãn loại voucher: Tiền mặt/Vận chuyển) */
+.badge-product, .badge-ship {
+    font-size: 0.7rem;
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.badge-product { background-color: #ffc107; color: #000; }
+.badge-ship { background-color: #17a2b8; color: #fff; }
+
+/* Thông tin chữ bên trong */
+.voucher-info h6 {
+    margin-top: 5px;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.voucher-info p {
+    font-size: 0.9rem;
+    margin-bottom: 2px;
+}
+
+.voucher-info small {
+    color: #6c757d;
+}
+
+/* Nút Chọn/Khóa nằm bên phải */
+.voucher-action .btn {
+    min-width: 70px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+/* Chỉnh lại khung nhập mã thủ công ở trên */
+.promo-input-group {
+    background: #fff;
+    height: 50px;
+}
+
+.promo-input-group input {
+    font-size: 0.95rem;
+}
+
+.promo-input-group button {
+    border-radius: 0 !important;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+/* Tạo thanh cuộn đẹp cho danh sách mã */
+.voucher-list-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+.voucher-list-scroll::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.voucher-list-scroll::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
+.applied-voucher-tag {
+    display: flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    animation: fadeIn 0.3s ease;
+}
+
+.tag-ship {
+    background-color: #e3f2fd;
+    color: #0d6efd;
+    border: 1px solid #0d6efd;
+}
+
+.tag-promo {
+    background-color: #fff3e0;
+    color: #ef6c00;
+    border: 1px solid #ef6c00;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+/* Làm mờ Voucher không đủ điều kiện */
+.voucher-locked {
+    opacity: 0.6;
+    background-color: #f8f9fa;
+    border-color: #dee2e6 !important;
+    cursor: not-allowed;
+    filter: grayscale(0.5); /* Tạo hiệu ứng trắng đen nhẹ */
+}
+
+.voucher-item-card {
+    transition: all 0.2s ease;
+}
+
+/* Hiệu ứng khi di chuột vào mã dùng được */
+.voucher-item-card.border-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
+}
+.voucher-locked { opacity: 0.5; filter: grayscale(1); pointer-events: none; }
+.voucher-info { flex: 1; }
