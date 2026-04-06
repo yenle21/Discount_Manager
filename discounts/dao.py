@@ -1,7 +1,7 @@
 import hashlib
 
 from werkzeug.security import generate_password_hash, check_password_hash
-from discounts.models import User, KhachHang, Category, Product
+from discounts.models import User, KhachHang, Category, Product, Voucher
 from discounts import db, app
 
 # --- PRODUCT LOGIC ---
@@ -76,3 +76,24 @@ def update_password(email, new_password):
         print(f"Lỗi đổi mật khẩu: {e}")
         db.session.rollback()
         return False
+
+#QNHU
+def get_all_vouchers():
+    return Voucher.query.all()
+
+
+def get_voucher_by_id(maGG):
+    return db.session.get(Voucher, maGG)
+
+
+def add_voucher(data):
+    try:
+        voucher = Voucher(**data)
+        db.session.add(voucher)
+        db.session.commit()
+        return True
+    except Exception as e:
+        db.session.rollback()
+        print("DAO ERROR:", e)
+        return False
+####QNHU

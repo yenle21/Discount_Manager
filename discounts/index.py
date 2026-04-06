@@ -8,9 +8,10 @@ import json
 from flask import render_template, session, request, jsonify, redirect, url_for, flash
 from flask_login import current_user, login_user, logout_user, login_required
 from flask_mail import Message, Mail
-
+from dao import load_products, load_categories, add_voucher, get_voucher_by_id
 from discounts import app, db, login, dao
 from discounts.models import UserRole, Voucher, CTHD, DonHang, Product, Category,User
+from datetime import datetime
 
 otp_storage = {}
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
@@ -48,6 +49,213 @@ def index():
                            pages=total_pages,
                            current_page=page,
                            total_quantity=total_quantity)
+
+
+#Quỳnh Như tạo voucher
+@app.route("/create")
+def create():
+    categories = dao.load_categories()
+    return render_template("admin/create_voucher.html", categories=categories)
+
+
+@app.route('/admin')
+def admin_voucher():
+    trang_thai = request.args.get('trang_thai')
+    hinh_thuc = request.args.get('hinh_thuc')
+    kw = request.args.get('kw')
+    vouchers = Voucher.query.all()
+    now = datetime.now()
+
+    filtered = []
+    hinh_thuc_list = set()  # lấy danh sách unique
+
+    for v in vouchers:
+        # ===== SEARCH =====
+        if kw:
+            if kw.lower() not in (v.MaGG or "").lower() and \
+                    kw.lower() not in (v.MoTa or "").lower():
+                continue
+
+        # ===== lấy danh sách hình thức =====
+        if v.Hinhthuc:
+            hinh_thuc_list.add(v.Hinhthuc)
+
+        # ===== xử lý trạng thái =====
+        if v.NgayBD and now < v.NgayBD:
+            status = "pending"
+        elif v.NgayKT and now > v.NgayKT:
+            status = "expired"
+        else:
+            status = "active"
+
+        v.TrangThai = status
+
+        # ===== filter =====
+        if trang_thai and status != trang_thai:
+            continue
+
+        if hinh_thuc and v.Hinhthuc != hinh_thuc:
+            continue
+
+        filtered.append(v)
+
+    return render_template(
+        'admin/admin.html',
+        vouchers=filtered,
+        hinh_thuc_list=list(hinh_thuc_list),
+        hinh_thuc=hinh_thuc,
+        trang_thai=trang_thai,
+        kw=kw
+    )
+
+@app.route('/add', methods=['POST'])
+def add_voucher_route():
+    try:
+        MaGG = request.form.get('MaGG')
+
+        # check trùng
+        if get_voucher_by_id(MaGG):
+            flash("Mã voucher đã tồn tại!", "danger")
+            return redirect('/create')
+
+        # convert datetime
+        ngay_bd = request.form.get('NgayBD')
+        ngay_kt = request.form.get('NgayKT')
+
+        ngay_bd = datetime.strptime(ngay_bd, "%Y-%m-%dT%H:%M") if ngay_bd else None
+        ngay_kt = datetime.strptime(ngay_kt, "%Y-%m-%dT%H:%M") if ngay_kt else None
+
+        data = {
+            "MaGG": MaGG,
+            "Hinhthuc": request.form.get('Hinhthuc'),
+            "LoaiGG": request.form.get('LoaiGG'),
+            "GiaTri": float(request.form.get('GiaTri') or 0),
+            "SoLuong": int(request.form.get('SoLuong') or 0),
+            "NgayBD": ngay_bd,
+            "NgayKT": ngay_kt,
+            "TrangThai": "Active" if request.form.get('TrangThai') == "active" else "Inactive",
+            "MoTa": request.form.get('MoTa'),
+            "admin_id": 1,
+            "DieuKien": float(request.form.get('DieuKien') or 0),
+            "DieuKienSP": request.form.get('DieuKienSP')
+        }
+
+
+        if add_voucher(data):
+            flash("Thêm voucher thành công!", "success")
+            return redirect('/admin')
+        else:
+            flash("Lỗi khi lưu DB!", "danger")
+            return redirect('/create')
+
+    except Exception as e:
+        print(e)
+        flash("Lỗi hệ thống!", "danger")
+        return redirect('/create')
+
+
+@app.route('/api/vouchers')
+def get_vouchers_api():
+    # Lấy thông tin để lọc mã phù hợp với giỏ hàng hiện tại
+    total_amount = float(request.args.get('total', 0))
+    categories_str = request.args.get('categories', '')
+    current_category_ids = categories_str.split(',') if categories_str else []
+
+    # Chỉ lấy các mã đang hoạt động
+    vouchers = Voucher.query.filter(Voucher.TrangThai == 'Active').all()
+    output = []
+
+    for v in vouchers:
+        # 1. Kiểm tra số lượng lượt dùng còn lại
+        if v.SoLuong is not None and v.DaSuDung >= v.SoLuong:
+            continue
+
+        # 2. Kiểm tra tổng đơn hàng tối thiểu
+        if v.DieuKien and total_amount < v.DieuKien:
+            continue
+
+        # 3. Kiểm tra danh mục sản phẩm (nếu có yêu cầu)
+        if v.DieuKienSP:
+            if v.DieuKienSP not in current_category_ids:
+                continue
+
+        output.append({
+            "code": v.MaGG,
+            "type": v.Hinhthuc,
+            "value": v.GiaTri,
+            "condition": v.DieuKien,
+            "description": v.MoTa,
+            "expiry": v.NgayKT.strftime('%d/%m/%Y') if v.NgayKT else "Vô thời hạn"
+        })
+    return jsonify(output)
+
+
+@app.route('/api/apply-voucher', methods=['POST'])
+def apply_voucher_api():
+    data = request.json
+    code = data.get('code')
+    total_amount = float(data.get('total_amount', 0))
+
+    v = db.session.get(Voucher, code)
+    if not v or v.TrangThai != 'Active':
+        return jsonify({"status": 400, "message": "Mã không tồn tại hoặc đã bị tắt!"})
+
+    # Kiểm tra lại điều kiện một lần nữa trước khi áp dụng
+    if v.SoLuong is not None and v.DaSuDung >= v.SoLuong:
+        return jsonify({"status": 400, "message": "Mã đã hết lượt sử dụng!"})
+
+    if v.DieuKien and total_amount < v.DieuKien:
+        return jsonify({"status": 400, "message": f"Đơn hàng chưa đủ {v.DieuKien:,.0f}đ"})
+
+    # Tăng số lượng đã sử dụng lên 1 ngay khi bấm "Sử dụng"
+    v.DaSuDung += 1
+    db.session.commit()
+
+    # Lưu vào session để checkout và đánh dấu 'locked' để không cho xóa ở giao diện
+    if 'applied_vouchers' not in session:
+        session['applied_vouchers'] = {}
+
+    session['applied_vouchers'][v.MaGG] = {
+        'code': v.MaGG,
+        'discount_amount': (total_amount * (v.GiaTri / 100)) if v.Hinhthuc == "Phần trăm" else v.GiaTri,
+        'locked': True
+    }
+    session.modified = True
+
+    return jsonify({
+        "status": 200,
+        "message": f"Áp dụng mã {code} thành công!",
+        "applied_details": session['applied_vouchers']
+    })
+
+
+# --- QUẢN LÝ VOUCHER CHO ADMIN ---
+@app.route('/delete/<maGG>', methods=['POST'])
+@login_required
+def delete_voucher(maGG):
+    if int(current_user.user_role) != UserRole.ADMIN:
+        return jsonify({"status": 403, "message": "Không có quyền!"})
+
+    try:
+        voucher = Voucher.query.get(maGG)
+        if not voucher:
+            flash("Voucher không tồn tại!", "danger")
+            return redirect('/admin')
+
+        # CHẶN XÓA NẾU ĐÃ CÓ NGƯỜI DÙNG (Bảo vệ dữ liệu)
+        if voucher.DaSuDung and voucher.DaSuDung > 0:
+            flash(f"Không thể xóa mã {maGG} vì đã có {voucher.DaSuDung} lượt sử dụng!", "warning")
+            return redirect('/admin')
+
+        db.session.delete(voucher)
+        db.session.commit()
+        flash("Xóa voucher thành công!", "success")
+    except Exception as e:
+        db.session.rollback()
+        flash(f"Lỗi hệ thống: {str(e)}", "danger")
+
+    return redirect('/admin')
+######## QNhu
 
 
 # --- 2. GIỎ HÀNG & CẬP NHẬT SỐ LƯỢNG ---
@@ -111,74 +319,74 @@ def update_cart():
     })
 
 
-# --- 3. LOGIC VOUCHER (SHOPEE STYLE) ---
-@app.route('/api/vouchers')
-def get_vouchers():
-    vouchers = Voucher.query.all()
-    output = []
-    for v in vouchers:
-        output.append({
-            "code": v.MaGG,
-            "type": v.Hinhthuc,
-            "condition": v.DieuKien,
-            "expiry": v.NgayKT.strftime('%d/%m/%Y') if v.NgayKT else "Không hết hạn",
-            "category_id": v.DieuKienSP,
-            "description": v.MoTa # THÊM DÒNG NÀY ĐỂ HIỆN MÔ TẢ
-        })
-    return jsonify(output)
-
-@app.route('/api/apply-voucher', methods=['POST'])
-def apply_voucher():
-    data = request.json
-    code = data.get('code')
-    total_amount = float(data.get('total_amount', 0))
-    cart = session.get('cart', {})
-
-    if 'applied_vouchers' not in session:
-        session['applied_vouchers'] = {'SHIPPING': None, 'PROMOTION': None}
-
-    # CASE: Tính toán lại khi giỏ hàng thay đổi (Fix lỗi tiền âm của Yến)
-    if code == "RE_CALCULATE":
-        total_discount = 0
-        for v_type, v_info in list(session['applied_vouchers'].items()):
-            if v_info:
-                v_db = db.session.get(Voucher, v_info['code'])
-                if v_db and (not v_db.DieuKien or total_amount >= v_db.DieuKien):
-                    new_disc = (total_amount * (v_db.GiaTri / 100)) if v_db.Hinhthuc == "Phần trăm" else v_db.GiaTri
-                    v_info['discount_amount'] = new_disc
-                    total_discount += new_disc
-                else:
-                    session['applied_vouchers'][v_type] = None
-        session.modified = True
-        return jsonify({"status": 200, "total_discount": total_discount, "new_total": total_amount - total_discount,
-                        "applied_details": session['applied_vouchers']})
-
-    # CASE: Áp dụng mã mới
-    v = db.session.get(Voucher, code)
-    if not v or v.TrangThai != 'Active': return jsonify({"status": 400, "message": "Mã không tồn tại!"})
-
-    now = datetime.datetime.now()
-    if (v.NgayBD and now < v.NgayBD) or (v.NgayKT and now > v.NgayKT): return jsonify(
-        {"status": 400, "message": "Mã hết hạn!"})
-    if v.DieuKien and total_amount < v.DieuKien: return jsonify(
-        {"status": 400, "message": f"Đơn tối thiểu {v.DieuKien:,.0f}đ!"})
-
-    # Check danh mục sản phẩm
-    if v.DieuKienSP:
-        target_cat = int(v.DieuKienSP)
-        if not any(int(item.get('category_id', 0)) == target_cat for item in cart.values()):
-            return jsonify({"status": 400, "message": "Không có sản phẩm thuộc danh mục ưu đãi!"})
-
-    v_type = 'SHIPPING' if v.Hinhthuc in ['SHIPPING', 'Vận chuyển'] else 'PROMOTION'
-    this_discount = (total_amount * (v.GiaTri / 100)) if v.Hinhthuc == "Phần trăm" else v.GiaTri
-
-    session['applied_vouchers'][v_type] = {'code': v.MaGG, 'discount_amount': this_discount, 'hinh_thuc': v.Hinhthuc}
-    session.modified = True
-
-    total_discount = sum(item['discount_amount'] for item in session['applied_vouchers'].values() if item)
-    return jsonify({"status": 200, "message": f"Áp dụng {v.MaGG} thành công!", "total_discount": total_discount,
-                    "new_total": total_amount - total_discount, "applied_details": session['applied_vouchers']})
-
+# # --- 3. LOGIC VOUCHER (SHOPEE STYLE) ---
+# @app.route('/api/vouchers')
+# def get_vouchers():
+#     vouchers = Voucher.query.all()
+#     output = []
+#     for v in vouchers:
+#         output.append({
+#             "code": v.MaGG,
+#             "type": v.Hinhthuc,
+#             "condition": v.DieuKien,
+#             "expiry": v.NgayKT.strftime('%d/%m/%Y') if v.NgayKT else "Không hết hạn",
+#             "category_id": v.DieuKienSP,
+#             "description": v.MoTa # THÊM DÒNG NÀY ĐỂ HIỆN MÔ TẢ
+#         })
+#     return jsonify(output)
+#
+# @app.route('/api/apply-voucher', methods=['POST'])
+# def apply_voucher():
+#     data = request.json
+#     code = data.get('code')
+#     total_amount = float(data.get('total_amount', 0))
+#     cart = session.get('cart', {})
+#
+#     if 'applied_vouchers' not in session:
+#         session['applied_vouchers'] = {'SHIPPING': None, 'PROMOTION': None}
+#
+#     # CASE: Tính toán lại khi giỏ hàng thay đổi (Fix lỗi tiền âm của Yến)
+#     if code == "RE_CALCULATE":
+#         total_discount = 0
+#         for v_type, v_info in list(session['applied_vouchers'].items()):
+#             if v_info:
+#                 v_db = db.session.get(Voucher, v_info['code'])
+#                 if v_db and (not v_db.DieuKien or total_amount >= v_db.DieuKien):
+#                     new_disc = (total_amount * (v_db.GiaTri / 100)) if v_db.Hinhthuc == "Phần trăm" else v_db.GiaTri
+#                     v_info['discount_amount'] = new_disc
+#                     total_discount += new_disc
+#                 else:
+#                     session['applied_vouchers'][v_type] = None
+#         session.modified = True
+#         return jsonify({"status": 200, "total_discount": total_discount, "new_total": total_amount - total_discount,
+#                         "applied_details": session['applied_vouchers']})
+#
+#     # CASE: Áp dụng mã mới
+#     v = db.session.get(Voucher, code)
+#     if not v or v.TrangThai != 'Active': return jsonify({"status": 400, "message": "Mã không tồn tại!"})
+#
+#     now = datetime.datetime.now()
+#     if (v.NgayBD and now < v.NgayBD) or (v.NgayKT and now > v.NgayKT): return jsonify(
+#         {"status": 400, "message": "Mã hết hạn!"})
+#     if v.DieuKien and total_amount < v.DieuKien: return jsonify(
+#         {"status": 400, "message": f"Đơn tối thiểu {v.DieuKien:,.0f}đ!"})
+#
+#     # Check danh mục sản phẩm
+#     if v.DieuKienSP:
+#         target_cat = int(v.DieuKienSP)
+#         if not any(int(item.get('category_id', 0)) == target_cat for item in cart.values()):
+#             return jsonify({"status": 400, "message": "Không có sản phẩm thuộc danh mục ưu đãi!"})
+#
+#     v_type = 'SHIPPING' if v.Hinhthuc in ['SHIPPING', 'Vận chuyển'] else 'PROMOTION'
+#     this_discount = (total_amount * (v.GiaTri / 100)) if v.Hinhthuc == "Phần trăm" else v.GiaTri
+#
+#     session['applied_vouchers'][v_type] = {'code': v.MaGG, 'discount_amount': this_discount, 'hinh_thuc': v.Hinhthuc}
+#     session.modified = True
+#
+#     total_discount = sum(item['discount_amount'] for item in session['applied_vouchers'].values() if item)
+#     return jsonify({"status": 200, "message": f"Áp dụng {v.MaGG} thành công!", "total_discount": total_discount,
+#                     "new_total": total_amount - total_discount, "applied_details": session['applied_vouchers']})
+#
 
 @app.route('/api/clear-vouchers', methods=['POST'])
 def clear_vouchers():

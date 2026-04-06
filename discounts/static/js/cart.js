@@ -174,34 +174,42 @@ function loadVoucherList() {
         });
 }
 
-function selectVoucher(code) {
-    const vInput = document.getElementById('voucher-code');
-    if (vInput) { vInput.value = code; applyVoucher(); }
-}
+//function selectVoucher(code) {
+//    const vInput = document.getElementById('voucher-code');
+//    if (vInput) {
+//        vInput.value = code;
+//        // Đóng modal sau khi chọn để người dùng thấy UI thay đổi
+//        const modalElement = document.getElementById('discountModal');
+//        const modal = bootstrap.Modal.getInstance(modalElement);
+//        if (modal) modal.hide();
+//
+//        applyVoucher();
+//    }
+//}
 
-function applyVoucher() {
-    const vInput = document.getElementById("voucher-code");
-    if (!vInput || !vInput.value.trim()) return;
-    const subtotalText = document.getElementById("summary-subtotal").innerText;
-    const currentSubtotal = parseFloat(subtotalText.replace(/[^0-9]/g, '')) || 0;
-
-    fetch('/api/apply-voucher', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ "code": vInput.value.trim(), "total_amount": currentSubtotal })
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.status === 200) {
-            alert("🎉 " + data.message);
-            document.getElementById('discount-val').innerText = "-" + data.total_discount.toLocaleString('vi-VN') + "đ";
-            renderVoucherTags(data.applied_details);
-            updatePriceUI(currentSubtotal, data.new_total);
-            vInput.value = "";
-            loadVoucherList();
-        } else { alert("❌ " + data.message); }
-    });
-}
+//function applyVoucher() {
+//    const vInput = document.getElementById("voucher-code");
+//    if (!vInput || !vInput.value.trim()) return;
+//    const subtotalText = document.getElementById("summary-subtotal").innerText;
+//    const currentSubtotal = parseFloat(subtotalText.replace(/[^0-9]/g, '')) || 0;
+//
+//    fetch('/api/apply-voucher', {
+//        method: 'POST',
+//        headers: { 'Content-Type': 'application/json' },
+//        body: JSON.stringify({ "code": vInput.value.trim(), "total_amount": currentSubtotal })
+//    })
+//    .then(res => res.json())
+//    .then(data => {
+//        if (data.status === 200) {
+//            alert("🎉 " + data.message);
+//            document.getElementById('discount-val').innerText = "-" + data.total_discount.toLocaleString('vi-VN') + "đ";
+//            renderVoucherTags(data.applied_details);
+//            updatePriceUI(currentSubtotal, data.new_total);
+//            vInput.value = "";
+//            loadVoucherList();
+//        } else { alert("❌ " + data.message); }
+//    });
+//}
 
 function clearAllVouchers(event) {
     if (event) event.stopPropagation();
@@ -257,4 +265,148 @@ document.addEventListener('DOMContentLoaded', function() {
 function parseDate(str) {
     const p = str.split('/');
     return new Date(p[2], p[1] - 1, p[0]);
+}
+
+//function applyVoucher() {
+//        const code = document.getElementById('voucher-code').value;
+//        const total = parseFloat(document.getElementById('tam-tinh-val').innerText.replace(/,/g, ''));
+//
+//        fetch('/api/apply-voucher', {
+//            method: 'POST',
+//            headers: { 'Content-Type': 'application/json' },
+//            body: JSON.stringify({
+//                code: code,
+//                total_amount: total
+//            })
+//        })
+//        .then(res => res.json())
+//        .then(data => {
+//            if (data.status === 200) {
+//                alert(data.message);
+//                location.reload(); // Load lại để cập nhật số tiền và số lượt dùng
+//            } else {
+//                alert(data.message);
+//            }
+//        });
+//    }
+//
+//        // Lắng nghe sự kiện khi Modal Voucher bắt đầu mở
+//    document.getElementById('discountModal').addEventListener('show.bs.modal', function () {
+//        loadVoucherList();
+//    });
+
+function loadVoucherList() {
+    const container = document.getElementById('voucher-list-container');
+    container.innerHTML = '<div class="text-center p-3"><i class="fas fa-spinner fa-spin"></i> Đang tải mã...</div>';
+
+    // Lấy tổng tiền tạm tính từ giao diện (bỏ dấu phẩy và chữ đ)
+    const totalAmount = parseFloat(document.getElementById('tam-tinh-val').innerText.replace(/,/g, ''));
+
+    // Lấy danh sách category_id của các sản phẩm trong giỏ
+    const productRows = document.querySelectorAll('[id^="product-row-"]');
+    let categoryIds = Array.from(productRows).map(row => row.getAttribute('data-category-id'));
+    let categoriesStr = categoryIds.join(',');
+
+    // Gọi API với các tham số lọc
+    fetch(`/api/vouchers?total=${totalAmount}&categories=${categoriesStr}`)
+        .then(res => res.json())
+        .then(data => {
+            container.innerHTML = ''; // Xóa thông báo loading
+
+            if (data.length === 0) {
+                container.innerHTML = '<p class="text-center text-muted">Không có mã nào phù hợp với đơn hàng này.</p>';
+                return;
+            }
+
+            data.forEach(v => {
+                const voucherHtml = `
+                    <div class="voucher-item d-flex align-items-center p-3 mb-3 border rounded shadow-sm">
+                        <div class="voucher-icon me-3 text-primary">
+                            <i class="fas fa-ticket-alt fa-2x"></i>
+                        </div>
+                        <div class="voucher-info flex-grow-1">
+                            <div class="fw-bold text-uppercase">${v.code}</div>
+                            <div class="small text-muted">${v.description}</div>
+                            <div class="small text-danger">HSD: ${v.expiry}</div>
+                        </div>
+                        <button class="btn btn-outline-primary btn-sm rounded-pill"
+                                onclick="applyVoucherDirectly('${v.code}')">
+                            Dùng ngay
+                        </button>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', voucherHtml);
+            });
+        })
+        .catch(err => {
+            container.innerHTML = '<p class="text-center text-danger">Lỗi khi tải danh sách voucher.</p>';
+        });
+}
+
+// Hàm bổ trợ để áp dụng mã khi nhấn nút "Dùng ngay" trong danh sách
+function applyVoucherDirectly(code) {
+    document.getElementById('voucher-code').value = code;
+    applyVoucher(); // Gọi hàm applyVoucher mà Elsa đã viết trước đó
+}
+
+    // 1. Sửa hàm chọn Voucher để không bị Reload trang
+function selectVoucher(code) {
+    const vInput = document.getElementById('voucher-code');
+    if (vInput) {
+        vInput.value = code;
+
+        // Đóng modal thủ công để không bị đứng giao diện
+        const modalElement = document.getElementById('discountModal');
+        const modal = bootstrap.Modal.getInstance(modalElement);
+        if (modal) modal.hide();
+
+        // Gọi hàm áp dụng logic
+        applyVoucher();
+    }
+}
+
+// 2. Sửa hàm Apply để cập nhật UI trực tiếp (KHÔNG DÙNG location.reload)
+function applyVoucher() {
+    const vInput = document.getElementById("voucher-code");
+    if (!vInput || !vInput.value.trim()) return;
+
+    const subtotalText = document.getElementById("summary-subtotal").innerText;
+    const currentSubtotal = parseFloat(subtotalText.replace(/[^0-9]/g, '')) || 0;
+
+    fetch('/api/apply-voucher', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            "code": vInput.value.trim(),
+            "total_amount": currentSubtotal
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === 200) {
+            // HIỆN THÔNG BÁO THÀNH CÔNG
+            alert("🎉 " + data.message);
+
+            // 1. Cập nhật số tiền giảm giá
+            const discountEl = document.getElementById('discount-val');
+            if (discountEl) {
+                discountEl.innerText = "-" + data.total_discount.toLocaleString('vi-VN') + "đ";
+            }
+
+            // 2. Cập nhật các Tag voucher (🚚, 🏷️) ra màn hình giỏ hàng
+            renderVoucherTags(data.applied_details);
+
+            // 3. Cập nhật tổng thanh toán cuối cùng
+            updatePriceUI(currentSubtotal, data.new_total);
+
+            // 4. Xóa chữ trong ô nhập để lần sau nhập mã khác
+            vInput.value = "";
+
+            // 5. Load lại danh sách trong modal để cập nhật trạng thái "Đã dùng"
+            loadVoucherList();
+        } else {
+            alert("❌ " + data.message);
+        }
+    })
+    .catch(err => console.error("Lỗi áp dụng voucher:", err));
 }

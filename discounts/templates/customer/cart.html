@@ -167,6 +167,21 @@
 <script>
     // Kiểm tra trạng thái đăng nhập để JS xử lý
     const IS_AUTHENTICATED = {{ 'true' if current_user.is_authenticated else 'false' }};
+
+    // Khi Modal mở, phải gọi hàm load danh sách từ cart.js
+    document.addEventListener('DOMContentLoaded', function() {
+        const dModal = document.getElementById('discountModal');
+        if (dModal) {
+            dModal.addEventListener('show.bs.modal', function() {
+                if (typeof loadVoucherList === 'function') {
+                    loadVoucherList();
+                } else {
+                    console.error("Hàm loadVoucherList chưa được định nghĩa trong cart.js");
+                }
+            });
+        }
+    });
 </script>
 <script src="{{ url_for('static', filename='js/cart.js') }}"></script>
+
 {% endblock %}

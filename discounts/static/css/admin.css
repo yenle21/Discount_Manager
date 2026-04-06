@@ -267,3 +267,58 @@ textarea { height: 180px; resize: none; }
 }
 
 .btn-submit:hover { opacity: 0.9; transform: translateY(-2px); }
+
+status-badge.pending {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.status-badge.active {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.status-badge.expired {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+.badge.code {
+    background: #e3f2fd;
+    color: #0d6efd;
+}
+
+.badge.auto {
+    background: #e8f5e9;
+    color: #28a745;
+}
+
+.voucher-item {
+    transition: transform 0.2s;
+    background-color: #fff;
+}
+.voucher-item:hover {
+    transform: translateY(-2px);
+    border-color: #0d6efd !important;
+}
+.voucher-icon {
+    border-right: 1px dashed #ddd;
+    padding-right: 15px;
+}
+.voucher-list-scroll {
+    padding-right: 5px;
+}
+/* Tùy chỉnh thanh cuộn cho modal */
+.voucher-list-scroll::-webkit-scrollbar {
+    width: 5px;
+}
+.voucher-list-scroll::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
