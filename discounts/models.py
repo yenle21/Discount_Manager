@@ -4,7 +4,7 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash
 import json
 import os
-from discounts import db, app
+from discounts import db
 
 class UserRole:
     ADMIN = 1
@@ -92,7 +92,7 @@ class CTHD(db.Model):
     SDT = db.Column(db.String(20))
     DiaChi = db.Column(db.String(255))
 
-
+from discounts import app
 if __name__ == "__main__":
     with app.app_context():
         # Tạo bảng nếu chưa có

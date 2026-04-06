@@ -260,3 +260,29 @@
 }
 .voucher-locked { opacity: 0.5; filter: grayscale(1); pointer-events: none; }
 .voucher-info { flex: 1; }
+
+.applied-voucher-tag {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin-right: 8px;
+    border: 1px solid transparent;
+}
+.tag-ship {
+    background-color: #e3f2fd;
+    color: #0d47a1;
+    border-color: #bbdefb;
+}
+.tag-promo {
+    background-color: #fff3e0;
+    color: #e65100;
+    border-color: #ffe0b2;
+}
+.voucher-locked {
+    opacity: 0.6;
+    filter: grayscale(1);
+    background-color: #f8f9fa;
+    cursor: not-allowed;
+}
