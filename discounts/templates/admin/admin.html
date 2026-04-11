@@ -49,15 +49,15 @@
                             <option value="">Tất cả</option>
 
                             <option value="pending" {% if trang_thai=="pending" %}selected{% endif %}>
-                                Chờ hoạt động
+                                pending
                             </option>
 
-                            <option value="active" {% if trang_thai=="active" %}selected{% endif %}>
-                                Đang hoạt động
+                            <option value="Active" {% if trang_thai=="Active" %}selected{% endif %}>
+                                active
                             </option>
 
                             <option value="expired" {% if trang_thai=="expired" %}selected{% endif %}>
-                                Ngưng hoạt động
+                                expired
                             </option>
                         </select>
 
@@ -104,32 +104,30 @@
                         </td>
 
                         <td>
-                            {% if v.Hinhthuc == "Mã khuyến mãi" %}
-                            <span class="badge code">Mã nhập tay</span>
+                            {% if v.Hinhthuc == "Khuyến mãi" %}
+                            <span class="badge bg-danger">Khuyến mãi</span>
+                            {% elif v.Hinhthuc == "Vận Chuyển" or "ship" in v.Hinhthuc.lower() %}
+                            <span class="badge bg-success">Shipping</span>
                             {% else %}
-                            <span class="badge auto">Tự động</span>
+                            <span class="badge bg-secondary">{{ v.Hinhthuc }}</span>
                             {% endif %}
                         </td>
                         <td>
                             {% if v.LoaiGG == "phantram" %}
                             Giảm theo %
-                            {% elif v.LoaiGG == "tien" %}
-                            Giảm theo số tiền
                             {% else %}
-                            {{ v.LoaiGG }}
+                            Giảm theo số tiền
                             {% endif %}
                         </td>
 
                         <!-- FIX STATUS -->
                         <td>
-                            {% if v.TrangThai == "active" %}
-                            <span class="status-badge active">● Đang hoạt động</span>
-
-                            {% elif v.TrangThai == "pending" %}
-                            <span class="status-badge pending">● Chờ hoạt động</span>
-
+                            {% if v.display_status == "active" %}
+                            <span class="status-badge active">active</span>
+                            {% elif v.display_status == "pending" %}
+                            <span class="status-badge pending">pending</span>
                             {% else %}
-                            <span class="status-badge expired">● Ngưng hoạt động</span>
+                            <span class="status-badge expired">expired</span>
                             {% endif %}
                         </td>
 
@@ -153,16 +151,18 @@
                             {{ v.NgayKT.strftime("%d/%m/%Y %H:%M") if v.NgayKT else "" }}
                         </td>
 
-                        <td>{{ v.DieuKien }} đ</td>
+                        <td>{{ "{:,.0f}".format(v.DieuKien).replace(",", ".") }} VNĐ</td>
                         <td>{{ v.DieuKienSP or "Tất cả" }}</td>
 
                         <td class="actions" style="text-align: center;">
+
                             {% if v.DaSuDung and v.DaSuDung > 0 %}
                             <button class="btn-icon delete" disabled
                                     style="opacity: 0.5; cursor: not-allowed;"
                                     title="Mã này đã có {{ v.DaSuDung }} lượt sử dụng, không thể xóa!">
                                 <i class="fas fa-lock"></i>
                             </button>
+
 
                             {% else %}
                             <form action="/delete/{{ v.MaGG }}" method="POST" style="display:inline;">
@@ -172,8 +172,13 @@
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
+                             <a href="/edit/{{ v.MaGG }}" class="btn-icon edit" title="Chỉnh sửa mã này">
+                                <i class="fas fa-edit" style="color: #3b82f6;"></i>
+                            </a>
                             {% endif %}
+
                         </td>
+
                     </tr>
                     {% endfor %}
                     </tbody>

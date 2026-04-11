@@ -1,7 +1,8 @@
+import datetime
 import hashlib
 
 from werkzeug.security import generate_password_hash, check_password_hash
-from discounts.models import User, KhachHang, Category, Product, Voucher
+from discounts.models import User, KhachHang, Category, Product, Voucher,DonHang,CTHD
 from discounts import db, app
 
 # --- PRODUCT LOGIC ---
@@ -81,10 +82,49 @@ def update_password(email, new_password):
 def get_all_vouchers():
     return Voucher.query.all()
 
+def get_voucher_by_maGG(maGG):
+    return Voucher.query.get(maGG)
 
 def get_voucher_by_id(maGG):
     return db.session.get(Voucher, maGG)
 
+
+def add_receipt(cart, user, hinh_thuc_tt, applied_vouchers, total_after_discount, receiver_info):
+    if cart:
+        # 1. Tạo đơn hàng (DonHang)
+        # Chọn mã giảm giá đầu tiên (nếu có) để lưu vào cột ma_giam_gia_id
+        main_voucher_id = list(applied_vouchers.values())[0]['MaGG'] if applied_vouchers else None
+
+        dh = DonHang(
+            khach_hang_id=user.id,
+            HinhThucTT=hinh_thuc_tt,
+            ma_giam_gia_id=main_voucher_id,
+            TrangThai="Hoàn thành"
+        )
+        db.session.add(dh)
+
+        # 2. Cập nhật số lượng Voucher (Trừ SoLuong và tăng DaSuDung)
+        for v_info in applied_vouchers.values():
+            v_db = Voucher.query.get(v_info['MaGG'])
+            if v_db and v_db.SoLuong > 0:
+                v_db.DaSuDung += 1
+
+        # 3. Lưu chi tiết hóa đơn (CTHD)
+        for c in cart.values():
+            ct = CTHD(
+                don_hang_parent_ref=dh,  # Liên kết với DonHang vừa tạo
+                MaSP=int(c['id']),
+                SoLuong=c['quantity'],
+                TongTien=c['price'] * c['quantity'],
+                TenNguoiNhan=receiver_info['name'],
+                SDT=receiver_info['phone'],
+                DiaChi=receiver_info['address']
+            )
+            db.session.add(ct)
+
+        db.session.commit()
+        return dh
+    return None
 
 def add_voucher(data):
     try:
@@ -95,5 +135,41 @@ def add_voucher(data):
     except Exception as e:
         db.session.rollback()
         print("DAO ERROR:", e)
+        return False
+
+
+def get_all_vouchers_active():
+    from datetime import datetime  # Đảm bảo đã import đúng class
+    now = datetime.now()
+
+    return Voucher.query.filter(
+        Voucher.TrangThai == 'Active',
+        Voucher.DaSuDung < Voucher.SoLuong,
+        Voucher.NgayBD <= now,  # Sửa thành NgayBD
+        Voucher.NgayKT >= now  # Sửa thành NgayKT
+    ).all()
+
+
+def update_voucher(ma_gg, data):
+    try:
+        v = Voucher.query.get(ma_gg)
+        if v:
+            v.Hinhthuc = data.get('Hinhthuc')
+            v.LoaiGG = data.get('LoaiGG')
+            v.GiaTri = data.get('GiaTri')
+            v.SoLuong = data.get('SoLuong')
+            v.NgayBD = data.get('NgayBD')
+            v.NgayKT = data.get('NgayKT')
+            v.TrangThai = data.get('TrangThai')
+            v.MoTa = data.get('MoTa')
+            v.DieuKien = data.get('DieuKien')
+            v.DieuKienSP = data.get('DieuKienSP')
+
+            db.session.commit()
+            return True
+        return False
+    except Exception as e:
+        print(e)
+        db.session.rollback()
         return False
 ####QNHU

@@ -1,5 +1,5 @@
 from functools import wraps
-from flask import redirect
+from flask import redirect, flash
 from flask_login import current_user
 
 from discounts.models import UserRole
@@ -25,3 +25,15 @@ def anonymous_required(f):
         return f(*args, **kwargs)
 
     return decorated_func
+
+
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not current_user.is_authenticated or current_user.user_role != UserRole.ADMIN:
+            flash("Bạn không có quyền truy cập vào trang này!", "danger")
+            return redirect('/login')
+
+        return f(*args, **kwargs)
+
+    return decorated_function
