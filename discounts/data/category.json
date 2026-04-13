@@ -1,22 +1,23 @@
 [
     {
         "id": 1,
-        "name": "Sữa tươi",
+        "name": "Sữa",
         "description": "Các loại sữa tươi nguyên chất"
     },
     {
         "id": 2,
-        "name": "Sữa dinh dưỡng",
-        "description": "Sữa bổ sung vitamin và khoáng chất"
+        "name": "Mì Gói",
+        "description": "Thơm ngon bổ dưỡng"
     },
     {
         "id": 3,
-        "name": "Sữa ít đường",
-        "description": "Sữa dành cho người ăn kiêng, ít đường"
+        "name": "Kem",
+        "description": "Ăn ngay kẻo tan"
     },
     {
-        "id": 4,
-        "name": "Sữa cho trẻ em",
-        "description": "Sữa dành riêng cho trẻ nhỏ"
+        "id":4 ,
+        "name": "Bột Giặt",
+        "description": "Sạch sẽ thơm tho"
     }
+
 ]
