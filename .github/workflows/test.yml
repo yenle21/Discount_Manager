@@ -1,43 +1,41 @@
- name: Run Tests
+name: Run Tests
 
- on:
-   push:
-     branches: [ main ]
-   pull_request:
-     branches: [ main ]
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
- jobs:
-   test:
-     runs-on: ubuntu-latest
+jobs:
+  test:
+    runs-on: ubuntu-latest
 
-     steps:
-       - name: Checkout code
-         uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-       - name: Set up Python
-         uses: actions/setup-python@v5
-         with:
-           python-version: '3.11'
-           # Tự động cache pip để các lần chạy sau nhanh hơn
-           cache: 'pip'
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip' 
 
-       - name: Install dependencies
-         run: |
-           python -m pip install --upgrade pip
-           # Lệnh này sẽ tìm và xóa dòng pywin32 trong file requirements.txt
-           # Chúng ta dùng 'sed' để xử lý file trước khi pip install chạy
-           sed -i '/pywin32/d' Discount_Manager/requirements.txt
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          # Sửa đường dẫn: requirements.txt nằm ngay ở thư mục gốc
+          sed -i '/pywin32/d' requirements.txt
+          pip install -r requirements.txt
+          pip install pytest-flask
+
+      - name: Run tests with pytest
+        env:
+          # Đảm bảo có Secret Key để test session giỏ hàng không bị lỗi 500
+          FLASK_SECRET_KEY: "test_secret_key"
+        run: |
+          # Thiết lập PYTHONPATH: Thêm thư mục hiện tại và thư mục discounts vào path
+          export PYTHONPATH=$PYTHONPATH:$(pwd):$(pwd)/discounts
           
-           # Sau đó mới tiến hành cài đặt
-           pip install -r Discount_Manager/requirements.txt
-       - name: Run tests with pytest
-         run: |
-           # 1. Định vị vị trí hiện tại để debug (xem trong log)
-           pwd
-          
-           # 2. Thêm tất cả thư mục vào PYTHONPATH để tránh lỗi Import
-           export PYTHONPATH=$PYTHONPATH:$(pwd):$(pwd)/Discount_Manager
-          
-           # 3. Chạy pytest mà KHÔNG chỉ định file cụ thể
-           # Pytest sẽ tự tìm các file có tên test_*.py trong toàn bộ project
-           pytest
+          # Chạy pytest cho toàn bộ project
+          # -v: Hiện chi tiết, -s: Hiện print để debug
+          pytest -v -s
