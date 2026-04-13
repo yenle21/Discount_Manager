@@ -1,8 +1,9 @@
 import pytest
 from flask import Flask
+from datetime import datetime, timedelta
 
 from discounts import db
-
+from discounts.models import Voucher
 
 def create_app():
     app = Flask(__name__)
@@ -48,6 +49,74 @@ def sample_product(test_session):
     # test_session.commit()
     #
     # yield [p1, p2, p3, p4]
+
+
+@pytest.fixture
+def sample_voucher(test_session):
+    now = datetime.now()
+
+    v1 = Voucher(
+        MaGG = "MA1",
+        Hinhthuc = "Khuyến mãi",
+        LoaiGG = "phantram",
+        GiaTri = 10.0,
+        SoLuong = 100,
+        NgayBD = now,
+        NgayKT = now + timedelta(days=7),
+        TrangThai = "active",
+        MoTa = "Giảm 10% cho đơn hàng từ 200.000",
+        DieuKien = 200000.0,
+        DaSuDung = 0,
+        DieuKienSP = "Sữa"
+    )
+    v2 = Voucher(
+        MaGG = "MA2",
+        Hinhthuc = "Shipping",
+        LoaiGG = "tien",
+        GiaTri = 10000.0,
+        SoLuong = 10,
+        NgayBD = now,
+        NgayKT = now + timedelta(days=30),
+        TrangThai = "active",
+        MoTa = "Giảm 10.000 phí ship cho đơn hàng từ 100.000",
+        DieuKien = 100000.0,
+        DaSuDung = 5, # Đã có người dùng (để test không cho xóa)
+        DieuKienSP = "Mì gói"
+    )
+    v3 = Voucher(
+        MaGG = "MA3",
+        Hinhthuc = "Khuyến mãi",
+        LoaiGG = "phantram",
+        GiaTri = 20.0,
+        SoLuong = 500,
+        NgayBD = now,
+        NgayKT = now + timedelta(days=365),
+        TrangThai = "inactive", #Chờ kích hoạt
+        MoTa = "Giảm 20% cho đơn hàng từ 200.000",
+        DieuKien = 200000.0,
+        DaSuDung = 0,
+        DieuKienSP = "Bột giặt"
+    )
+    v4 = Voucher(
+        MaGG = "MA4",
+        Hinhthuc = "Khuyến mãi",
+        LoaiGG = "tien",
+        GiaTri = 5000.0,
+        SoLuong = 100,
+        NgayBD = now - timedelta(days=10),
+        NgayKT = now - timedelta(days=1),  # Đã hết hạn
+        TrangThai = "inactive",
+        MoTa = "Giảm 5.000 cho đơn hàng từ 50.000",
+        DieuKien = 50000.0,
+        DaSuDung = 100,
+        DieuKienSP = "Kem"
+    )
+
+    vouchers = [v1, v2, v3, v4]
+    test_session.add_all(vouchers)
+    test_session.commit()
+
+    return vouchers
 
 @pytest.fixture()
 def test_cloudinary(monkeypatch):
