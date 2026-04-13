@@ -555,9 +555,7 @@ def register_routes(app):
                     err_msg = "Hệ thống đang có lỗi! Vui lòng quay lại sau!"
         return render_template("register.html", err_msg=err_msg)
 
-    @login.user_loader
-    def get_user(user_id):
-        return dao.get_user_by_id(int(user_id))
+
 
     @app.route('/logout')
     def user_logout():
@@ -629,6 +627,11 @@ def register_routes(app):
             return jsonify({'success': True, 'message': 'Đổi mật khẩu thành công! Hãy đăng nhập lại.'})
         else:
             return jsonify({'success': False, 'message': 'Lỗi hệ thống khi cập nhật mật khẩu.'})
-    if __name__ == "__main__":
-        register_routes(app=app)
-        app.run(debug=True)
+
+@login.user_loader
+def get_user(user_id):
+    return dao.get_user_by_id(int(user_id))
+
+if __name__ == "__main__":
+    register_routes(app=app)
+    app.run(debug=True)

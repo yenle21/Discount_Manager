@@ -74,27 +74,7 @@
 
     </div>
 </div>
-    document.addEventListener('DOMContentLoaded', function() {
-        // 1. Lấy các phần tử cần thiết
-        const roleSelect = document.querySelector('select[name="role"]');
-        const authLinksArea = document.getElementById('auth-links-area');
 
-        // 2. Hàm xử lý ẩn hiện
-        function toggleLinks() {
-            // Nếu giá trị là "1" (Admin) thì ẩn, ngược lại (Khách) thì hiện
-            if (roleSelect.value === "1") {
-                authLinksArea.style.display = "none";
-            } else {
-                authLinksArea.style.display = "block";
-            }
-        }
-
-        // 3. Lắng nghe sự kiện thay đổi trên thẻ Select
-        roleSelect.addEventListener('change', toggleLinks);
-
-        // 4. Chạy hàm một lần khi trang vừa load xong (để khớp với giá trị mặc định)
-        toggleLinks();
-    });
 <script>
     document.addEventListener('DOMContentLoaded', function() {
     // 1. Lấy các phần tử cần thiết
