@@ -8,7 +8,7 @@ import json
 from flask import render_template, session, request, jsonify, redirect, url_for, flash
 from flask_login import current_user, login_user, logout_user, login_required
 from flask_mail import Message, Mail
-from dao import load_products, load_categories, add_voucher, get_voucher_by_id
+from discounts.dao import load_products, load_categories, add_voucher, get_voucher_by_id
 from discounts import app, db, login, dao, utils
 from discounts.decorators import admin_required
 from discounts.models import UserRole, Voucher, CTHD, DonHang, Product, Category,User
