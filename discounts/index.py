@@ -232,6 +232,10 @@ def register_routes(app):
             flash(f"Lỗi: {str(e)}", "danger")
             return redirect('/admin')
     # xóa mã gg
+    @app.route('/delete_voucher/<maGG>', methods=['GET'])
+    def delete_voucher_route(maGG):
+        return delete_voucher(maGG)
+
     @app.route('/delete/<maGG>', methods=['POST'])
     @login_required
     def delete_voucher(maGG):
