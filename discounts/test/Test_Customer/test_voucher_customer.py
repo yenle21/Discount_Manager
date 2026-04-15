@@ -1,5 +1,7 @@
 from datetime import datetime, timedelta
 
+from discounts import dao
+
 
 def test_apply_voucher_no_cart(sample_voucher,test_client):
     with test_client.session_transaction() as sess:
@@ -15,7 +17,9 @@ def test_apply_voucher_no_cart(sample_voucher,test_client):
     assert data['message'] == "Giỏ hàng đang trống!"
 
 
-def test_apply_voucher(test_client, test_session, sample_voucher):
+def test_apply_voucher_success(test_client, test_session, sample_voucher):
+    sample_voucher.Hinhthuc = "Promotion"
+    test_session.commit()
     with test_client.session_transaction() as sess:
         sess['cart'] = {
             "1": {
@@ -184,7 +188,7 @@ def test_apply_voucher_overwrite_existing(test_client, test_session, sample_vouc
         }
 
         sess['applied_vouchers'] = {
-            'SHIPPING': {'MaGG': 'FREE_SHIP_CU', 'GiaTri': 15000},
+            'SHIPPING': {'MaGG': 'MA_SHIP_CU', 'GiaTri': 15000},
             'PROMOTION': {'MaGG': 'MA_GIAM_GIA_CU', 'GiaTri': 10000}
         }
 
@@ -194,4 +198,75 @@ def test_apply_voucher_overwrite_existing(test_client, test_session, sample_vouc
     data = res.get_json()
     assert data.get('status') == 200
     assert data['applied_vouchers']['PROMOTION']['MaGG'] == sample_voucher.MaGG
-    assert data['applied_vouchers']['SHIPPING']['MaGG'] == 'FREE_SHIP_CU'
+    assert data['applied_vouchers']['SHIPPING']['MaGG'] == 'MA_SHIP_CU'
+
+
+def test_delete_voucher_success(test_client, test_session, sample_voucher):
+    with test_client.session_transaction() as sess:
+        sess['cart'] = {"1": {"id": "1", "name": "Keo", "price": 100, "quantity": 1}}
+        sess['applied_vouchers'] = {'PROMOTION': {'MaGG': 'SALE10'}}
+    response = test_client.delete('/api/apply-voucher/')
+    data = response.get_json()
+    assert data['status'] == 200
+    assert data['message'] == "Đã xóa sạch mã"
+    assert data['total_price'] ==100
+
+    with test_client.session_transaction() as sess:
+        assert sess.get('applied_vouchers') == {}
+        assert sess.get('cart') is not None
+
+# xóa mã khi giỏ hàng rỗng
+def test_delete_voucher_with_empty_cart(test_client):
+    with test_client.session_transaction() as sess:
+        sess['cart'] = {}
+        sess['applied_vouchers'] = {'PROMOTION': {'MaGG': 'SALE10'}}
+
+    response = test_client.delete('/api/apply-voucher/')
+    data = response.get_json()
+
+    assert data['status'] == 200
+    assert data['total_price'] == 0
+    with test_client.session_transaction() as sess:
+        assert sess.get('applied_vouchers') == {}
+
+def test_delete_voucher_when_none_applied(test_client):
+    # Giả lập giỏ hàng có đồ nhưng KHÔNG có mã giảm giá trong session
+    with test_client.session_transaction() as sess:
+        sess['cart'] = {"1": {"id": "1", "name": "Keo", "price": 100, "quantity": 1}}
+        # Không set sess['applied_vouchers']
+
+    response = test_client.delete('/api/apply-voucher/')
+    data = response.get_json()
+
+    assert response.status_code == 200
+    assert data['status'] == 200
+    # Đảm bảo sau khi xóa, session vẫn là dict rỗng chứ không bị lỗi
+    with test_client.session_transaction() as sess:
+        assert sess.get('applied_vouchers') == {}
+
+
+from datetime import datetime  # THÊM DÒNG NÀY Ở ĐẦU FILE TEST
+
+
+def test_update_voucher_success(test_session, sample_voucher):
+    new_data = {
+        'Hinhthuc': 'Promotion',
+        'LoaiGG': 'PERCENTAGE',
+        'GiaTri': 20,
+        'SoLuong': 50,
+        # CHUYỂN THÀNH ĐỐI TƯỢNG DATETIME
+        'NgayBD': datetime(2026, 1, 1),
+        'NgayKT': datetime(2026, 12, 31),
+        'TrangThai': 'Active',
+        'MoTa': 'Mô tả đã cập nhật',
+        'DieuKien': 100000,
+        'DieuKienSP': '1'
+    }
+
+    # 2. Gọi hàm update
+    result = dao.update_voucher(sample_voucher.MaGG, new_data)
+
+    # 3. Kiểm tra
+    assert result is True
+    assert sample_voucher.GiaTri == 20
+    assert sample_voucher.SoLuong == 50
