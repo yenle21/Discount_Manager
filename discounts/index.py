@@ -561,6 +561,7 @@ def register_routes(app):
     def user_logout():
         logout_user()
         return redirect('/')
+
     @app.route('/admin')
     @login_required
     def admin():
