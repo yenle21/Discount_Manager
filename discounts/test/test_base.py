@@ -1,24 +1,26 @@
 import pytest
 from flask import Flask
-
+from flask_login import LoginManager
 from discounts import db
 
+login_manager = LoginManager()
 
 def create_app():
     app = Flask(__name__)
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///:memory:"
     app.config["TESTING"] = True
-    app.secret_key =  '^#@$*Juifdyfuhsfai#@&#^*'
+    app.secret_key = '^#@$*Juifdyfuhsfai#@&#^*'
+    app.config['CART_KEY'] = 'cart'
+
     db.init_app(app)
+
+    login_manager.init_app(app)
 
     from discounts.index import register_routes
     register_routes(app)
 
     return app
 
-@pytest.fixture
-def test_client(test_app):
-    return test_app.test_client()
 
 @pytest.fixture
 def test_app():
@@ -30,28 +32,16 @@ def test_app():
         db.drop_all()
 
 
+
+@pytest.fixture
+def test_client(test_app):
+    return test_app.test_client()
+
+
+
 @pytest.fixture
 def test_session(test_app):
-    yield  db.session
-    db.session.rollback()
+    with test_app.app_context():
+        yield db.session
+        db.session.rollback()
 
-
-@pytest.fixture
-def sample_product(test_session):
-    pass
-    # p1 = Product(name= 'iPhone 17',price = 30 , category_id = 1)
-    # p2 = Product(name= 'iPad Pro',price = 20 , category_id = 2)
-    # p3 = Product(name= 'Galaxy S26 Ultra',price = 35 , category_id = 1)
-    # p4 = Product(name= 'iPhone Ultra',price = 35 , category_id = 2)
-
-    # test_session.add_all([p1,p2,p3, p4])
-    # test_session.commit()
-    #
-    # yield [p1, p2, p3, p4]
-
-@pytest.fixture()
-def test_cloudinary(monkeypatch):
-    def fake_upload(file):
-        return{'secure_url':'https://fake-image.png'}
-
-    monkeypatch.setattr('cloudinary.uploader.upload', fake_upload)
