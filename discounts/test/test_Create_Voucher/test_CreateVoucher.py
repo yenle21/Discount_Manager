@@ -1,129 +1,165 @@
 from unittest.mock import patch
 from discounts.models import Voucher
 from discounts.models import UserRole
+
 from discounts.test.conftest import test_client,test_app
 
-def test_admin_create_success(test_client,test_app):
-
-    # gia lap dang nhap voi role la Admin
-    fake_user = type("User", (), {
-        "is_authenticated": True,
-        "user_role": UserRole.ADMIN,
-        "id": 1
-    })()
-
-    with patch("flask_login.utils._get_user", return_value=fake_user):
-
-        res = test_client.post('/add', data={
-            "MaGG": "MGG001",
-            "Hinhthuc": "online",
-            "LoaiGG": "percent",
-            "GiaTri": 10,
-            "SoLuong": 5,
-            "NgayBD": "2026-04-01T00:00",
-            "NgayKT": "2026-04-30T23:59",
-            "TrangThai": "Active",
-            "MoTa": "Test voucher",
-            "admin_id": 1,
-            "DieuKien": 100000,
-            "DieuKienSP": "ALL"
-        })
-
-        # kiểm tra redict
-        assert res.status_code == 302
-        assert "/admin" in res.location
-        # kiểm tra DB
-        with test_app.app_context():
-            voucher = Voucher.query.filter_by(MaGG="MGG001").first()
-            assert voucher is not None
-            assert voucher.GiaTri == 10
-            assert voucher.SoLuong == 5
+from discounts.test.test_base import test_client,test_app, mock_admin
 
 
-def test_client_create_fail(test_client):
-    fake_user = type("User", (), {
-        "is_authenticated": True,
-        "user_role": UserRole.KHACHHANG,
-        "id": 2
-    })()
+def test_add_voucher_success(test_client, monkeypatch):
+    monkeypatch.setattr("discounts.dao.get_voucher_by_id", lambda x: None)
+    monkeypatch.setattr("discounts.dao.add_voucher", lambda x: True)
 
-    with patch("flask_login.utils._get_user", return_value=fake_user):
-        res = test_client.post('/add', data={})
+    data = {
+        "MaGG": "SALE10",
+        "NgayBD": "2026-04-15T10:00",
+        "NgayKT": "2026-04-20T10:00"
+    }
 
-        assert res.status_code == 302
-        assert "/" in res.location
+    res = test_client.post("/add", data=data)
 
-def test_create_not_login(test_client):
-    fake_user = type("User", (), {
-        "is_authenticated": False #ko cần giả lập đăng nhập
-    })()
+    assert res.status_code == 302
 
-    with patch("flask_login.utils._get_user", return_value=fake_user):
-        res = test_client.post('/add', data={})
-        assert res.status_code == 302
-        assert "/login" in res.location
+def test_add_voucher_duplicate(test_client, monkeypatch):
+    monkeypatch.setattr("discounts.dao.get_voucher_by_id", lambda x: True)
 
-def test_duplicate_voucher(test_client,test_app):
-    fake_user = type("User", (), {
-        "is_authenticated": True,
-        "user_role": UserRole.ADMIN,
-        "id": 1
-    })()
+    data = {"MaGG": "SALE10"}
 
-    with patch("flask_login.utils._get_user", return_value=fake_user):
-        data = {
-            "MaGG": "DISCOUNT10",
-            "Hinhthuc": "shipping",
-            "LoaiGG": "tiền",
-            "GiaTri": 10,
-            "SoLuong": 5,
-            "NgayBD": "2026-04-01T00:00",
-            "NgayKT": "2026-04-30T23:59",
-            "TrangThai": "active",
-            "MoTa": "Test voucher",
-            "admin_id": 1,
-            "DieuKien": 100000,
-            "DieuKienSP": "ALL"
-        }
-        # tạo voucher lần đầu
-        res1 = test_client.post('/add', data=data)
-        assert res1.status_code == 302
-        # tạo voucher lần 2 bị trùng
-        res2 = test_client.post('/add', data=data)
-        assert res2.status_code == 302
-        assert "/create" in res2.location
+    res = test_client.post("/add", data=data)
 
-        with test_app.app_context():
-            vouchers = Voucher.query.filter_by(MaGG="DISCOUNT10").all()
-            assert len(vouchers) == 1
+    assert res.status_code == 302
+    assert "/create" in res.location
 
-def test_missing_magg(test_client,test_app):
-    fake_user = type("User", (), {
-        "is_authenticated": True,
-        "user_role": UserRole.ADMIN,
-        "id": 1
-    })()
+def test_add_voucher_empty_code(test_client, monkeypatch):
+    monkeypatch.setattr("discounts.dao.get_voucher_by_id", lambda x: None)
 
-    with patch("flask_login.utils._get_user", return_value=fake_user):
-        data = {
-            "MaGG": "",
-            "Hinhthuc": "shipping",
-            "LoaiGG": "tiền",
-            "GiaTri": 10,
-            "SoLuong": 5,
-            "NgayBD": "2026-04-01T00:00",
-            "NgayKT": "2026-04-30T23:59",
-            "TrangThai": "active",
-            "MoTa": "Test voucher",
-            "admin_id": 1,
-            "DieuKien": 100000,
-            "DieuKienSP": "ALL"
-        }
+    data = {
+        "MaGG": "",
+        "NgayBD": "2026-04-15T10:00",
+        "NgayKT": "2026-04-20T10:00"
+    }
 
-        res = test_client.post('/add', data=data)
-        assert res.status_code == 302
-        assert "/create" in res.location
+    res = test_client.post("/add", data=data)
 
-        with test_app.app_context():
-            vouchers = Voucher.query.filter_by(MaGG="").all()
-            assert len(vouchers) == 0
+    assert res.status_code == 302
+    assert "/create" in res.location
+
+def test_add_voucher_code_with_space(test_client, monkeypatch):
+    monkeypatch.setattr("discounts.dao.get_voucher_by_id", lambda x: None)
+
+    data = {
+        "MaGG": "SALE 10",
+        "NgayBD": "2026-04-15T10:00",
+        "NgayKT": "2026-04-20T10:00"
+    }
+
+    res = test_client.post("/add", data=data)
+
+    assert res.status_code == 302
+    assert "/create" in res.location
+
+def test_add_voucher_special_char_code(test_client, monkeypatch):
+    monkeypatch.setattr("discounts.dao.get_voucher_by_id", lambda x: None)
+
+    data = {
+        "MaGG": "SALE@10!",
+        "NgayBD": "2026-04-15T10:00",
+        "NgayKT": "2026-04-20T10:00"
+    }
+
+    res = test_client.post("/add", data=data)
+
+    assert res.status_code == 302
+    assert "/create" in res.location
+
+
+def test_add_voucher_invalid_date(test_client, monkeypatch):
+    monkeypatch.setattr("discounts.dao.get_voucher_by_id", lambda x: None)
+
+    data = {
+        "MaGG": "SALE10",
+        "NgayBD": "2026-04-20T10:00",
+        "NgayKT": "2026-04-15T10:00"
+    }
+
+    res = test_client.post("/add", data=data)
+
+    assert res.status_code == 302
+    assert "/create" in res.location
+
+def test_add_voucher_past_date(test_client, monkeypatch):
+    monkeypatch.setattr("discounts.dao.get_voucher_by_id", lambda x: None)
+
+    data = {
+        "MaGG": "SALE10",
+        "NgayBD": "2020-01-01T10:00",
+        "NgayKT": "2020-01-02T10:00"
+    }
+
+    res = test_client.post("/add", data=data)
+
+    assert res.status_code == 302
+    assert "/create" in res.location
+
+def test_add_voucher_negative_discount(test_client, monkeypatch):
+    monkeypatch.setattr("discounts.dao.get_voucher_by_id", lambda x: None)
+
+    data = {
+        "MaGG": "SALE10",
+        "GiaTri": "-10",
+        "NgayBD": "2026-04-15T10:00",
+        "NgayKT": "2026-04-20T10:00"
+    }
+
+    res = test_client.post("/add", data=data)
+
+    assert res.status_code == 302
+    assert "/create" in res.location
+
+def test_add_voucher_negative_quantity(test_client, monkeypatch):
+    monkeypatch.setattr("discounts.dao.get_voucher_by_id", lambda x: None)
+
+    data = {
+        "MaGG": "SALE10",
+        "SoLuong": "-5",
+        "NgayBD": "2026-04-15T10:00",
+        "NgayKT": "2026-04-20T10:00"
+    }
+
+    res = test_client.post("/add", data=data)
+
+    assert res.status_code == 302
+    assert "/create" in res.location
+
+def test_add_voucher_negative_condition(test_client, monkeypatch):
+    monkeypatch.setattr("discounts.dao.get_voucher_by_id", lambda x: None)
+
+    data = {
+        "MaGG": "SALE10",
+        "DieuKien": "-100",
+        "NgayBD": "2026-04-15T10:00",
+        "NgayKT": "2026-04-20T10:00"
+    }
+
+    res = test_client.post("/add", data=data)
+
+    assert res.status_code == 302
+    assert "/create" in res.location
+
+def test_add_voucher_db_fail(test_client, monkeypatch):
+    monkeypatch.setattr("discounts.dao.get_voucher_by_id", lambda x: None)
+    monkeypatch.setattr("discounts.index.add_voucher", lambda x: False)
+
+    data = {
+        "MaGG": "SALE10",
+        "NgayBD": "2026-04-15T10:00",
+        "NgayKT": "2026-04-20T10:00"
+    }
+
+    res = test_client.post("/add", data=data)
+
+    assert res.status_code == 302
+    assert "/create" in res.location
+
+

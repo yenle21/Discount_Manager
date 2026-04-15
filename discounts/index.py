@@ -116,6 +116,19 @@ def register_routes(app):
             if get_voucher_by_id(MaGG):
                 flash("Mã voucher đã tồn tại!", "danger")
                 return redirect('/create')
+
+            if not MaGG or MaGG.strip() == "":
+                flash("Mã voucher không được để trống!", "danger")
+                return redirect('/create')
+
+            if " " in MaGG:
+                flash("Mã voucher không được chứa khoảng trắng!", "danger")
+                return redirect('/create')
+
+            if not re.match("^[A-Za-z0-9]+$", MaGG):
+                flash("Mã voucher không hợp lệ!", "danger")
+                return redirect('/create')
+
             # convert datetime
             ngay_bd = request.form.get('NgayBD')
             ngay_kt = request.form.get('NgayKT')
@@ -129,6 +142,18 @@ def register_routes(app):
 
             if ngay_kt < datetime.now():
                 flash("Ngày kết thúc không được ở quá khứ!", "danger")
+                return redirect('/create')
+
+            if float(request.form.get('GiaTri') or 0) < 0:
+                flash("Giá trị giảm không hợp lệ!", "danger")
+                return redirect('/create')
+
+            if int(request.form.get('SoLuong') or 1) < 0:
+                flash("Số lượng không hợp lệ!", "danger")
+                return redirect('/create')
+
+            if float(request.form.get('DieuKien') or 0) < 0:
+                flash("Điều kiện tiền không hợp lệ!", "danger")
                 return redirect('/create')
 
             data = {

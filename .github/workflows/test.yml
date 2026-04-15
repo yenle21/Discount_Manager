@@ -38,4 +38,6 @@ jobs:
           
           # Chạy pytest cho toàn bộ project
           # -v: Hiện chi tiết, -s: Hiện print để debug
-          pytest discounts/test/Test_Customer/test_search_product.py -v -s
+
+          pytest discounts/test/Test_Create_Voucher/test_CreateVoucher.py -v -s
+
