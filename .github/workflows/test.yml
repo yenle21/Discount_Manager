@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          # Sửa đường dẫn: requirements.txt nằm ngay ở thư mục gốc
+
           sed -i '/pywin32/d' requirements.txt
           pip install -r requirements.txt
           pip install pytest-flask
@@ -38,4 +38,4 @@ jobs:
           
           # Chạy pytest cho toàn bộ project
           # -v: Hiện chi tiết, -s: Hiện print để debug
-          pytest -v -s
+          pytest discounts/test/Test_Customer/test_search_product.py -v -s

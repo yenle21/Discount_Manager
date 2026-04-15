@@ -1,6 +1,7 @@
 import datetime
 import hashlib
 
+from flask import current_app
 from werkzeug.security import generate_password_hash, check_password_hash
 from discounts.models import User, KhachHang, Category, Product, Voucher,DonHang,CTHD
 from discounts import db, app
@@ -16,7 +17,7 @@ def load_products(cate_id=None, kw=None, page=None):
     if kw:
         query = query.filter(Product.name.contains(kw))
     if page:
-        size = app.config.get("PAGE_SIZE", 8)
+        size = current_app.config.get("PAGE_SIZE", 8)
         query = query.slice((int(page) - 1) * size, int(page) * size)
     return query.all()
 
