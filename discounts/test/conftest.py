@@ -1,17 +1,24 @@
+import os
+
 import pytest
 from flask import Flask
-
-from discounts import db
+from discounts import db, login
 from discounts.models import Product
 
-
 def create_app():
-    app = Flask(__name__)
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///:memory:"
-    app.config["TESTING"] = True
-    app.config['PAGE_SIZE'] = 2
-    app.secret_key =  '^#@$*Juifdyfuhsfai#@&#^*'
+    base_dir = os.path.abspath(os.path.dirname(__file__))
+    template_dir = os.path.join(base_dir, '..', 'templates')
+    app = Flask(__name__,template_folder=template_dir)
+
+    app.config.update({
+        "SQLALCHEMY_DATABASE_URI": "sqlite:///:memory:",
+        "TESTING": True,
+        "PAGE_SIZE": 2,
+        "SECRET_KEY": "^#@$*Juifdyfuhsfai#@&#^*",
+        "CART_KEY": "cart",
+    })
     db.init_app(app)
+    login.init_app(app)
 
     from discounts.index import register_routes
     register_routes(app)
