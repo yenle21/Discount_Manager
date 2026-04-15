@@ -19,7 +19,7 @@ async function startForgotPassword() {
             const email = document.getElementById('swal-email').value.trim();
 
             if (!username || !email) {
-                Swal.showValidationMessage('Yến ơi, vui lòng nhập đủ Username và Email nhé!');
+                Swal.showValidationMessage('Vui lòng nhập đủ Username và Email nhé!');
                 return false;
             }
 
@@ -95,7 +95,7 @@ async function startForgotPassword() {
             Swal.fire({
                 icon: 'success',
                 title: 'Thành công!',
-                text: 'Mật khẩu đã được thay đổi. Đăng nhập ngay thôi Yến!',
+                text: 'Mật khẩu đã được thay đổi. Đăng nhập ngay!',
                 confirmButtonColor: '#6CD25B'
             });
         }
