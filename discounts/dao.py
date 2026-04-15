@@ -9,6 +9,8 @@ from discounts import db, app
 # --- PRODUCT LOGIC ---
 def load_categories():
     return Category.query.all()
+def get_category_by_id(cate_id):
+    return Category.query.get(cate_id)
 
 def load_products(cate_id=None, kw=None, page=None):
     query = Product.query
