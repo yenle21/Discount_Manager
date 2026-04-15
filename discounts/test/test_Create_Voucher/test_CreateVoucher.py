@@ -1,7 +1,7 @@
 from unittest.mock import patch
 from discounts.models import Voucher
 from discounts.models import UserRole
-from discounts.test.test_base import test_client,test_app
+from discounts.test.conftest import test_client,test_app
 
 def test_admin_create_success(test_client,test_app):
 
