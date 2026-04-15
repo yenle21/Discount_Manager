@@ -23,6 +23,16 @@ def test_cateId_kw(sample_product):
     assert all('Sua' in p.name for p in actual)
     assert actual[0].name == 'Sua TH'
 
+def test_search_no_result(sample_product):
+    # Tìm kiếm từ khóa không tồn tại
+    actual = load_products(kw='Thit ga')
+    assert len(actual) == 0
+
+def test_cate_no_result(sample_product):
+    # Lọc danh mục không tồn tại (giả sử chỉ có id 1 và 2)
+    actual = load_products(cate_id='999')
+    assert len(actual) == 0
+
 def test_page(sample_product,test_app):
     actual = load_products(page=1)
 

@@ -74,7 +74,7 @@
                     <h6 class="product-title">{{ p.name }}</h6>
                     <p class="product-price">{{ "{:,.0f}".format(p.price|float) }}đ</p>
                     <button class="btn btn-add-to-cart w-100"
-                            onclick="addToCart({{ p.id }}, '{{ p.name }}', {{ p.price }}, '{{ p.image }}')">
+                            onclick="addToCart({{ p.id }}, '{{ p.name }}', {{ p.price }}, '{{ p.image }}',{{ p.category_id }})">
                         Thêm vào giỏ
                     </button>
                 </div>

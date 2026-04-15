@@ -171,7 +171,6 @@ def register_routes(app):
                 "DieuKienSP": request.form.get('DieuKienSP')
             }
 
-
             if add_voucher(data):
                 flash("Thêm voucher thành công!", "success")
                 return redirect('/admin')
@@ -321,13 +320,24 @@ def register_routes(app):
     # cập nhật giỏ hàng
     @app.route('/api/cart/<product_id>', methods=['put'])
     def update_cart(product_id):
-        key = app.config['CART_KEY'] #cart
+        data = request.json
+        raw_quantity = data.get('quantity')  # Lấy số lượng mới từ request
+
+        key = app.config['CART_KEY']
         cart = session.get(key)
+        try:
+            quantity = int(raw_quantity)
+        except (ValueError, TypeError):
+            return jsonify({"error": "Số lượng không hợp lệ"}), 400
 
         if cart and product_id in cart:
-            cart[product_id]['quantity'] = int(request.json['quantity'])
+            if quantity > 0:
+                cart[product_id]['quantity'] = quantity
+            else:
+                del cart[product_id]
 
-        session[key] = cart
+            session.modified = True
+            session[key] = cart
 
         return jsonify(utils.cart_stash(cart=cart))
 
@@ -362,50 +372,51 @@ def register_routes(app):
             if total_price < v.DieuKien:
                 price = "{:,.0f}".format(v.DieuKien)
                 return jsonify({
-                    "status": 400,
+                    "status": 404,
                     "message": f"Đơn hàng phải tối thiểu {price} VNĐ mới dùng được!"
                 })
             # so sánh danh mục có khớp với điều kiện sp danh mục ko
-            if v.DieuKienSP and str(v.DieuKienSP).strip() != "" and str(v.DieuKienSP) != "None":
-                # Lấy tất cả id danh mục đang có trong giỏ hàng
-                categories_in_cart = [str(item.get('category_id')) for item in cart.values()]
-                # Nếu danh mục Voucher không nằm trong danh sách cate
-                if str(v.DieuKienSP) not in categories_in_cart:
-                    return jsonify({
-                        "status": 400,
-                        "message": f"Mã này chỉ áp dụng cho sản phẩm thuộc danh mục: {v.DieuKienSP}!"
-                    })
+            if v.DieuKienSP:
 
+                target_cate = str(v.DieuKienSP).strip()
+                categories_in_cart = {
+                    str(item.get('category_id')).strip()
+                    for item in cart.values()
+                    if item.get('category_id') is not None
+                }
+                cate = dao.get_category_by_id(int(target_cate))
+                cate_name = cate.name if cate else target_cate
+                if target_cate not in categories_in_cart:
+                    return jsonify({
+                        "status": 404,
+                        "message": f"Voucher này chỉ áp dụng cho sản phẩm thuộc danh mục {cate_name}"
+                    })
             now = datetime.now()
 
             #  kiểm tra ngày bắt đầu
             if v.NgayBD and now < v.NgayBD:
                 start_date = v.NgayBD.strftime('%d/%m/%Y %H:%M')
                 return jsonify({
-                    "status": 400,
+                    "status": 404,
                     "message": f"Mã này chưa đến hạn sử dụng. Vui lòng quay lại vào lúc {start_date} nhé!"
                 })
 
             # kiểm tra ngày kết thúc
             if v.NgayKT and now > v.NgayKT:
                 return jsonify({
-                    "status": 400,
+                    "status": 404,
                     "message": "Mã giảm giá này đã hết hạn sử dụng rồi!"
                 })
             # kiếm tra số lượng voucher hiện tại so với lượt đã sử dụng
             if v.SoLuong is not None and v.SoLuong > 0:
                 if v.DaSuDung >= v.SoLuong:
                     return jsonify({
-                        "status": 400,
+                        "status": 404,
                         "message": "Rất tiếc, mã này hết lượt sử dụng rồi!"
                     })
             # kiếm tra hết điều kiện rồi thì mới đc apply
             applied_vouchers = session.get('applied_vouchers', {})
             kind = 'SHIPPING' if 'shipping' in v.Hinhthuc.lower() else 'PROMOTION'
-            #kiểm tra mã tối đa đc dùng ở 2 loại
-            if kind not in applied_vouchers and len(applied_vouchers) >= 2:
-                return jsonify({"status": 400, "message": "Mỗi đơn hàng chỉ được áp dụng tối đa 2 mã!"})
-
             applied_vouchers[kind] = {
                 "MaGG": v.MaGG,
                 "LoaiGG": v.LoaiGG,
@@ -452,14 +463,25 @@ def register_routes(app):
         applied_vouchers = session.get('applied_vouchers', {})
 
         if not cart:
-            return jsonify({"status": 400, "message": "Giỏ hàng trống!"})
+            return jsonify({"status": 404, "message": "Giỏ hàng trống!"})
 
         data = request.json
         ten_nguoi_nhan = data.get('name')
         sdt = data.get('phone')
         dia_chi = data.get('address')
         hinh_thuc_tt = data.get('payment_method', 'Tiền mặt')
-
+        if not ten_nguoi_nhan:
+            return jsonify({"status": 400, "message": "Vui lòng nhập đầy đủ tên!"})
+        if not sdt :
+            return jsonify({"status": 400, "message": "Vui lòng nhập đầy đủ SĐT!"})
+        if not dia_chi:
+            return jsonify({"status": 400, "message": "Vui lòng nhập đầy đủ địa chỉ!"})
+        sdt_pattern = r"^0\d{9,10}$"
+        if not sdt or not re.match(sdt_pattern, sdt):
+            return jsonify({
+                "status": 400,
+                "message": "Số điện thoại không hợp lệ! Phải bắt đầu bằng số 0 và chỉ chứa số."
+            })
         try:
             # tính tiền và mức giảm cuối cùng
             cart_stats = utils.cart_stash(cart)

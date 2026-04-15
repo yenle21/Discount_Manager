@@ -68,7 +68,8 @@
                                         {% if session.get('applied_vouchers') %}
                                         {% for kind, v in session['applied_vouchers'].items() %}
                                         <div class="badge bg-light text-primary border me-2 p-1">
-                                            <i class="fa-solid fa-check-circle"></i> {{ v.MaGG }} ({{ v.LoaiGG }})
+                                            <i class="fa-solid fa-check-circle"></i><strong>{{ v.MaGG }}</strong>
+                                            ({{kind}})
                                         </div>
                                         {% endfor %}
                                         {% endif %}
