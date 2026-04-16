@@ -58,10 +58,8 @@ def test_pay_success(test_client,mocker):
 
 def test_checkout_exception(test_client, mocker):
     class FakeUser:
-
         name = "Name"
         is_authenticated = True
-
 
     mocker.patch("flask_login.utils._get_user", return_value=FakeUser())
     mocker.patch("discounts.index.current_user", new=FakeUser())
@@ -279,3 +277,36 @@ def test_add_receipt_with_invalid_voucher(test_session):
     )
 
     assert order is not None  # Đơn hàng vẫn tạo nhưng voucher không được cập nhật
+
+def test_checkout_fail_cannot_create_order(test_client, mocker):
+    class FakeUser:
+        name = "Name"
+        is_authenticated = True
+
+    mocker.patch("discounts.index.current_user", new=FakeUser())
+    mocker.patch("flask_login.utils._get_user", return_value=FakeUser())
+
+    # Giả lập giỏ hàng
+    with test_client.session_transaction() as sess:
+        sess['cart'] = {
+            "1": {"id": "1", "price": 100, "quantity": 1}
+        }
+
+
+    mocker.patch("discounts.dao.add_receipt", return_value=None)
+
+    mocker.patch("discounts.utils.cart_stash", return_value={'total_price': 100})
+    mocker.patch("discounts.utils.calculate_multi_vouchers", return_value={'new_price': 100})
+
+    payload = {
+        "name": "Bảo Yến",
+        "phone": "0123456789",
+        "address": "TP.HCM",
+        "payment_method": "Tiền mặt"
+    }
+
+    res = test_client.post('/api/checkout', json=payload)
+    data = res.get_json()
+
+    assert data['status'] == 500 or data['status'] == 400
+    assert "không thể" in data['message'].lower() or "thất bại" in data['message'].lower()

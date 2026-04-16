@@ -88,8 +88,6 @@ def test_apply_voucher_mixed_cart_success(test_client, test_session, sample_vouc
     res = test_client.put(f'/api/apply-voucher/{sample_voucher.MaGG}',
                           json={"voucher_id": sample_voucher.MaGG})
     assert res.get_json()['status'] == 200
-
-
 def test_apply_voucher_not_found(test_client):
     with test_client.session_transaction() as sess:
         sess['cart'] = {"1": {"id": "1", "price": 500000, "quantity": 1}}

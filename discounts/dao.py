@@ -11,6 +11,8 @@ def load_categories():
     return Category.query.all()
 def get_category_by_id(cate_id):
     return Category.query.get(cate_id)
+def get_user(username, email):
+    return User.query.filter_by(username=username, email=email).first()
 
 def load_products(cate_id=None, kw=None, page=None):
     query = Product.query
