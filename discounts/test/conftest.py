@@ -74,7 +74,7 @@ def sample_voucher(test_session):
         DieuKien=100000,
         SoLuong=100,
         DaSuDung=0,
-        NgayBD=datetime.now(),  # Bắt đầu từ hôm qua
+        NgayBD=datetime.now(),
         NgayKT=datetime.now() + timedelta(days=7),  # Kết thúc sau 1 tuần
         Hinhthuc="Shipping",
         DieuKienSP="1"
@@ -83,7 +83,7 @@ def sample_voucher(test_session):
     test_session.commit()
     yield v
 
-@pytest.fixture(autouse=True)
+@pytest.fixture()
 def mock_admin(monkeypatch):
     # bypass admin_required
     monkeypatch.setattr("discounts.index.admin_required", lambda f: f)
