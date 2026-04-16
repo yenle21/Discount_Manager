@@ -4,7 +4,7 @@ from discounts.models import UserRole
 
 from discounts.test.conftest import test_client,test_app
 
-from discounts.test.test_base import test_client,test_app, mock_admin
+from discounts.test.conftest import test_client,test_app, mock_admin
 
 
 def test_add_voucher_success(test_client, monkeypatch):

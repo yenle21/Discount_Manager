@@ -91,5 +91,6 @@ def mock_admin(monkeypatch):
     # fake current_user
     class FakeUser:
         id = 1
-
+        user_role = 1
+        is_authenticated = True
     monkeypatch.setattr("flask_login.utils._get_user", lambda: FakeUser())
