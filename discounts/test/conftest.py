@@ -3,7 +3,8 @@ import os
 import pytest
 from flask import Flask
 from discounts import db, login
-from discounts.models import Product
+from discounts.models import Product, Admin, KhachHang
+from werkzeug.security import generate_password_hash
 
 def create_app():
     base_dir = os.path.abspath(os.path.dirname(__file__))
@@ -53,6 +54,32 @@ def test_cloudinary(monkeypatch):
     monkeypatch.setattr('cloudinary.uploader.upload', fake_upload)
 
 @pytest.fixture
+def sample_users(test_session):
+    user_admin = Admin(
+        name="Admin",
+        username="admin",
+        password=generate_password_hash("123"),
+        email="2351050211y@ou.edu.vn",
+        user_role=1,
+    )
+
+    user_customer = KhachHang(
+        name="Khách",
+        username="khach",
+        password=generate_password_hash("123"),
+        email="nguyenhuynhnhuybt@gmail.com",
+        user_role=0,
+    )
+
+    test_session.add_all([user_admin, user_customer])
+    test_session.commit()
+
+    yield {
+        "user_admin": user_admin,
+        "user_customer": user_customer
+    }
+
+@pytest.fixture
 def sample_product(test_session):
     p1 = Product(name='Sua TH', price=30, category_id=1)
     p2 = Product(name='Mi goi Hao Hao', price=20, category_id=2)
@@ -63,3 +90,4 @@ def sample_product(test_session):
     test_session.commit()
 
     yield [p1, p2, p3, p4]
+
