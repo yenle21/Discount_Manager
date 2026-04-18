@@ -69,7 +69,7 @@ def get_user_by_email(email):
 def update_password(email, new_password):
     """Cập nhật mật khẩu mới (Sử dụng Werkzeug Hash để đồng bộ)"""
     try:
-        # Tìm user theo email (Lưu ý: Nếu username của Yến chính là email thì để nguyên)
+        # Tìm user theo email (Nếu username là email thì để nguyên)
         user = User.query.filter_by(email=email).first()
 
         if user:

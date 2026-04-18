@@ -23,7 +23,7 @@ async function startForgotPassword() {
                 return false;
             }
 
-            // Gọi API gửi OTP và KIỂM TRA KHỚP DỮ LIỆU ở Backend
+            // Gọi API gửi OTP và kiểm tra dữ liệu
             return fetch('/api/send-otp', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},

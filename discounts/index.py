@@ -5,7 +5,7 @@ import cloudinary.uploader
 import datetime
 import math
 import json
-from flask import render_template, session, request, jsonify, redirect, url_for, flash
+from flask import render_template, session, request, jsonify, redirect, url_for, flash, current_app
 from flask_login import current_user, login_user, logout_user, login_required
 from flask_mail import Message, Mail
 from discounts.dao import load_products, load_categories, add_voucher, get_voucher_by_id
@@ -616,16 +616,19 @@ def register_routes(app):
         err_msg = None
 
         if request.method.__eq__("POST"):
+            name = request.form.get("name")
             username = request.form.get("username")
             password = request.form.get("password")
             confirm = request.form.get("confirm")
             email = request.form.get('email')
 
             password_pattern = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
-            # import pdb #kiểm tra lỗi
-            # pdb.set_trace()
 
-            if dao.check_username_exists(username):
+            if not name or not name.strip():
+                err_msg = "Họ tên không được để trống!"
+            elif not username or not username.strip():
+                err_msg = "Tên tài khoản không được để trống!"
+            elif dao.check_username_exists(username):
                 err_msg = "Tên đăng nhập này đã tồn tại! Vui lòng chọn tên khác."
             elif not re.match(password_pattern, password):
                 err_msg = ("Mật khẩu phải có ít nhất 8 ký tự. Gồm chữ hoa, chữ thường, số, ký tự đặc biệt.")
@@ -679,6 +682,14 @@ def register_routes(app):
             # 3. Lưu vào bộ nhớ tạm để kiểm tra sau này (dùng email làm key)
             otp_storage[email] = otp_code
 
+            # Lấy đối tượng mail từ current_app
+            mail = current_app.extensions.get('mail')
+
+            if not mail:
+                # Nếu vẫn không thấy, tự tạo mock object
+                from flask_mail import Mail
+                mail = Mail(current_app)
+
             # 4. Soạn thảo và gửi Email
             msg = Message(
                 subject='[BACH HOA SHOP] Mã xác thực OTP đặt lại mật khẩu',
@@ -687,7 +698,7 @@ def register_routes(app):
             )
             mail.send(msg)
 
-            return jsonify({"success": True, "message": "OTP đã được gửi! Yến kiểm tra hòm thư nhé."})
+            return jsonify({"success": True, "message": "OTP đã được gửi! Bạn kiểm tra hòm thư nhé."})
 
         except Exception as e:
             print(f"Lỗi gửi mail: {str(e)}")
