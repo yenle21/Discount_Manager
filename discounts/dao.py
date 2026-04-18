@@ -58,7 +58,7 @@ def auth_user(role, username, password):
         return user
     return None
 
-def get_user_by_id(user_id):
+def get_user_by_userid(user_id):
     return User.query.get(user_id)
 
 def get_user_by_email(email):
@@ -157,7 +157,7 @@ def get_all_vouchers_active():
 
 def update_voucher(ma_gg, data):
     try:
-        v = Voucher.query.get(ma_gg)
+        v = get_voucher_by_maGG(ma_gg)
         if v:
             v.Hinhthuc = data.get('Hinhthuc')
             v.LoaiGG = data.get('LoaiGG')

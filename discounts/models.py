@@ -93,7 +93,7 @@ class CTHD(db.Model):
     DiaChi = db.Column(db.String(255))
 
 from discounts import app
-if __name__ == "__main__":
+if __name__ == "__main__": # pragma: no cover
     with app.app_context():
         # Tạo bảng nếu chưa có
         db.create_all()

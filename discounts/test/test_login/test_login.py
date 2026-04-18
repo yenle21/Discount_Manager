@@ -1,5 +1,6 @@
 import pytest
 from discounts import db, dao
+from discounts.dao import update_password
 from discounts.models import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from unittest.mock import patch
@@ -220,3 +221,12 @@ def test_admin_logout(test_client, sample_users):
 
     with test_client.session_transaction() as sess:
         assert '_user_id' not in sess
+
+
+def test_update_password_exception(test_client, sample_users,mocker):
+    mock_user_query = mocker.patch('discounts.dao.User.query')
+    mock_commit = mocker.patch('discounts.dao.db.session.commit', side_effect=Exception("Lỗi DB giả lập"))
+
+    result = update_password("test@example.com", "new_password_123")
+    assert result is False  # Hàm phải trả về False vì đã nhảy vào except
+    mock_commit.assert_called_once()  # Đảm bảo commit đã được gọi và gây ra lỗi

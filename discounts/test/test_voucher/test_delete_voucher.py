@@ -5,86 +5,86 @@ from discounts.test.conftest import test_client,test_app
 from discounts.test.conftest import test_client,test_app, mock_admin
 
 #TC1: Không phải ADMIN
-def test_delete_voucher_not_admin(test_client, monkeypatch):
+def test_delete_voucher_not_admin(test_client, mocker):
     class FakeUser:
-        user_role = 2  # không phải admin
+        user_role = 2
         is_authenticated = True
-    monkeypatch.setattr("flask_login.utils._get_user", lambda: FakeUser())
+    mocker.patch("flask_login.utils._get_user", return_value=FakeUser())
 
-    res = test_client.get('/delete_voucher/1')
-    data = json.loads(res.data)
-
-    assert res.status_code == 200
-    assert data["status"] == 403
-
-
-#TC2: Voucher không tồn tại
-def test_delete_voucher_not_found(test_client, mock_admin, monkeypatch):
-    monkeypatch.setattr("discounts.dao.get_voucher_by_id", lambda x: None)
-
-    res = test_client.get('/delete_voucher/1', follow_redirects=True)
+    res = test_client.post('/delete/SALE10', follow_redirects=True)
 
     assert res.status_code == 200
-    assert b"Voucher" in res.data
+    assert "Bạn không có quyền".encode('utf-8') in res.data
+
+
+
+def test_delete_voucher_not_found(test_client, mock_admin, mocker):
+    mocker.patch("discounts.dao.get_voucher_by_id", return_value=None)
+
+    res = test_client.post('/delete/1', follow_redirects=True)
+
+    assert res.status_code == 200
+    assert "Voucher không tồn tại!".encode('utf-8') in res.data
 
 
 #TC3: Voucher đã sử dụng
-# def test_delete_voucher_already_used(test_client, mock_admin, monkeypatch):
-#     class Voucher:
-#         DaSuDung = 5
-#
-#     monkeypatch.setattr("discounts.dao.get_voucher_by_id", lambda x: Voucher())
-#
-#     deleted = {"called": False}
-#
-#     monkeypatch.setattr("discounts.db.session.delete", lambda x: deleted.update({"called": True}))
-#
-#     res = test_client.get('/delete_voucher/1', follow_redirects=True)
-#
-#     assert res.status_code == 200
-#     assert deleted["called"] is False
+def test_delete_voucher_already_used(test_client, mocker, mock_admin):
+    # 1. Giả lập voucher tồn tại và ĐÃ CÓ lượt sử dụng
+    class MockVoucher:
+        MaGG = "USED123"
+        DaSuDung = 5  # Số lượt dùng > 0
 
+    mocker.patch("discounts.index.dao.get_voucher_by_id", return_value=MockVoucher())
+
+    res = test_client.post('/delete/USED123', follow_redirects=True)
+
+    assert res.status_code == 200
+    assert res.request.path == "/admin"
+
+    expected_msg = "Không thể xóa mã USED123 vì đã có 5 lượt sử dụng!"
+    assert expected_msg.encode('utf-8') in res.data
 
 #TC4: Xóa thành công
-def test_delete_voucher_success(test_client, mock_admin, monkeypatch):
-    class Voucher:
+def test_delete_voucher_success(test_client, mock_admin, mocker):
+    class MockVoucher:
         DaSuDung = 0
 
-    monkeypatch.setattr("discounts.dao.get_voucher_by_id", lambda x: Voucher())
+    mocker.patch("discounts.index.dao.get_voucher_by_id", return_value=MockVoucher())
 
-    deleted = {"called": False}
+    mock_delete = mocker.patch("discounts.index.db.session.delete")
+    mocker.patch("discounts.index.db.session.commit")
 
-    def fake_delete(obj):
-        deleted["called"] = True
-
-    monkeypatch.setattr("discounts.db.session.delete", fake_delete)
-    monkeypatch.setattr("discounts.db.session.commit", lambda: None)
-
-    res = test_client.get('/delete_voucher/1', follow_redirects=True)
+    res = test_client.post('/delete/SALE10', follow_redirects=True)
 
     assert res.status_code == 200
-    assert deleted["called"] is True
-
+    mock_delete.assert_called_once()
+    assert "Xóa thành công voucher SALE10!".encode('utf-8') in res.data
 
 #TC5: Lỗi hệ thống
-def test_delete_voucher_exception(test_client, mock_admin, monkeypatch):
-    class Voucher:
+def test_delete_voucher_exception(test_client, mock_admin, mocker):
+    class MockVoucher:
         DaSuDung = 0
 
-    monkeypatch.setattr("discounts.dao.get_voucher_by_id", lambda x: Voucher())
+    mocker.patch("discounts.index.dao.get_voucher_by_id", return_value=MockVoucher())
 
-    rollback_called = {"called": False}
+    #Giả lập db.session.delete quăng lỗi bằng side_effect
+    mocker.patch("discounts.index.db.session.delete", side_effect=Exception("DB Error"))
 
-    monkeypatch.setattr(
-        "discounts.db.session.delete",
-        lambda x: (_ for _ in ()).throw(Exception("DB Error"))
-    )
-    monkeypatch.setattr(
-        "discounts.db.session.rollback",
-        lambda: rollback_called.update({"called": True})
-    )
+    #Tạo spy cho rollback để kiểm tra xem nó có được gọi không
+    mock_rollback = mocker.patch("discounts.index.db.session.rollback")
 
-    res = test_client.get('/delete_voucher/1', follow_redirects=True)
+    res = test_client.post('/delete/SALE10', follow_redirects=True)
 
     assert res.status_code == 200
-    assert rollback_called["called"] is True  # 👈 check rollback
+    mock_rollback.assert_called_once()
+    assert "Lỗi hệ thống: DB Error".encode('utf-8') in res.data
+
+def test_delete_voucher_no_login(test_client, mocker):
+    # Giả lập user chưa đăng nhập (is_authenticated = False)
+    class FakeUser:
+        is_authenticated = False
+    mocker.patch("flask_login.utils._get_user", return_value=FakeUser())
+
+    res = test_client.post('/delete/SALE10')
+
+    assert res.status_code == 401

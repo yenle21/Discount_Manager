@@ -1,5 +1,5 @@
 
-from discounts.dao import load_products
+from discounts.dao import load_products, count_product
 
 
 def test_all(sample_product):
@@ -46,3 +46,14 @@ def test_page2(sample_product,test_app):
     assert len(actual) == test_app.config['PAGE_SIZE']
     assert actual[0].name == 'Sua ong Tho'
     assert actual[1].name == 'Mi Indome'
+
+def test_count_product_valid(sample_product,mocker):
+    mock_query = mocker.patch('discounts.dao.Product.query')
+    mock_query.filter.return_value = mock_query
+    mock_query.count.return_value = 5
+    result = count_product(cate_id=1, kw="iPhone")
+
+    assert result == 5
+    # Đảm bảo hàm filter được gọi 2 lần (1 cho cate_id, 1 cho kw)
+    assert mock_query.filter.call_count == 2
+    mock_query.count.assert_called_once()
