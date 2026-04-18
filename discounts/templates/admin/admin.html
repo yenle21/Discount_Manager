@@ -106,7 +106,7 @@
                         <td>
                             {% if v.Hinhthuc == "Khuyến mãi" %}
                             <span class="badge bg-danger">Khuyến mãi</span>
-                            {% elif v.Hinhthuc == "Vận Chuyển" or "ship" in v.Hinhthuc.lower() %}
+                            {% elif v.Hinhthuc == "Vận Chuyển" or (v.Hinhthuc and "ship" in v.Hinhthuc.lower()) %}
                             <span class="badge bg-success">Shipping</span>
                             {% else %}
                             <span class="badge bg-secondary">{{ v.Hinhthuc }}</span>

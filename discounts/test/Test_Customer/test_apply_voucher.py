@@ -100,7 +100,6 @@ def test_apply_voucher_not_found(test_client):
     assert "Mã không tồn tại" in data['message']
 # Kiem tra ngay bat dau
 def test_apply_voucher_upcoming(test_client, test_session, sample_voucher):
-
     sample_voucher.NgayBD = datetime.now() + timedelta(days=1)
     test_session.commit()
 
