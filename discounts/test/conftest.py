@@ -1,10 +1,15 @@
 import os
+from datetime import datetime, timedelta
 
 import pytest
 from flask import Flask
 from discounts import db, login
-from discounts.models import Product, Admin, KhachHang
+
+from discounts.models import Product, Admin, KhachHang,Voucher
 from werkzeug.security import generate_password_hash
+
+
+
 
 def create_app():
     base_dir = os.path.abspath(os.path.dirname(__file__))
@@ -46,12 +51,12 @@ def test_session(test_app):
     db.session.rollback()
 
 
-@pytest.fixture()
-def test_cloudinary(monkeypatch):
-    def fake_upload(file):
-        return{'secure_url':'https://fake-image.png'}
-
-    monkeypatch.setattr('cloudinary.uploader.upload', fake_upload)
+# @pytest.fixture()
+# def test_cloudinary(monkeypatch):
+#     def fake_upload(file):
+#         return{'secure_url':'https://fake-image.png'}
+#
+#     monkeypatch.setattr('cloudinary.uploader.upload', fake_upload)
 
 @pytest.fixture
 def sample_users(test_session):
@@ -91,3 +96,32 @@ def sample_product(test_session):
 
     yield [p1, p2, p3, p4]
 
+@pytest.fixture
+def sample_voucher(test_session):
+    v = Voucher(
+        MaGG="SALE10",
+        LoaiGG="PERCENTAGE",
+        GiaTri=10,
+        DieuKien=100000,
+        SoLuong=100,
+        DaSuDung=0,
+        NgayBD=datetime.now(),
+        NgayKT=datetime.now() + timedelta(days=7),  # Kết thúc sau 1 tuần
+        Hinhthuc="Shipping",
+        DieuKienSP="1"
+    )
+    test_session.add(v)
+    test_session.commit()
+    yield v
+
+@pytest.fixture()
+def mock_admin(monkeypatch):
+    # bypass admin_required
+    monkeypatch.setattr("discounts.index.admin_required", lambda f: f)
+
+    # fake current_user
+    class FakeUser:
+        id = 1
+        user_role = 1
+        is_authenticated = True
+    monkeypatch.setattr("flask_login.utils._get_user", lambda: FakeUser())

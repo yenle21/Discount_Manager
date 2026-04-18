@@ -13,20 +13,22 @@ from discounts import app, db, login, dao, utils
 from discounts.decorators import admin_required
 from discounts.models import UserRole, Voucher, CTHD, DonHang, Product, Category,User
 from datetime import datetime
-
+mail = Mail()
 otp_storage = {}
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'nhu.nt2508@gmail.com'  # <-- Email của bạn
-app.config['MAIL_PASSWORD'] = 'jtpq brbn wldf ywrl'   # <-- Mật khẩu ứng dụng của bạn
-app.config['MAIL_DEFAULT_SENDER'] = 'nhu.nt2508@gmail.com'
-
-
-mail = Mail(app) # Khởi tạo mail server
-
 
 def register_routes(app):
+    global mail
+    mail.init_app(app)
+
+    app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+    app.config['MAIL_PORT'] = 587
+    app.config['MAIL_USE_TLS'] = True
+    app.config['MAIL_USERNAME'] = 'nhu.nt2508@gmail.com'  # <-- Email của bạn
+    app.config['MAIL_PASSWORD'] = 'jtpq brbn wldf ywrl'  # <-- Mật khẩu ứng dụng của bạn
+    app.config['MAIL_DEFAULT_SENDER'] = 'nhu.nt2508@gmail.com'
+
+    mail = Mail(app)  # Khởi tạo mail server
+
     # --- 1. TRANG CHỦ ---
     @app.route("/")
     def index():
@@ -171,7 +173,6 @@ def register_routes(app):
                 "DieuKienSP": request.form.get('DieuKienSP')
             }
 
-
             if add_voucher(data):
                 flash("Thêm voucher thành công!", "success")
                 return redirect('/admin')
@@ -191,48 +192,95 @@ def register_routes(app):
         categories = dao.load_categories()
         if v_edit:
             return render_template('admin/create_voucher.html', v_edit=v_edit,c=categories)
-        flash("Không tìm thấy mã giảm giá!", "danger")
+        flash("Không tìm thấy mã giảm giá!", "danger",)
         return redirect('/admin')
-
 
     # update voucher
     @app.route('/update/<string:ma_gg>', methods=['POST'])
     def update_voucher_route(ma_gg):
         try:
-            ngay_bd = request.form.get('NgayBD')
-            ngay_kt = request.form.get('NgayKT')
+            # BƯỚC 1: Lấy dữ liệu thô (Dạng chuỗi) - KHÔNG ép kiểu vội
+            raw_gia_tri = request.form.get('GiaTri')
+            raw_so_luong = request.form.get('SoLuong')
+            loaigg = request.form.get('LoaiGG')
+            hinh_thuc = request.form.get('Hinhthuc')
+            dieu_kien_sp = request.form.get('DieuKienSP')
+            ngay_bd_str = request.form.get('NgayBD')
+            ngay_kt_str = request.form.get('NgayKT')
+
+            # BƯỚC 2: Kiểm tra Rỗng TRƯỚC khi tính toán
+            if not raw_gia_tri or not raw_so_luong or not loaigg or not hinh_thuc or not dieu_kien_sp:
+                flash("Vui lòng nhập đầy đủ thông tin!", "danger")
+                return redirect(f'/edit/{ma_gg}')
+
+            # BƯỚC 3: Ép kiểu an toàn sau khi đã chắc chắn không rỗng
+            gia_tri = float(raw_gia_tri)
+            so_luong = int(raw_so_luong)
+            valid_types = ["Khuyến mãi", "Shipping"]
+
+            # BƯỚC 4: Ràng buộc nghiệp vụ (Business Logic)
+            if hinh_thuc not in valid_types:
+                flash("Hình thức giảm giá không hợp lệ!", "danger")
+                return redirect(f'/edit/{ma_gg}')
+
+            # Fix lỗi ưu tiên toán tử: (A or B) and (C or D)
+            if (loaigg == "phần trăm" or loaigg == "phantram") and (gia_tri <= 0 or gia_tri > 50):
+                flash("Phần trăm giảm giá phải từ 1 đến 50!", "danger")
+                return redirect(f'/edit/{ma_gg}')
+
+            if (loaigg == "tien" or loaigg == "tiền") and (gia_tri < 10000 or gia_tri > 20000000):
+                flash("Số tiền giảm phải từ 10.000vnđ đến 20.000.000vnđ", "danger")
+                return redirect(f'/edit/{ma_gg}')
+
+            if so_luong <= 0:
+                flash("Số lượng phát hành phải lớn hơn 0!", "danger")
+                return redirect(f'/edit/{ma_gg}')
+
+            # BƯỚC 5: Xử lý thời gian
+            ngay_bd = datetime.strptime(ngay_bd_str, "%Y-%m-%dT%H:%M") if ngay_bd_str else None
+            ngay_kt = datetime.strptime(ngay_kt_str, "%Y-%m-%dT%H:%M") if ngay_kt_str else None
+
+            if not ngay_bd or not ngay_kt:
+                flash("Vui lòng nhập đầy đủ ngày bắt đầu và ngày kết thúc!", "danger")
+                return redirect(f'/edit/{ma_gg}')
 
             if ngay_kt <= ngay_bd:
                 flash("Ngày kết thúc phải lớn hơn ngày bắt đầu!", "danger")
-                return redirect('/create')
+                return redirect(f'/edit/{ma_gg}')
 
             if ngay_kt < datetime.now():
                 flash("Ngày kết thúc không được ở quá khứ!", "danger")
-                return redirect('/create')
+                return redirect(f'/edit/{ma_gg}')
 
+            # BƯỚC 6: Gom data và gọi DAO
             data = {
-                "Hinhthuc": request.form.get('Hinhthuc'),
-                "LoaiGG": request.form.get('LoaiGG'),
-                "GiaTri": float(request.form.get('GiaTri') or 0),
-                "SoLuong": int(request.form.get('SoLuong') or 0),
-                "NgayBD": datetime.strptime(ngay_bd, "%Y-%m-%dT%H:%M") if ngay_bd else None,
-                "NgayKT": datetime.strptime(ngay_kt, "%Y-%m-%dT%H:%M") if ngay_kt else None,
+                "Hinhthuc": hinh_thuc,
+                "LoaiGG": loaigg,
+                "GiaTri": gia_tri,
+                "SoLuong": so_luong,
+                "NgayBD": ngay_bd,
+                "NgayKT": ngay_kt,
                 "TrangThai": "Active" if request.form.get('TrangThai') == "active" else "Inactive",
                 "MoTa": request.form.get('MoTa'),
                 "DieuKien": float(request.form.get('DieuKien') or 0),
-                "DieuKienSP": request.form.get('DieuKienSP')
+                "DieuKienSP": dieu_kien_sp
             }
 
             if dao.update_voucher(ma_gg, data):
                 flash(f"Cập nhật mã {ma_gg} thành công!", "success")
+                return redirect('/admin')
             else:
-                flash("Có lỗi xảy ra khi lưu dữ liệu!", "danger")
+                flash("Có lỗi xảy ra khi lưu dữ liệu vào Database!", "danger")
+                return redirect(f'/edit/{ma_gg}')
 
-            return redirect('/admin')
         except Exception as e:
-            flash(f"Lỗi: {str(e)}", "danger")
-            return redirect('/admin')
+            flash(f"Lỗi hệ thống: {str(e)}", "danger")
+            return redirect(f'/edit/{ma_gg}')
     # xóa mã gg
+    @app.route('/delete_voucher/<maGG>', methods=['GET'])
+    def delete_voucher_route(maGG):
+        return delete_voucher(maGG)
+
     @app.route('/delete/<maGG>', methods=['POST'])
     @login_required
     def delete_voucher(maGG):
@@ -321,13 +369,24 @@ def register_routes(app):
     # cập nhật giỏ hàng
     @app.route('/api/cart/<product_id>', methods=['put'])
     def update_cart(product_id):
-        key = app.config['CART_KEY'] #cart
+        data = request.json
+        raw_quantity = data.get('quantity')  # Lấy số lượng mới từ request
+
+        key = app.config['CART_KEY']
         cart = session.get(key)
+        try:
+            quantity = int(raw_quantity)
+        except (ValueError, TypeError):
+            return jsonify({"error": "Số lượng không hợp lệ"}), 400
 
         if cart and product_id in cart:
-            cart[product_id]['quantity'] = int(request.json['quantity'])
+            if quantity > 0:
+                cart[product_id]['quantity'] = quantity
+            else:
+                del cart[product_id]
 
-        session[key] = cart
+            session.modified = True
+            session[key] = cart
 
         return jsonify(utils.cart_stash(cart=cart))
 
@@ -362,56 +421,55 @@ def register_routes(app):
             if total_price < v.DieuKien:
                 price = "{:,.0f}".format(v.DieuKien)
                 return jsonify({
-                    "status": 400,
+                    "status": 404,
                     "message": f"Đơn hàng phải tối thiểu {price} VNĐ mới dùng được!"
                 })
             # so sánh danh mục có khớp với điều kiện sp danh mục ko
-            if v.DieuKienSP and str(v.DieuKienSP).strip() != "" and str(v.DieuKienSP) != "None":
-                # Lấy tất cả id danh mục đang có trong giỏ hàng
-                categories_in_cart = [str(item.get('category_id')) for item in cart.values()]
-                # Nếu danh mục Voucher không nằm trong danh sách cate
-                if str(v.DieuKienSP) not in categories_in_cart:
+            if v.DieuKienSP:
+                target_cate = str(v.DieuKienSP).strip()
+                categories_in_cart = {
+                    str(item.get('category_id')).strip()
+                    for item in cart.values()
+                    if item.get('category_id') is not None
+                }
+                cate = dao.get_category_by_id(int(target_cate))
+                cate_name = cate.name if cate else target_cate
+                if target_cate not in categories_in_cart:
                     return jsonify({
-                        "status": 400,
-                        "message": f"Mã này chỉ áp dụng cho sản phẩm thuộc danh mục: {v.DieuKienSP}!"
+                        "status": 404,
+                        "message": f"Voucher này chỉ áp dụng cho sản phẩm thuộc danh mục {cate_name}"
                     })
-
             now = datetime.now()
 
             #  kiểm tra ngày bắt đầu
             if v.NgayBD and now < v.NgayBD:
                 start_date = v.NgayBD.strftime('%d/%m/%Y %H:%M')
                 return jsonify({
-                    "status": 400,
+                    "status": 404,
                     "message": f"Mã này chưa đến hạn sử dụng. Vui lòng quay lại vào lúc {start_date} nhé!"
                 })
 
             # kiểm tra ngày kết thúc
             if v.NgayKT and now > v.NgayKT:
                 return jsonify({
-                    "status": 400,
+                    "status": 404,
                     "message": "Mã giảm giá này đã hết hạn sử dụng rồi!"
                 })
             # kiếm tra số lượng voucher hiện tại so với lượt đã sử dụng
             if v.SoLuong is not None and v.SoLuong > 0:
                 if v.DaSuDung >= v.SoLuong:
                     return jsonify({
-                        "status": 400,
+                        "status": 404,
                         "message": "Rất tiếc, mã này hết lượt sử dụng rồi!"
                     })
             # kiếm tra hết điều kiện rồi thì mới đc apply
             applied_vouchers = session.get('applied_vouchers', {})
             kind = 'SHIPPING' if 'shipping' in v.Hinhthuc.lower() else 'PROMOTION'
-            #kiểm tra mã tối đa đc dùng ở 2 loại
-            if kind not in applied_vouchers and len(applied_vouchers) >= 2:
-                return jsonify({"status": 400, "message": "Mỗi đơn hàng chỉ được áp dụng tối đa 2 mã!"})
-
             applied_vouchers[kind] = {
                 "MaGG": v.MaGG,
                 "LoaiGG": v.LoaiGG,
                 "GiaTri": float(v.GiaTri)
             }
-
             session['applied_vouchers'] = applied_vouchers
             session.modified = True
 
@@ -452,14 +510,25 @@ def register_routes(app):
         applied_vouchers = session.get('applied_vouchers', {})
 
         if not cart:
-            return jsonify({"status": 400, "message": "Giỏ hàng trống!"})
+            return jsonify({"status": 404, "message": "Giỏ hàng trống!"})
 
         data = request.json
         ten_nguoi_nhan = data.get('name')
         sdt = data.get('phone')
         dia_chi = data.get('address')
         hinh_thuc_tt = data.get('payment_method', 'Tiền mặt')
-
+        if not ten_nguoi_nhan:
+            return jsonify({"status": 400, "message": "Vui lòng nhập đầy đủ tên!"})
+        if not sdt :
+            return jsonify({"status": 400, "message": "Vui lòng nhập đầy đủ SĐT!"})
+        if not dia_chi:
+            return jsonify({"status": 400, "message": "Vui lòng nhập đầy đủ địa chỉ!"})
+        sdt_pattern = r"^0\d{9,10}$"
+        if not sdt or not re.match(sdt_pattern, sdt):
+            return jsonify({
+                "status": 400,
+                "message": "Số điện thoại không hợp lệ! Phải bắt đầu bằng số 0 và chỉ chứa số."
+            })
         try:
             # tính tiền và mức giảm cuối cùng
             cart_stats = utils.cart_stash(cart)
@@ -590,16 +659,6 @@ def register_routes(app):
         logout_user()
         return redirect('/')
 
-    @app.route('/admin')
-    @login_required
-    def admin():
-       return render_template("admin/admin.html")
-
-    @app.route('/create')
-    @login_required
-    def create_voucher():
-        return  render_template("admin/create_voucher.html")
-
 
     @app.route('/api/send-otp', methods=['POST'])
     def send_otp():
@@ -608,7 +667,7 @@ def register_routes(app):
         email = data.get('email')
 
         # 1. Kiểm tra thông tin khớp trong DB
-        user = User.query.filter_by(username=username, email=email).first()
+        user = dao.get_user(username, email)
 
         if not user:
             return jsonify({
@@ -651,11 +710,17 @@ def register_routes(app):
         email = data.get('email')
         otp_input = data.get('otp')
         new_password = data.get('new_password')
+        password_pattern = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
 
-        # 1. Kiểm tra OTP
+              # 1. Kiểm tra OTP
         # Nếu email không có trong kho hoặc OTP sai
         if email not in otp_storage or otp_storage[email] != otp_input:
             return jsonify({'success': False, 'message': 'Mã OTP không đúng hoặc đã hết hạn!'})
+        if not re.match(password_pattern, new_password):
+            return jsonify({
+                "success": False,
+                "message": "Mật khẩu phải có ít nhất 8 ký tự, gồm chữ hoa, chữ thường, số và ký tự đặc biệt."
+            })
 
         # 2. Gọi DAO cập nhật mật khẩu mới
         if dao.update_password(email, new_password):

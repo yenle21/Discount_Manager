@@ -4,7 +4,7 @@ from discounts.models import UserRole
 
 from discounts.test.conftest import test_client,test_app
 
-from discounts.test.test_base import test_client,test_app, mock_admin
+from discounts.test.conftest import test_client,test_app, mock_admin
 
 
 def test_add_voucher_success(test_client, monkeypatch):
@@ -21,7 +21,7 @@ def test_add_voucher_success(test_client, monkeypatch):
 
     assert res.status_code == 302
 
-def test_add_voucher_duplicate(test_client, monkeypatch):
+def test_add_voucher_duplicate(test_client, monkeypatch,mock_admin):
     monkeypatch.setattr("discounts.dao.get_voucher_by_id", lambda x: True)
 
     data = {"MaGG": "SALE10"}
@@ -31,7 +31,7 @@ def test_add_voucher_duplicate(test_client, monkeypatch):
     assert res.status_code == 302
     assert "/create" in res.location
 
-def test_add_voucher_empty_code(test_client, monkeypatch):
+def test_add_voucher_empty_code(test_client, monkeypatch,mock_admin):
     monkeypatch.setattr("discounts.dao.get_voucher_by_id", lambda x: None)
 
     data = {
@@ -45,7 +45,7 @@ def test_add_voucher_empty_code(test_client, monkeypatch):
     assert res.status_code == 302
     assert "/create" in res.location
 
-def test_add_voucher_code_with_space(test_client, monkeypatch):
+def test_add_voucher_code_with_space(test_client, monkeypatch,mock_admin):
     monkeypatch.setattr("discounts.dao.get_voucher_by_id", lambda x: None)
 
     data = {
@@ -59,7 +59,7 @@ def test_add_voucher_code_with_space(test_client, monkeypatch):
     assert res.status_code == 302
     assert "/create" in res.location
 
-def test_add_voucher_special_char_code(test_client, monkeypatch):
+def test_add_voucher_special_char_code(test_client, monkeypatch,mock_admin):
     monkeypatch.setattr("discounts.dao.get_voucher_by_id", lambda x: None)
 
     data = {
@@ -74,7 +74,7 @@ def test_add_voucher_special_char_code(test_client, monkeypatch):
     assert "/create" in res.location
 
 
-def test_add_voucher_invalid_date(test_client, monkeypatch):
+def test_add_voucher_invalid_date(test_client, monkeypatch,mock_admin):
     monkeypatch.setattr("discounts.dao.get_voucher_by_id", lambda x: None)
 
     data = {
@@ -88,7 +88,7 @@ def test_add_voucher_invalid_date(test_client, monkeypatch):
     assert res.status_code == 302
     assert "/create" in res.location
 
-def test_add_voucher_past_date(test_client, monkeypatch):
+def test_add_voucher_past_date(test_client, monkeypatch,mock_admin):
     monkeypatch.setattr("discounts.dao.get_voucher_by_id", lambda x: None)
 
     data = {
@@ -102,7 +102,7 @@ def test_add_voucher_past_date(test_client, monkeypatch):
     assert res.status_code == 302
     assert "/create" in res.location
 
-def test_add_voucher_negative_discount(test_client, monkeypatch):
+def test_add_voucher_negative_discount(test_client, monkeypatch,mock_admin):
     monkeypatch.setattr("discounts.dao.get_voucher_by_id", lambda x: None)
 
     data = {
@@ -117,7 +117,7 @@ def test_add_voucher_negative_discount(test_client, monkeypatch):
     assert res.status_code == 302
     assert "/create" in res.location
 
-def test_add_voucher_negative_quantity(test_client, monkeypatch):
+def test_add_voucher_negative_quantity(test_client, monkeypatch,mock_admin):
     monkeypatch.setattr("discounts.dao.get_voucher_by_id", lambda x: None)
 
     data = {
@@ -132,7 +132,7 @@ def test_add_voucher_negative_quantity(test_client, monkeypatch):
     assert res.status_code == 302
     assert "/create" in res.location
 
-def test_add_voucher_negative_condition(test_client, monkeypatch):
+def test_add_voucher_negative_condition(test_client, monkeypatch,mock_admin):
     monkeypatch.setattr("discounts.dao.get_voucher_by_id", lambda x: None)
 
     data = {
@@ -147,7 +147,7 @@ def test_add_voucher_negative_condition(test_client, monkeypatch):
     assert res.status_code == 302
     assert "/create" in res.location
 
-def test_add_voucher_db_fail(test_client, monkeypatch):
+def test_add_voucher_db_fail(test_client, monkeypatch,mock_admin):
     monkeypatch.setattr("discounts.dao.get_voucher_by_id", lambda x: None)
     monkeypatch.setattr("discounts.index.add_voucher", lambda x: False)
 

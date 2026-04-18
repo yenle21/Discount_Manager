@@ -1,6 +1,6 @@
 
 // --- 1. THÊM SẢN PHẨM ---
-function addToCart(id, name, price, image) {
+function addToCart(id, name, price, image,category_id) {
     fetch('/api/cart', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -8,7 +8,8 @@ function addToCart(id, name, price, image) {
             "id": id,
             "name": name,
             "price": price,
-            "image": image
+            "image": image,
+            "category_id": category_id
         })
     })
     .then(res => res.json())
@@ -124,7 +125,7 @@ function applyVoucher(voucherId, showFeedback = true) {
                 for (const [kind, v] of Object.entries(data.applied_vouchers)) {
                     html += `
                         <div class="badge bg-light text-primary border me-2 p-2">
-                            <i class="fa-solid fa-check-circle"></i> ${v.MaGG} (${v.LoaiGG})
+                            <i class="fa-solid fa-check-circle"></i> ${v.MaGG} (${kind})
                         </div>
                     `;
                 }
