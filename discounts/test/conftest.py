@@ -8,7 +8,8 @@ from discounts import db, login
 from discounts.models import Product, Admin, KhachHang,Voucher
 from werkzeug.security import generate_password_hash
 
-
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
 
 
 def create_app():
@@ -125,3 +126,10 @@ def mock_admin(monkeypatch):
         user_role = 1
         is_authenticated = True
     monkeypatch.setattr("flask_login.utils._get_user", lambda: FakeUser())
+
+@pytest.fixture
+def driver():
+    service = Service(executable_path='../../.venv/chromedriver.exe')
+    driver = webdriver.Chrome(service=service)
+    yield driver
+    driver.quit()
