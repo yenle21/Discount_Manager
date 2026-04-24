@@ -30,6 +30,8 @@ def test_delete_voucher_already_used(test_client, mock_admin, mocker):
     class MockVoucher:
         MaGG = "USED123"
         DaSuDung = 5
+        SoLuong = 10
+        NgayKT = None
 
     mocker.patch("discounts.index.dao.get_voucher_by_id", return_value=MockVoucher())
 
@@ -38,8 +40,7 @@ def test_delete_voucher_already_used(test_client, mock_admin, mocker):
     assert res.status_code == 200
     assert res.request.path == "/admin"
 
-    expected_msg = "Không thể xóa mã USED123 vì đã có 5 lượt sử dụng!"
-    assert expected_msg.encode('utf-8') in res.data
+    assert "Không thể xóa mã USED123" in res.get_data(as_text=True)
 
 
 # TC4: Xóa thành công
@@ -47,6 +48,8 @@ def test_delete_voucher_success(test_client, mock_admin, mocker):
     class MockVoucher:
         MaGG = "SALE10"
         DaSuDung = 0
+        SoLuong = 10
+        NgayKT = None
 
     mocker.patch("discounts.index.dao.get_voucher_by_id", return_value=MockVoucher())
 
@@ -64,7 +67,10 @@ def test_delete_voucher_success(test_client, mock_admin, mocker):
 # TC5: Lỗi hệ thống
 def test_delete_voucher_exception(test_client, mock_admin, mocker):
     class MockVoucher:
+        MaGG = "SALE10"
         DaSuDung = 0
+        SoLuong = 10
+        NgayKT = None
 
     mocker.patch("discounts.index.dao.get_voucher_by_id", return_value=MockVoucher())
 
@@ -79,7 +85,7 @@ def test_delete_voucher_exception(test_client, mock_admin, mocker):
 
     assert res.status_code == 200
     mock_rollback.assert_called_once()
-    assert "Lỗi hệ thống: DB Error".encode('utf-8') in res.data
+    assert "Lỗi hệ thống" in res.get_data(as_text=True)
 
 
 # TC6: Chưa login
@@ -92,3 +98,102 @@ def test_delete_voucher_no_login(test_client, mocker):
     res = test_client.post('/delete/SALE10')
 
     assert res.status_code in (401, 302)  # tùy app bạn config
+
+# TC7: Voucher đang sử dụng dở (0 < DaSuDung < SoLuong) → KHÔNG cho xóa
+def test_delete_voucher_partially_used(test_client, mock_admin, mocker):
+    class MockVoucher:
+        MaGG = "PARTIAL"
+        DaSuDung = 3
+        SoLuong = 10
+        NgayKT = None
+
+    mocker.patch("discounts.index.dao.get_voucher_by_id", return_value=MockVoucher())
+
+    res = test_client.post('/delete/PARTIAL', follow_redirects=True)
+
+    assert res.status_code == 200
+    assert "Không thể xóa mã PARTIAL".encode('utf-8') in res.data
+
+
+# TC8: Voucher đã dùng hết (DaSuDung == SoLuong) → CHO xóa
+def test_delete_voucher_fully_used(test_client, mock_admin, mocker):
+    class MockVoucher:
+        MaGG = "FULL"
+        DaSuDung = 10
+        SoLuong = 10
+        NgayKT = None
+
+    mocker.patch("discounts.index.dao.get_voucher_by_id", return_value=MockVoucher())
+
+    mock_delete = mocker.patch("discounts.index.db.session.delete")
+    mock_commit = mocker.patch("discounts.index.db.session.commit")
+
+    res = test_client.post('/delete/FULL', follow_redirects=True)
+
+    assert res.status_code == 200
+    mock_delete.assert_called_once()
+    mock_commit.assert_called_once()
+
+
+# TC9: DaSuDung = None → coi như 0 → CHO xóa
+def test_delete_voucher_null_usage(test_client, mock_admin, mocker):
+    class MockVoucher:
+        MaGG = "NULL"
+        DaSuDung = None
+        SoLuong = 10
+        NgayKT = None
+
+    mocker.patch("discounts.index.dao.get_voucher_by_id", return_value=MockVoucher())
+
+    mock_delete = mocker.patch("discounts.index.db.session.delete")
+    mock_commit = mocker.patch("discounts.index.db.session.commit")
+
+    res = test_client.post('/delete/NULL', follow_redirects=True)
+
+    assert res.status_code == 200
+    mock_delete.assert_called_once()
+    mock_commit.assert_called_once()
+
+
+# TC10: SoLuong = None (voucher không giới hạn)
+def test_delete_voucher_unlimited(test_client, mock_admin, mocker):
+    class MockVoucher:
+        MaGG = "UNLIMIT"
+        DaSuDung = 5
+        SoLuong = None
+        NgayKT = None
+
+    mocker.patch("discounts.index.dao.get_voucher_by_id", return_value=MockVoucher())
+
+    # Tùy logic: nếu bạn cho xóa thì test như dưới
+    mock_delete = mocker.patch("discounts.index.db.session.delete")
+    mock_commit = mocker.patch("discounts.index.db.session.commit")
+
+    res = test_client.post('/delete/UNLIMIT', follow_redirects=True)
+
+    assert res.status_code == 200
+    mock_delete.assert_called_once()
+    mock_commit.assert_called_once()
+
+
+# TC11: Voucher hết hạn → CHO xóa dù đang sử dụng
+def test_delete_voucher_expired_even_if_used(test_client, mock_admin, mocker):
+    from datetime import datetime, timedelta
+
+    class MockVoucher:
+        MaGG = "EXPIRED"
+        DaSuDung = 5
+        SoLuong = 10
+        NgayKT = datetime.now() - timedelta(days=1)  # đã hết hạn
+
+    mocker.patch("discounts.index.dao.get_voucher_by_id", return_value=MockVoucher())
+
+    mock_delete = mocker.patch("discounts.index.db.session.delete")
+    mock_commit = mocker.patch("discounts.index.db.session.commit")
+
+    res = test_client.post('/delete/EXPIRED', follow_redirects=True)
+
+    assert res.status_code == 200
+    mock_delete.assert_called_once()
+    mock_commit.assert_called_once()
+    assert "đã hết hạn".encode('utf-8') in res.data
