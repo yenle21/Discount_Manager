@@ -108,7 +108,7 @@ def register_routes(app):
             kw=kw
         )
     # Thêm voucher
-    @app.route('/add', methods=['POST'])
+    @app.route('/api/create', methods=['POST'])
     @admin_required
     def add_voucher_route():
         try:
@@ -325,10 +325,22 @@ def register_routes(app):
                 flash("Voucher không tồn tại!", "danger")
                 return redirect('/admin')
 
-            # 2. Kiểm tra điều kiện xóa (Business Logic)
-            if voucher.DaSuDung and voucher.DaSuDung > 0:
-                flash(f"Không thể xóa mã {maGG} vì đã có {voucher.DaSuDung} lượt sử dụng!", "warning")
+            now = datetime.now()
+
+            # ✅ Nếu đã hết hạn → cho xóa luôn
+            if voucher.NgayKT and now > voucher.NgayKT:
+                db.session.delete(voucher)
+                db.session.commit()
+                flash(f"Voucher {maGG} đã hết hạn và đã được xóa!", "success")
                 return redirect('/admin')
+
+            if voucher.DaSuDung is None:
+                voucher.DaSuDung = 0
+
+            if voucher.SoLuong is not None:
+                if 0 < voucher.DaSuDung < voucher.SoLuong:
+                    flash(f"Không thể xóa mã {maGG} vì đang được sử dụng!", "warning")
+                    return redirect('/admin')
 
             # 3. Thực hiện xóa
             db.session.delete(voucher)
