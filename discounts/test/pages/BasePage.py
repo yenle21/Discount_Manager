@@ -1,3 +1,6 @@
+from selenium.webdriver.support.select import Select
+
+
 class BasePage:
     def __init__(self, driver):
         self.driver = driver
@@ -12,8 +15,13 @@ class BasePage:
         return self.driver.find_elements(by, value)
 
     def click(self, by, value):
-        self.find(by, value).click()
+        element = self.find(by, value)
+        self.driver.execute_script("arguments[0].click();", element)
 
     def typing(self, by, value, text):
         e = self.find(by, value)
         e.send_keys(text)
+
+    def select_dropdown(self, by, value, text):
+        dropdown = Select(self.find(by, value))
+        dropdown.select_by_visible_text(text)
