@@ -129,7 +129,7 @@ def mock_admin(monkeypatch):
 
 @pytest.fixture
 def driver():
-    service = Service(executable_path='../../.venv/chromedriver.exe')
-    driver = webdriver.Chrome(service=service)
+    # service = Service(executable_path='../.venv/chromedriver.exe')
+    driver = webdriver.Chrome()
     yield driver
     driver.quit()

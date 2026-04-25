@@ -23,7 +23,7 @@
             {% if v_edit %}
             <form action="{{ url_for('update_voucher_route', ma_gg=v_edit.MaGG) }}" method="POST">
                 {% else %}
-                <form action="/add" method="POST">
+                <form action="/create" method="POST">
                     {% endif %}
                     <div class="form-grid">
 

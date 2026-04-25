@@ -24,7 +24,7 @@
         {% endif %}
         <form method="post">
             <div class="mb-3">
-                <select class="form-select custom-input-style" aria-label="Chọn vai trò" name="role">
+                <select id="role" class="form-select custom-input-style" aria-label="Chọn vai trò" name="role">
                     <option value="0">Khách Hàng</option>
                     <option value="1">Quản Trị Viên</option>
                 </select>
@@ -32,7 +32,7 @@
             <div class="mb-3">
                 <div class="input-group">
                     <span class="input-group-text custom-input-group-text">&#128100;</span>
-                    <input type="text" class="form-control custom-input-style" placeholder="Tên đăng nhập...."
+                    <input id="username" type="text" class="form-control custom-input-style" placeholder="Tên đăng nhập...."
                            name="username" required>
                 </div>
             </div>
@@ -40,7 +40,7 @@
             <div class="mb-3">
                 <div class="input-group">
                     <span class="input-group-text custom-input-group-text">&#128274;</span>
-                    <input type="password" class="form-control custom-input-style" placeholder="Mật khẩu..."
+                    <input id="pwd" type="password" class="form-control custom-input-style" placeholder="Mật khẩu..."
                            name="password" required>
                 </div>
             </div>

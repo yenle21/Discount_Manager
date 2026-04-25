@@ -108,7 +108,7 @@ def register_routes(app):
             kw=kw
         )
     # Thêm voucher
-    @app.route('/api/create', methods=['POST'])
+    @app.route('/create', methods=['POST'])
     @admin_required
     def add_voucher_route():
         try:
