@@ -20,6 +20,7 @@ class BasePage:
 
     def typing(self, by, value, text):
         e = self.find(by, value)
+        e.clear()
         e.send_keys(text)
 
     def select_dropdown(self, by, value, text):
