@@ -24,7 +24,7 @@ class CreateVoucherPage(BasePage):
     def open_page(self):
         self.open(self.URL)
 
-    def createvoucher(self,magg,hinhthuc,loaigg,giatri,soluong,mota,dieukiensp,tientoithieu):
+    def createvoucher(self,magg,hinhthuc,loaigg,giatri,soluong,ngaybd_date, ngaybd_time, ngaykt_date, ngaykt_time,mota,dieukiensp,tientoithieu):
         self.driver.implicitly_wait(1)
         self.typing(*self.MAGG,magg)
         self.driver.implicitly_wait(1)
@@ -37,27 +37,27 @@ class CreateVoucherPage(BasePage):
         self.typing(*self.SOLUONG,soluong)
         self.driver.execute_script('window.scrollTo(0,1000)')
         time.sleep(1)
+        # --- ĐIỀN NGÀY BẮT ĐẦU (Nhận từ biến truyền vào) ---
         ngaybd_input = self.find(*self.NGAYBD)
-        self.driver.implicitly_wait(1)
-        ngaybd_input.click()  # Bắt buộc phải click vào để nháy con trỏ ở tháng (mm)
-        self.driver.implicitly_wait(1)
-        ngaybd_input.send_keys("05012026")
-        # Bấm nút TAB hoặc Mũi tên phải trên bàn phím để nhảy qua phần điền Giờ
+        ngaybd_input.click()
+        ngaybd_input.send_keys(ngaybd_date)
         ngaybd_input.send_keys(Keys.RIGHT)
-        self.driver.implicitly_wait(1)
-        ngaybd_input.send_keys("1000A")
+        ngaybd_input.send_keys(ngaybd_time)
+
+        # --- ĐIỀN NGÀY KẾT THÚC (Nhận từ biến truyền vào) ---
         ngaykt_input = self.find(*self.NGAYKT)
         ngaykt_input.click()
-        ngaykt_input.send_keys("05302026")
+        ngaykt_input.send_keys(ngaykt_date)
         ngaykt_input.send_keys(Keys.RIGHT)
-        ngaykt_input.send_keys("1159P")
+        ngaykt_input.send_keys(ngaykt_time)
         self.driver.implicitly_wait(1)
         self.typing(*self.MOTA,mota)
         self.driver.implicitly_wait(1)
         self.select_dropdown(*self.DIEUKIENSP, dieukiensp)
         self.driver.implicitly_wait(1)
         self.typing(*self.DKTIENTOITHIEU, tientoithieu)
-        self.driver.implicitly_wait(2)
+
+    def click_save(self):
         self.click(*self.BUTTON_SAVE)
 
 
