@@ -152,7 +152,7 @@
                         </td>
 
                         <td>{{ "{:,.0f}".format(v.DieuKien).replace(",", ".") }} VNĐ</td>
-                        <td>{{ v.DieuKienSP or "Tất cả" }}</td>
+                        <td>{{ v.category.name or "Tất cả" }}</td>
 
                         <td class="actions" style="text-align: center;">
 

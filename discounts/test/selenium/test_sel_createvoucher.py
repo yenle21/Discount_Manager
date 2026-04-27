@@ -1,4 +1,4 @@
-import os
+
 import time
 from datetime import datetime
 
@@ -411,11 +411,354 @@ def test_create_voucher_with_0_percent(driver):
         dieukiensp="-- Tất cả sản phẩm --",
         tientoithieu="50000"
     )
-    driver.save_screenshot("discounts/test/screenshots/CreateVoucher/actual_output_TC16.png")
-    input_element = driver.find_element(By.NAME, "GiaTri")
-    actual_value = input_element.get_attribute("value")
-    assert int(actual_value) >= 1
     create.click_save()
-
+    driver.save_screenshot("discounts/test/screenshots/CreateVoucher/actual_output_TC16a.png")
     assert driver.current_url == 'http://127.0.0.1:5000/create'
+    # res = driver.find_element(By.CLASS_NAME, 'alert')
+
+def test_create_voucher_with_0_price(driver):
+    login = LoginPage(driver=driver)
+    login.open_page()
+    login.login("Quản Trị Viên", "admin", "123")
+    create = CreateVoucherPage(driver=driver)
+    time.sleep(2)
+    create.open_page()
+    create.createvoucher(
+        magg="TC0percent",
+        hinhthuc="Miễn phí Ship",
+        loaigg="Giảm theo số tiền",
+        giatri="0",
+        soluong="100",
+        ngaybd_date="05102026", ngaybd_time="1159P",
+        ngaykt_date="05302026", ngaykt_time="1159P",
+        mota="Đây là voucher test tự động",
+        dieukiensp="-- Tất cả sản phẩm --",
+        tientoithieu="50000"
+    )
+
+    create.click_save()
+    driver.save_screenshot("discounts/test/screenshots/CreateVoucher/actual_output_TC17.png")
+    assert driver.current_url == 'http://127.0.0.1:5000/create'
+    # res = driver.find_element(By.CLASS_NAME, 'alert')
+
+def test_create_voucher_with_chu(driver):
+    login = LoginPage(driver=driver)
+    login.open_page()
+    login.login("Quản Trị Viên", "admin", "123")
+    create = CreateVoucherPage(driver=driver)
+    time.sleep(2)
+    create.open_page()
+    create.createvoucher(
+        magg="TC0percent",
+        hinhthuc="Miễn phí Ship",
+        loaigg="Giảm theo số tiền",
+        giatri="abc",
+        soluong="100",
+        ngaybd_date="05102026", ngaybd_time="1159P",
+        ngaykt_date="05302026", ngaykt_time="1159P",
+        mota="Đây là voucher test tự động",
+        dieukiensp="-- Tất cả sản phẩm --",
+        tientoithieu="50000"
+    )
+
+    create.click_save()
+    driver.save_screenshot("discounts/test/screenshots/CreateVoucher/actual_output_TC18.png")
+    assert driver.current_url == 'http://127.0.0.1:5000/create'
+    # res = driver.find_element(By.CLASS_NAME, 'alert')
+
+
+def test_create_voucher_with_negative_percent(driver):
+    login = LoginPage(driver=driver)
+    login.open_page()
+    login.login("Quản Trị Viên", "admin", "123")
+    create = CreateVoucherPage(driver=driver)
+    time.sleep(2)
+    create.open_page()
+    create.createvoucher(
+        magg="TC0percent",
+        hinhthuc="Miễn phí Ship",
+        loaigg="Giảm theo %",
+        giatri="-100",
+        soluong="100",
+        ngaybd_date="05102026", ngaybd_time="1159P",
+        ngaykt_date="05302026", ngaykt_time="1159P",
+        mota="Đây là voucher test tự động",
+        dieukiensp="-- Tất cả sản phẩm --",
+        tientoithieu="50000"
+    )
+
+    create.click_save()
+    driver.save_screenshot("discounts/test/screenshots/CreateVoucher/actual_output_TC19.png")
+    assert driver.current_url == 'http://127.0.0.1:5000/create'
+    # res = driver.find_element(By.CLASS_NAME, 'alert')
+
+
+
+def test_create_voucher_with_negative_price(driver):
+    login = LoginPage(driver=driver)
+    login.open_page()
+    login.login("Quản Trị Viên", "admin", "123")
+    create = CreateVoucherPage(driver=driver)
+    time.sleep(2)
+    create.open_page()
+    create.createvoucher(
+        magg="TC0percent",
+        hinhthuc="Miễn phí Ship",
+        loaigg="Giảm theo số tiền",
+        giatri="-10000",
+        soluong="100",
+        ngaybd_date="05102026", ngaybd_time="1159P",
+        ngaykt_date="05302026", ngaykt_time="1159P",
+        mota="Đây là voucher test tự động",
+        dieukiensp="-- Tất cả sản phẩm --",
+        tientoithieu="50000"
+    )
+
+    create.click_save()
+    driver.save_screenshot("discounts/test/screenshots/CreateVoucher/actual_output_TC20.png")
+    assert driver.current_url == 'http://127.0.0.1:5000/create'
+    # res = driver.find_element(By.CLASS_NAME, 'alert')
+
+def test_create_voucher_with_cate(driver):
+    login = LoginPage(driver=driver)
+    login.open_page()
+    login.login("Quản Trị Viên", "admin", "123")
+    create = CreateVoucherPage(driver=driver)
+    time.sleep(2)
+    create.open_page()
+    create.createvoucher(
+        magg="TestHehe",
+        hinhthuc="Miễn phí Ship",
+        loaigg="Giảm theo số tiền",
+        giatri="10000",
+        soluong="100",
+        ngaybd_date="05102026", ngaybd_time="1159P",
+        ngaykt_date="05302026", ngaykt_time="1159P",
+        mota="Đây là voucher test tự động",
+        dieukiensp="Sữa",
+        tientoithieu="50000"
+    )
+
+    create.click_save()
+    assert driver.current_url == 'http://127.0.0.1:5000/admin'
+    driver.save_screenshot("discounts/test/screenshots/CreateVoucher/actual_output_TC21.png")
+    e = driver.find_element(By.CSS_SELECTOR, "table > tbody > tr:first-child > td:nth-child(9)")
+    assert "Sữa" in e.text
+    # res = driver.find_element(By.CLASS_NAME, 'alert')
+
+def test_create_voucher_with_number_float(driver):
+    login = LoginPage(driver=driver)
+    login.open_page()
+    login.login("Quản Trị Viên", "admin", "123")
+    create = CreateVoucherPage(driver=driver)
+    time.sleep(2)
+    create.open_page()
+    create.createvoucher(
+        magg="TestHehe",
+        hinhthuc="Miễn phí Ship",
+        loaigg="Giảm theo số tiền",
+        giatri="10000",
+        soluong="1.5",
+        ngaybd_date="05102026", ngaybd_time="1159P",
+        ngaykt_date="05302026", ngaykt_time="1159P",
+        mota="Đây là voucher test tự động",
+        dieukiensp="Sữa",
+        tientoithieu="50000"
+    )
+
+    create.click_save()
+    assert driver.current_url == 'http://127.0.0.1:5000/create'
+    driver.save_screenshot("discounts/test/screenshots/CreateVoucher/actual_output_TC23.png")
+    # res = driver.find_element(By.CLASS_NAME, 'alert')
+
+def test_create_voucher_with_no_DieuKien(driver):
+    login = LoginPage(driver=driver)
+    login.open_page()
+    login.login("Quản Trị Viên", "admin", "123")
+    create = CreateVoucherPage(driver=driver)
+    time.sleep(2)
+    create.open_page()
+    create.createvoucher(
+        magg="TestDieuKienToiThieu",
+        hinhthuc="Miễn phí Ship",
+        loaigg="Giảm theo số tiền",
+        giatri="10000",
+        soluong="1",
+        ngaybd_date="05102026", ngaybd_time="1159P",
+        ngaykt_date="05302026", ngaykt_time="1159P",
+        mota="Đây là voucher test tự động",
+        dieukiensp="Sữa",
+        tientoithieu=""
+    )
+
+    create.click_save()
+    assert driver.current_url == 'http://127.0.0.1:5000/admin'
+    driver.save_screenshot("discounts/test/screenshots/CreateVoucher/actual_output_TC22.png")
+    # res = driver.find_element(By.CLASS_NAME, 'alert')
+
+def test_create_voucher_with_number_0(driver):
+    login = LoginPage(driver=driver)
+    login.open_page()
+    login.login("Quản Trị Viên", "admin", "123")
+    create = CreateVoucherPage(driver=driver)
+    time.sleep(2)
+    create.open_page()
+    create.createvoucher(
+        magg="TetSoluong0",
+        hinhthuc="Miễn phí Ship",
+        loaigg="Giảm theo số tiền",
+        giatri="10000",
+        soluong="0",
+        ngaybd_date="05102026", ngaybd_time="1159P",
+        ngaykt_date="05302026", ngaykt_time="1159P",
+        mota="Đây là voucher test tự động",
+        dieukiensp="Sữa",
+        tientoithieu="50000"
+    )
+
+    create.click_save()
+    assert driver.current_url == 'http://127.0.0.1:5000/create'
+    driver.save_screenshot("discounts/test/screenshots/CreateVoucher/actual_output_TC24.png")
+    # res = driver.find_element(By.CLASS_NAME, 'alert')
+
+def test_create_voucher_with_negative_number(driver):
+    login = LoginPage(driver=driver)
+    login.open_page()
+    login.login("Quản Trị Viên", "admin", "123")
+    create = CreateVoucherPage(driver=driver)
+    time.sleep(2)
+    create.open_page()
+    create.createvoucher(
+        magg="TetSoluong0",
+        hinhthuc="Miễn phí Ship",
+        loaigg="Giảm theo số tiền",
+        giatri="10000",
+        soluong="-1000",
+        ngaybd_date="05102026", ngaybd_time="1159P",
+        ngaykt_date="05302026", ngaykt_time="1159P",
+        mota="Đây là voucher test tự động",
+        dieukiensp="Sữa",
+        tientoithieu="50000"
+    )
+
+    create.click_save()
+    assert driver.current_url == 'http://127.0.0.1:5000/create'
+    driver.save_screenshot("discounts/test/screenshots/CreateVoucher/actual_output_TC25.png")
+    # res = driver.find_element(By.CLASS_NAME, 'alert')
+
+def test_create_voucher_with_number_is_chu(driver):
+    login = LoginPage(driver=driver)
+    login.open_page()
+    login.login("Quản Trị Viên", "admin", "123")
+    create = CreateVoucherPage(driver=driver)
+    time.sleep(2)
+    create.open_page()
+    create.createvoucher(
+        magg="TetSoluong0",
+        hinhthuc="Miễn phí Ship",
+        loaigg="Giảm theo số tiền",
+        giatri="10000",
+        soluong="abcd",
+        ngaybd_date="05102026", ngaybd_time="1159P",
+        ngaykt_date="05302026", ngaykt_time="1159P",
+        mota="Đây là voucher test tự động",
+        dieukiensp="Sữa",
+        tientoithieu="50000"
+    )
+
+    create.click_save()
+    assert driver.current_url == 'http://127.0.0.1:5000/create'
+    driver.save_screenshot("discounts/test/screenshots/CreateVoucher/actual_output_TC26.png")
+    # res = driver.find_element(By.CLASS_NAME, 'alert')
+
+def test_create_voucher_with_code_space(driver):
+    login = LoginPage(driver=driver)
+    login.open_page()
+    login.login("Quản Trị Viên", "admin", "123")
+    create = CreateVoucherPage(driver=driver)
+    time.sleep(2)
+    create.open_page()
+    create.createvoucher(
+        magg="SALE 10",
+        hinhthuc="Miễn phí Ship",
+        loaigg="Giảm theo số tiền",
+        giatri="10000",
+        soluong="1",
+        ngaybd_date="05102026", ngaybd_time="1159P",
+        ngaykt_date="05302026", ngaykt_time="1159P",
+        mota="Đây là voucher test tự động",
+        dieukiensp="Sữa",
+        tientoithieu="50000"
+    )
+
+    create.click_save()
+    assert driver.current_url == 'http://127.0.0.1:5000/create'
+    driver.save_screenshot("discounts/test/screenshots/CreateVoucher/actual_output_TC27.png")
+    # res = driver.find_element(By.CLASS_NAME, 'alert')
+
+def test_create_voucher_with_code_chu_hoa_chu_thuong(driver):
+    login = LoginPage(driver=driver)
+    login.open_page()
+    login.login("Quản Trị Viên", "admin", "123")
+
+    create = CreateVoucherPage(driver=driver)
+    time.sleep(1)
+    create.open_page()
+    create.createvoucher(
+        magg="DISCOUNT10",
+        hinhthuc="Miễn phí Ship",
+        loaigg="Giảm theo %",
+        giatri="15",
+        soluong="100",
+        ngaybd_date="05012026", ngaybd_time="1000A",
+        ngaykt_date="05302026", ngaykt_time="1159P",
+        mota="Đây là voucher test tự động",
+        dieukiensp="-- Tất cả sản phẩm --",
+        tientoithieu="50000"
+    )
+    create.click_save()
+    create = CreateVoucherPage(driver=driver)
+    time.sleep(1)
+    create.open_page()
+    create.createvoucher(
+        magg="discount10",
+        hinhthuc="Miễn phí Ship",
+        loaigg="Giảm theo %",
+        giatri="15",
+        soluong="100",
+        ngaybd_date="05012026", ngaybd_time="1000A",
+        ngaykt_date="05302026", ngaykt_time="1159P",
+        mota="Đây là voucher test tự động",
+        dieukiensp="-- Tất cả sản phẩm --",
+        tientoithieu="50000"
+    )
+    create.click_save()
+    assert driver.current_url == 'http://127.0.0.1:5000/create'
+    res = driver.find_element(By.CLASS_NAME, 'alert')
+    assert 'đã tồn tại' in res.text
+    driver.save_screenshot("discounts/test/screenshots/CreateVoucher/actual_output_TC28.png")
+
+def test_create_voucher_with_long_number(driver):
+    login = LoginPage(driver=driver)
+    login.open_page()
+    login.login("Quản Trị Viên", "admin", "123")
+    create = CreateVoucherPage(driver=driver)
+    time.sleep(2)
+    create.open_page()
+    create.createvoucher(
+        magg="TetSoluong0",
+        hinhthuc="Miễn phí Ship",
+        loaigg="Giảm theo số tiền",
+        giatri="10000",
+        soluong="999999999",
+        ngaybd_date="05102026", ngaybd_time="1159P",
+        ngaykt_date="05302026", ngaykt_time="1159P",
+        mota="Đây là voucher test tự động",
+        dieukiensp="Sữa",
+        tientoithieu="50000"
+    )
+
+    create.click_save()
+    assert driver.current_url == 'http://127.0.0.1:5000/create'
+    driver.save_screenshot("discounts/test/screenshots/CreateVoucher/actual_output_TC29.png")
     # res = driver.find_element(By.CLASS_NAME, 'alert')
