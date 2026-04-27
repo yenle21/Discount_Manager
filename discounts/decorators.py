@@ -13,11 +13,9 @@ def admin_required(f):
         # Ép kiểu int để chắc chắn 0 != 1
         # Dùng getattr để lấy role an toàn hơn trong môi trường Mock
         role = getattr(current_user, 'user_role', -1)
-        if not current_user.is_authenticated:
+        if not current_user.is_authenticated or role is None or int(role) != UserRole.ADMIN:
+            flash("Không có quyền truy cập. Vui lòng đăng nhập với quyền Admin!", "danger")
             return redirect('/login')
-        if int(role) != UserRole.ADMIN:
-            flash("Bạn không có quyền truy cập vào trang này!", "danger")
-            return redirect('/')
 
         return f(*args, **kwargs)
 
