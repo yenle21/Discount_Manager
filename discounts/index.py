@@ -121,7 +121,8 @@ def register_routes(app):
             ngay_kt_str = request.form.get('NgayKT')
             hinhthuc_str = request.form.get('Hinhthuc')
             loaigg = request.form.get('LoaiGG')
-            dieu_kien_sp = (request.form.get('DieuKienSP') or "")
+            raw_dksp = request.form.get('DieuKienSP')
+            dieu_kien_sp = int(raw_dksp) if raw_dksp and raw_dksp.strip() != "" else None
 
             # 2. Validation cơ bản (Mã)
             if not MaGG:

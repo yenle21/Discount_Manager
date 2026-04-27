@@ -66,9 +66,10 @@ class Voucher(db.Model):
     MoTa = db.Column(db.Text)
     DieuKien = db.Column(db.Float)
     DaSuDung = db.Column(db.Integer, default=0)
-    DieuKienSP = db.Column(db.String(100))
+    DieuKienSP = db.Column(db.Integer, db.ForeignKey('category.id')) # Khóa ngoại
     admin_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     don_hangs = db.relationship('DonHang', backref='voucher_applied_ref', lazy=True)
+    category = db.relationship('Category', backref='vouchers')
 
 class DonHang(db.Model):
     __tablename__ = 'don_hang'
