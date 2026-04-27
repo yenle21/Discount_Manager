@@ -36,8 +36,11 @@
                                        pattern="[A-Za-z0-9]+"
                                        title="Mã voucher chỉ được chứa chữ cái và số (không có ký tự đặc biệt)"
                                        maxlength="15"
-                                       {% if v_edit %} readonly style="background:#f4f4f4" {% else %} required {% endif
+                                       {% if v_edit %} readonly style="background:#f4f4f4" {% endif
                                        %}>
+                                {% if error_MaGG %}
+                                <small class="text-danger">{{ error_MaGG }}</small>
+                                {% endif %}
                             </div>
 
                             <div class="form-row">

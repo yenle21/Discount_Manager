@@ -1,5 +1,5 @@
 import os
-from datetime import datetime, timedelta
+import time
 
 import pytest
 from flask import Flask
@@ -10,6 +10,8 @@ from werkzeug.security import generate_password_hash
 
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
+
+from discounts.test.pages.HomePage import HomePage
 
 
 def create_app():
@@ -129,7 +131,15 @@ def mock_admin(monkeypatch):
 
 @pytest.fixture
 def driver():
-    # service = Service(executable_path='../.venv/chromedriver.exe')
+    service = Service(executable_path='../.venv/chromedriver.exe')
     driver = webdriver.Chrome()
     yield driver
     driver.quit()
+
+@pytest.fixture
+def cart_ready(driver):
+    home = HomePage(driver)
+    home.open_page()
+    home.add_to_cart()
+    time.sleep(1)
+    return driver

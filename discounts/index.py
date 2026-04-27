@@ -55,12 +55,6 @@ def register_routes(app):
 
 
     #---------------- TRANG ADMIN ------------------------
-    @app.route("/create")
-    @admin_required
-    def create():
-        categories = dao.load_categories()
-        return render_template("admin/create_voucher.html", categories=categories)
-
     # danh sách voucher
     @app.route('/admin')
     @admin_required
@@ -107,6 +101,14 @@ def register_routes(app):
             trang_thai=trang_thai,
             kw=kw
         )
+
+
+    @app.route("/create")
+    @admin_required
+    def create():
+        categories = dao.load_categories()
+        return render_template("admin/create_voucher.html", categories=categories)
+
     # Thêm voucher
     @app.route('/create', methods=['POST'])
     @admin_required
@@ -126,8 +128,12 @@ def register_routes(app):
 
             # 2. Validation cơ bản (Mã)
             if not MaGG:
-                flash("Mã voucher không được để trống!", "danger")
-                return redirect('/create')
+                categories = dao.load_categories()
+                return render_template(
+                    "admin/create_voucher.html",
+                    error_MaGG="Vui lòng nhập Mã Voucher!",
+                    categories=categories
+                )
             if not ngay_bd_str or not ngay_kt_str:
                 flash("Vui lòng nhập đầy đủ ngày bắt đầu và ngày kết thúc!", "danger")
                 return redirect('/create')
@@ -145,7 +151,7 @@ def register_routes(app):
 
             # 3. Ép kiểu an toàn (Tránh crash lỗi hệ thống)
             try:
-                gia_tri = float(raw_gia_tri or 0)
+                gia_tri = float(raw_gia_tri)
                 so_luong = int(raw_so_luong)
                 dieu_kien = float(raw_dieu_kien or 0)
 
@@ -163,7 +169,7 @@ def register_routes(app):
             if ngay_kt and ngay_kt < datetime.now():
                 flash("Ngày kết thúc không được ở quá khứ!", "danger")
                 return redirect('/create')
-            if ngay_kt and ngay_bd < datetime.now():
+            if ngay_bd and ngay_bd.date() < datetime.now().date():
                 flash("Ngày bắt đầu không được ở quá khứ!", "danger")
                 return redirect('/create')
             if (loaigg == "phần trăm" or loaigg == "phantram") and (gia_tri <= 0 or gia_tri > 50):
