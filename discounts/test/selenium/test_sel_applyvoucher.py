@@ -1,11 +1,13 @@
 import os
 import time
 from datetime import datetime
-
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
 
 from discounts.test.pages.ApplyVoucherPage import  ApplyVoucherPage
 from discounts.test.conftest import driver, cart_ready
+from discounts.test.pages.LoginPage import LoginPage
 
 
 def test_TC01_view_cart(cart_ready):
@@ -53,3 +55,211 @@ def test_TC02_delete_item(cart_ready):
     assert name_deleted not in names_after
 
     driver.save_screenshot("discounts/test/screenshots/ApplyVoucher/actual_output_TC02.png")
+
+def test_TC03_update_quantity(cart_ready):
+    driver = cart_ready
+    cart = ApplyVoucherPage(driver)
+    cart.open_page()
+
+    cart.update_quantity(2)
+
+    qty = cart.get_quantity()
+
+    assert int(qty) == 2
+    driver.save_screenshot("discounts/test/screenshots/ApplyVoucher/actual_output_TC03.png")
+
+def test_TC03_update_quantity_api(client):
+    with client.session_transaction() as sess:
+        sess['cart'] = {
+            "1": {"price": 10000, "quantity": 1}
+        }
+
+    res = client.put('/api/cart/1', json={"quantity": 3})
+
+    assert res.status_code == 200
+    assert res.json["cart"]["1"]["quantity"] == 3
+
+def test_TC03_invalid_quantity(client):
+    res = client.put('/api/cart/1', json={"quantity": "abc"})
+
+    assert res.status_code == 400
+
+def test_TC03_quantity_zero_delete(client):
+    with client.session_transaction() as sess:
+        sess['cart'] = {
+            "1": {"price": 10000, "quantity": 1}
+        }
+
+    res = client.put('/api/cart/1', json={"quantity": 0})
+
+    assert "1" not in res.json["cart"]
+
+def test_TC04_total_api(client):
+    with client.session_transaction() as sess:
+        sess['cart'] = {
+            "1": {"price": 10000, "quantity": 2},
+            "2": {"price": 5000, "quantity": 1}
+        }
+
+    res = client.put('/api/cart/1', json={"quantity": 2})
+
+    data = res.json
+    cart = data["cart"]
+
+    total_expected = sum(
+        item["price"] * item["quantity"]
+        for item in cart.values()
+    )
+
+    assert data["total_amount"] == total_expected
+
+def test_TC04_total_ui(cart_ready):
+    driver = cart_ready
+    cart = ApplyVoucherPage(driver)
+    cart.open_page()
+
+    total = cart.get_total()
+
+    assert "VNĐ" in total
+    driver.save_screenshot("discounts/test/screenshots/ApplyVoucher/actual_output_TC04.png")
+
+def test_TC05_apply_voucher(cart_ready):
+    driver = cart_ready
+    cart = ApplyVoucherPage(driver)
+    cart.open_page()
+
+    cart.open_voucher()
+    cart.choose_voucher()
+
+    driver.save_screenshot("discounts/test/screenshots/ApplyVoucher/actual_output_TC05.png")
+
+def test_TC05_apply_voucher_api(test_client):
+    with test_client.session_transaction() as sess:
+        sess['cart'] = {
+            "1": {
+                "id": "1",
+                "name": "Kem bắp",
+                "price": 100000,
+                "quantity": 1,
+                "category_id": 1
+            }
+        }
+
+    res = test_client.put('/api/apply-voucher/1', json={
+        "voucher_id": "sale10"
+    })
+
+    data = res.get_json()
+
+    assert data['status'] == 200
+    assert "thành công" in data['message']
+
+def test_TC06_remove_voucher(cart_ready):
+    driver = cart_ready
+    cart = ApplyVoucherPage(driver)
+    cart.open_page()
+    cart.open_voucher()
+    cart.choose_voucher()
+
+    before = cart.get_total_new()
+    driver.save_screenshot("discounts/test/screenshots/ApplyVoucher/actual_output_TC06_1.png")
+
+    cart.remove_voucher()
+
+    after = cart.get_total_new()
+    driver.save_screenshot("discounts/test/screenshots/ApplyVoucher/actual_output_TC06_2.png")
+
+    assert before != after
+
+def test_TC06_remove_voucher_api(test_client):
+    with test_client.session_transaction() as sess:
+        sess['cart'] = {
+            "1": {
+                "id": "1",
+                "name": "Kem bắp",
+                "price": 100000,
+                "quantity": 1,
+                "category_id": 1
+            }
+        }
+        sess['voucher'] = "sale10"
+
+    res = test_client.delete('/api/apply-voucher')
+
+    data = res.get_json()
+
+    # HTTP
+    assert res.status_code == 200
+
+    # response đúng format hiện tại
+    assert data['status'] == 200
+    assert 'total_price' in data
+    assert 'message' in data
+
+    # session đã bị clear
+    with test_client.session_transaction() as sess:
+        assert sess.get('applied_vouchers') == {}
+
+def test_TC07_name_empty(cart_ready):
+    driver = cart_ready
+
+    login = LoginPage(driver)
+    login.open_page()
+    login.login("Khách Hàng", "khachhang", "123")
+
+    cart = ApplyVoucherPage(driver)
+    cart.open_page()
+
+    cart.enter_info("","0321277291", "NhaBe TPHCM")
+    msg = cart.checkout()
+
+    assert msg is not None
+    assert "Tên người nhận không hợp lệ" in msg
+
+def test_TC07_phone_empty(cart_ready):
+    driver = cart_ready
+
+    login = LoginPage(driver)
+    login.open_page()
+    login.login("Khách Hàng", "khachhang", "123")
+
+    cart = ApplyVoucherPage(driver)
+    cart.open_page()
+
+    cart.enter_info("NVA","", "NhaBe TPHCM")
+    msg = cart.checkout()
+
+    assert msg is not None
+    assert "Số điện thoại không đúng" in msg
+
+def test_TC07_adress_empty(cart_ready):
+    driver = cart_ready
+
+    login = LoginPage(driver)
+    login.open_page()
+    login.login("Khách Hàng", "khachhang", "123")
+
+    cart = ApplyVoucherPage(driver)
+    cart.open_page()
+
+    cart.enter_info("NVA","0321277291", "")
+    msg = cart.checkout()
+
+    assert msg is not None
+    assert "Vui lòng nhập địa chỉ cụ thể" in msg
+
+# def test_TC08_checkout_success(cart_ready):
+#     driver = cart_ready
+#
+#     login = LoginPage(driver)
+#     login.open_page()
+#     login.login("Khách Hàng", "khachhang", "123")
+#
+#     cart = ApplyVoucherPage(driver)
+#     cart.open_page()
+#
+#     cart.enter_info("NVA","0321277291", "NhaBe TPHCM")
+#     msg = cart.checkout()
+#
+#     assert msg is not None
+#     assert "" in msg

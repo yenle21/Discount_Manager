@@ -16,6 +16,7 @@ class BasePage:
     def finds(self, by, value):
         return self.driver.find_elements(by, value)
 
+
     def click(self, by, value):
         element = self.find(by, value)
         self.driver.execute_script("arguments[0].click();", element)
