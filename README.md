@@ -25,7 +25,8 @@ git clone <link_repo>
 pip install -r requirements.txt
 
 ### 3. Chạy ứng dụng
-python app.py
+python models.py
+python index.py
 
 ### 4. Chạy test
 pytest discounts/test/selenium/
