@@ -10,6 +10,8 @@ class HomePage(BasePage):
     PRODUCT_BUTTON1 = (By.CSS_SELECTOR, '.product-grid > div:nth-child(1) > div > button')
     PRODUCT_BUTTON2 = (By.CSS_SELECTOR, '.product-grid > div:nth-child(2) > div > button')
 
+    PRODUCT_BUTTON3 = (By.CSS_SELECTOR, '.product-grid > div:nth-child(2) > div.p-3 > button')
+
     def open_page(self):
         self.open(self.URL)
 
@@ -23,3 +25,7 @@ class HomePage(BasePage):
         self.click(*self.PRODUCT_BUTTON1)
         self.driver.implicitly_wait(1)
         self.click(*self.PRODUCT_BUTTON2)
+
+    def add_to_cart_not_milk(self):
+        self.click(*self.PRODUCT_BUTTON3)
+        self.driver.implicitly_wait(1)
