@@ -17,8 +17,8 @@ class ApplyVoucherPage(BasePage):
 
     VOUCHER_BTN = (By.ID, "apply-voucher-btn")
     REMOVE_VOUCHER_BTN = (By.ID, "btn-clear-vouchers")
-    CHECKOUT_BTN = (By.XPATH, "btn-checkout-now")
-    VOUCHERS = (By.CSS_SELECTOR, "#promo-content > div > div:nth-child(1) > div")
+    CHECKOUT_BTN = (By.ID, "btn-checkout-now")
+    VOUCHERS = (By.CSS_SELECTOR, "#promo-content > div > div:nth-child(1) > div > button")
 
     NAME_INPUT = (By.ID, "receiver-name")
     PHONE_INPUT = (By.ID, "receiver-phone")
@@ -57,19 +57,60 @@ class ApplyVoucherPage(BasePage):
         self.driver.find_element(*self.VOUCHERS).click()
         wait = WebDriverWait(self.driver, 10)
         alert = wait.until(EC.alert_is_present())
+
         alert.accept()
+        self.driver.execute_script("""
+                var modal = document.getElementById('discountModal');
+                if (modal) {
+                    modal.classList.remove('show');
+                    modal.style.display = 'none';
+                }
+
+                // 🔥 XÓA lớp backdrop (cái che màn hình)
+                var backdrops = document.getElementsByClassName('modal-backdrop');
+                while(backdrops.length > 0){
+                    backdrops[0].parentNode.removeChild(backdrops[0]);
+                }
+
+                // reset body
+                document.body.classList.remove('modal-open');
+                document.body.style = '';
+            """)
 
     def remove_voucher(self):
-        self.driver.find_element(*self.REMOVE_VOUCHER_BTN).click()
+        self.find(*self.REMOVE_VOUCHER_BTN).click()
         wait = WebDriverWait(self.driver, 10)
         alert = wait.until(EC.alert_is_present())
         alert.accept()
 
     def checkout(self):
-        self.driver.find_element(*self.CHECKOUT_BTN).click()
+        wait = WebDriverWait(self.driver, 10, poll_frequency=0.2)
+        element = self.driver.find_element(*self.CHECKOUT_BTN)
 
+        self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", element)
+
+        import time
+        time.sleep(0.5)
+
+        element.click()
+
+        msg = None
+
+        for _ in range(20):  # ~2s
+            try:
+                alert = self.driver.switch_to.alert
+                msg = alert.text
+                print("ALERT:", msg)
+
+                alert.accept()
+                return msg
+
+            except Exception:
+                time.sleep(0.1)
+
+        return None
     def enter_info(self, name="", phone="", address=""):
-        self.driver.find_element(*self.NAME_INPUT).send_keys(name)
-        self.driver.find_element(*self.PHONE_INPUT).send_keys(phone)
-        self.driver.find_element(*self.ADDRESS_INPUT).send_keys(address)
+        self.typing(*self.NAME_INPUT, name)
+        self.typing(*self.PHONE_INPUT, phone)
+        self.typing(*self.ADDRESS_INPUT, address)
 

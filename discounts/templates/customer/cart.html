@@ -129,7 +129,7 @@
                     </div>
                     {%if current_user.is_authenticated%}
                         <button class="btn btn-checkout-now w-100 rounded-pill py-3 fw-bold fs-5 shadow"
-                                onclick="processCheckout()">
+                                onclick="processCheckout()" id="btn-checkout-now">
                             Thanh toán ngay
                         </button>
                     {%else%}
