@@ -5,20 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="00a43f5f-c0ab-4975-bcd8-83786c74f2d2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher/actual_output_TC10.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher/actual_output_TC10.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher/actual_output_TC3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher/actual_output_TC5.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher/actual_output_TC5.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/discounts/test/selenium/test_sel_createvoucher.py" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/selenium/test_sel_createvoucher.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/pages/RegisterPage.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/selenium/test_sel_login.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/selenium/test_sel_register.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/pages/AdminPage.py" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/pages/AdminPage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/selenium/test_sel.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -50,36 +54,51 @@
     "Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher.test_create_voucher_no_login.executor": "Run",
     "Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher.test_create_voucher_no_maGG.executor": "Run",
     "Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher.test_create_voucher_start_day_eq_current.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_login.test_login_fail_with_no_input_password.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_login.test_login_fail_with_no_input_password_username.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_login.test_login_fail_with_no_input_username.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_login.test_login_fail_with_username_special_charaters.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_login.test_login_fail_with_wrong_password.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_login.test_login_fail_with_wrong_role.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_login.test_login_fail_with_wrong_username.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_login.test_login_success_with_admin_account.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_login.test_login_success_with_customer_account.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_login.test_login_with_username_space.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_login.test_redict_page_admin_no_login.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_login.test_redict_page_customer_no_login.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_duplicate_username.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_email_invalid.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_empty_all.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_empty_confirm_email.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_empty_confirm_password.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_empty_name.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_empty_password.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_empty_username.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_password_7_characters.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_password_lowercase.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_password_mismatch.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_password_no_number.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_password_no_special_characters.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_password_no_uppercase.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_password_only_numbers.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_password_valid.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_space_username.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_special_characters_username.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_success.executor": "Run",
     "Python.index.executor": "Run",
+    "Python.models.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "Yenle"
   }
 }]]></component>
-  <component name="RunManager" selected="Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher.test_create_voucher_start_day_eq_current">
-    <configuration name="index" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Discount_Manager" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/discounts" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/discounts/index.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Python tests for discounts.test.selenium.test_sel_createvoucher.test_create_voucher_no_login" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\HK2_2025\KiemThu\Discount_Manager\discounts\static\images" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_email_invalid">
+    <configuration name="Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_email_invalid" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="Discount_Manager" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -90,11 +109,11 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_createvoucher.test_create_voucher_no_login&quot;" />
+      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_register.test_register_failure_with_email_invalid&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Python tests for discounts.test.selenium.test_sel_createvoucher.test_create_voucher_no_maGG" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+    <configuration name="Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_password_lowercase" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="Discount_Manager" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -105,11 +124,11 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_createvoucher.test_create_voucher_no_maGG&quot;" />
+      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_register.test_register_failure_with_password_lowercase&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Python tests for discounts.test.selenium.test_sel_createvoucher.test_create_voucher_start_day_eq_current" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+    <configuration name="Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_password_no_number" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="Discount_Manager" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -120,16 +139,47 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_createvoucher.test_create_voucher_start_day_eq_current&quot;" />
+      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_register.test_register_failure_with_password_no_number&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_password_no_special_characters" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="Discount_Manager" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_register.test_register_failure_with_password_no_special_characters&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_password_only_numbers" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="Discount_Manager" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_register.test_register_failure_with_password_only_numbers&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher.test_create_voucher_start_day_eq_current" />
-        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher.test_create_voucher_no_maGG" />
-        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher.test_create_voucher_no_login" />
-        <item itemvalue="Python.index" />
+        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_email_invalid" />
+        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_password_only_numbers" />
+        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_password_lowercase" />
+        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_password_no_number" />
+        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_password_no_special_characters" />
       </list>
     </recent_temporary>
   </component>
