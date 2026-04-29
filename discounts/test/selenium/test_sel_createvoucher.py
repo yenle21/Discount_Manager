@@ -54,8 +54,8 @@ def test_create_voucher_no_login(driver):
     create = CreateVoucherPage(driver=driver)
     create.open_page()
     assert driver.current_url == 'http://127.0.0.1:5000/login'
-    # res = driver.find_element(By.CLASS_NAME, 'alert')
-    # assert 'đăng nhập' in res.text
+    res = driver.find_element(By.CLASS_NAME, 'alert')
+    assert 'đăng nhập' in res.text
     driver.save_screenshot("discounts/test/screenshots/CreateVoucher/actual_output_TC3.png")
 
 # /////
@@ -246,7 +246,7 @@ def test_create_voucher_start_day_eq_current(driver):
     time.sleep(2)
     create.open_page()
     create.createvoucher(
-        magg="TC08",
+        magg="TC10",
         hinhthuc="Miễn phí Ship",
         loaigg="Giảm theo %",
         giatri="15",
@@ -260,7 +260,7 @@ def test_create_voucher_start_day_eq_current(driver):
     create.click_save()
 
     time.sleep(1)
-    assert driver.current_url == 'http://127.0.0.1:5000/create'
+    assert driver.current_url == 'http://127.0.0.1:5000/admin'
     # res = driver.find_element(By.CLASS_NAME, 'alert')
     driver.save_screenshot("discounts/test/screenshots/CreateVoucher/actual_output_TC10.png")
 
