@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="00a43f5f-c0ab-4975-bcd8-83786c74f2d2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/discounts/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/utils.py" afterDir="false" />
-    </list>
+    <list default="true" id="00a43f5f-c0ab-4975-bcd8-83786c74f2d2" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -120,7 +117,7 @@
       <recent name="D:\HK2_2025\KiemThu\Discount_Manager\discounts\static\images" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.index">
+  <component name="RunManager" selected="Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_space_username">
     <configuration name="index" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Discount_Manager" />
       <option name="ENV_FILES" value="" />
@@ -158,36 +155,6 @@
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC05_apply_voucher_api" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
-      <module name="Discount_Manager" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_applyvoucher.test_TC05_apply_voucher_api&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC06_remove_voucher_api" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
-      <module name="Discount_Manager" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_applyvoucher.test_TC06_remove_voucher_api&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
     <configuration name="Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC29_voucher_expired" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="Discount_Manager" />
       <option name="ENV_FILES" value="" />
@@ -203,13 +170,43 @@
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
+    <configuration name="Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_space_username" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="Discount_Manager" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_register.test_register_failure_with_space_username&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_special_characters_username" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="Discount_Manager" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_register.test_register_failure_with_special_characters_username&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_space_username" />
+        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_special_characters_username" />
         <item itemvalue="Python.index" />
         <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC02_delete_item_api" />
         <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC29_voucher_expired" />
-        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC06_remove_voucher_api" />
-        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC05_apply_voucher_api" />
       </list>
     </recent_temporary>
   </component>
