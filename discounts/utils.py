@@ -47,8 +47,10 @@ def calculate_multi_vouchers(applied_vouchers, total_price):
                 total_discount += gia_tri
 
         elif kind == 'SHIPPING':
-            # Giảm thẳng tiền ship (ví dụ 15,000đ)
-            total_discount += gia_tri
+            if gia_tri < 100:
+                total_discount += total_price * (gia_tri / 100)
+            else:
+                total_discount += gia_tri
 
     return {
         "discount_amount": total_discount,
