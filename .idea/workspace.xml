@@ -5,12 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="00a43f5f-c0ab-4975-bcd8-83786c74f2d2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/discounts/test/pages/RegisterPage.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/discounts/test/selenium/test_sel_login.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/discounts/test/selenium/test_sel_register.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/discounts/test/pages/AdminPage.py" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/pages/AdminPage.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/discounts/test/selenium/test_sel.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/templates/customer/customer.html" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/templates/customer/customer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/pages/ApplyVoucherPage.py" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/pages/ApplyVoucherPage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/pages/HomePage.py" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/pages/HomePage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/selenium/test_sel_applyvoucher.py" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/selenium/test_sel_applyvoucher.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,22 +26,22 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "yenle21"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;yenle21&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/yenle21/Discount_Manager.git",
-    "accountId": "62973d97-84cd-4dd4-a3e6-c3db14868980"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/yenle21/Discount_Manager.git&quot;,
+    &quot;accountId&quot;: &quot;62973d97-84cd-4dd4-a3e6-c3db14868980&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 3
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="3D0wYxxhonnawXyJdxKkfp9dC2U" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -51,6 +50,23 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC07_name_empty.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC08_checkout_success.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC09_text_phone.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC10_phone_without_zero_first.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC11_phone_gt.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC12_phone_lt.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC13_payment_dropdown.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC14_payment_selected.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC15_payment_dropdown.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC16_payment_selected.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC17_confirm_popup.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC19_after_checkout_success.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC20_voucher_popup.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC21_apply_voucher_by_category.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC22_voucher_not_applied_wrong_category.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC22_voucher_not_show_wrong_category.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC25_switch_voucher_tabs.executor": "Run",
     "Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher.test_create_voucher_no_login.executor": "Run",
     "Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher.test_create_voucher_no_maGG.executor": "Run",
     "Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher.test_create_voucher_start_day_eq_current.executor": "Run",
@@ -89,7 +105,7 @@
     "Python.models.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Yenle"
+    "git-widget-placeholder": "NguyenNhu"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -97,8 +113,8 @@
       <recent name="D:\HK2_2025\KiemThu\Discount_Manager\discounts\static\images" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_email_invalid">
-    <configuration name="Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_email_invalid" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC22_voucher_not_applied_wrong_category">
+    <configuration name="Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC20_voucher_popup" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="Discount_Manager" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -109,11 +125,11 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_register.test_register_failure_with_email_invalid&quot;" />
+      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_applyvoucher.test_TC20_voucher_popup&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_password_lowercase" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+    <configuration name="Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC21_apply_voucher_by_category" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="Discount_Manager" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -124,11 +140,11 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_register.test_register_failure_with_password_lowercase&quot;" />
+      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_applyvoucher.test_TC21_apply_voucher_by_category&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_password_no_number" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+    <configuration name="Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC22_voucher_not_applied_wrong_category" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="Discount_Manager" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -139,11 +155,11 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_register.test_register_failure_with_password_no_number&quot;" />
+      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_applyvoucher.test_TC22_voucher_not_applied_wrong_category&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_password_no_special_characters" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+    <configuration name="Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC22_voucher_not_show_wrong_category" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="Discount_Manager" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -154,11 +170,11 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_register.test_register_failure_with_password_no_special_characters&quot;" />
+      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_applyvoucher.test_TC22_voucher_not_show_wrong_category&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_password_only_numbers" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+    <configuration name="Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC25_switch_voucher_tabs" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="Discount_Manager" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -169,17 +185,17 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_register.test_register_failure_with_password_only_numbers&quot;" />
+      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_applyvoucher.test_TC25_switch_voucher_tabs&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_email_invalid" />
-        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_password_only_numbers" />
-        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_password_lowercase" />
-        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_password_no_number" />
-        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_password_no_special_characters" />
+        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC22_voucher_not_applied_wrong_category" />
+        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC21_apply_voucher_by_category" />
+        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC22_voucher_not_show_wrong_category" />
+        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC25_switch_voucher_tabs" />
+        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC20_voucher_popup" />
       </list>
     </recent_temporary>
   </component>
