@@ -1,3 +1,4 @@
+import datetime
 import os
 import time
 
@@ -99,23 +100,65 @@ def sample_product(test_session):
 
     yield [p1, p2, p3, p4]
 
+
 @pytest.fixture
-def sample_voucher(test_session):
+def sample_vouchers(test_session):
+    now = datetime.datetime.now()
+
     v = Voucher(
-        MaGG="SALE10",
-        LoaiGG="PERCENTAGE",
-        GiaTri=10,
+        MaGG="GIAM10000",
+        LoaiGG="FIXED",
+        GiaTri=10000,
         DieuKien=100000,
         SoLuong=100,
         DaSuDung=0,
-        NgayBD=datetime.now(),
-        NgayKT=datetime.now() + timedelta(days=7),  # Kết thúc sau 1 tuần
+        NgayBD=now,
+        NgayKT=now + datetime.timedelta(days=7),  # Kết thúc sau 1 tuần
         Hinhthuc="Shipping",
         DieuKienSP="1"
     )
-    test_session.add(v)
+
+    v_valid = Voucher(
+        MaGG="VALID",
+        LoaiGG="PERCENTAGE",
+        GiaTri=10,
+        DieuKien=0,
+        SoLuong=10,
+        DaSuDung=0,
+        NgayBD=now - datetime.timedelta(days=1),
+        NgayKT=now + datetime.timedelta(days=5),
+        Hinhthuc="Shipping"
+    )
+
+    v_future = Voucher(
+        MaGG="FUTURE",
+        LoaiGG="PERCENTAGE",
+        GiaTri=10,
+        DieuKien=0,
+        SoLuong=10,
+        DaSuDung=0,
+        NgayBD=now + datetime.timedelta(days=2),  # chưa tới hạn
+        NgayKT=now + datetime.timedelta(days=10),
+        Hinhthuc="Promotion"
+    )
+
+    v_expired = Voucher(
+        MaGG="EXPIRED",
+        LoaiGG="PERCENTAGE",
+        GiaTri=10,
+        DieuKien=0,
+        SoLuong=10,
+        DaSuDung=0,
+        NgayBD=now - datetime.timedelta(days=10),
+        NgayKT=now - datetime.timedelta(days=1),  # hết hạn
+        Hinhthuc="Promotion"
+    )
+
+    test_session.add_all([v, v_valid, v_future, v_expired])
     test_session.commit()
-    yield v
+
+    yield v, v_valid, v_future, v_expired
+
 
 @pytest.fixture()
 def mock_admin(monkeypatch):
