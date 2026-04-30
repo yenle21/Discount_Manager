@@ -680,6 +680,10 @@ def register_routes(app):
                 err_msg = "Họ tên không được để trống!"
             elif not username or not username.strip():
                 err_msg = "Tên tài khoản không được để trống!"
+            elif " " in username:
+                err_msg = "Tên tài khoản không được chứa khoảng trắng!"
+            elif not re.match("^[A-Za-z0-9]+$", username):
+                err_msg = "Tên tài khoản không được chứa ký tự đặc biệt!"
             elif dao.check_username_exists(username):
                 err_msg = "Tên đăng nhập này đã tồn tại! Vui lòng chọn tên khác."
             elif not re.match(password_pattern, password):

@@ -30,7 +30,13 @@
             </div>
 
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="username" placeholder="Nhập tên tài khoản" name="username" required>
+                <input type="text" class="form-control"
+                       id="username"
+                       placeholder="Nhập tên tài khoản"
+                       name="username"
+                       pattern="^[A-Za-z0-9]+$"
+                       title="Chỉ được nhập chữ và số, không khoảng trắng, không ký tự đặc biệt."
+                       required>
                 <label for="username">Nhập tên tài khoản</label>
             </div>
 
