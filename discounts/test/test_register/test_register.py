@@ -64,6 +64,30 @@ def test_register_username_exist(test_client, sample_users):
 
     assert 'Tên đăng nhập này đã tồn tại! Vui lòng chọn tên khác.' in response.data.decode('utf-8')
 
+# Test tên tài khoản có khoảng trắng
+def test_register_username_space(test_client):
+    response = test_client.post('/register', data={
+        'name': 'Nguyễn Khách',
+        'username': 'khach 123',
+        'password': 'Abc@1234',
+        'confirm': 'Abc@1234',
+        'email': 'abc@gmail.com'
+    }, follow_redirects=True)
+
+    assert 'Tên tài khoản không được chứa khoảng trắng!' in response.data.decode('utf-8')
+
+# Test tên tài khoản có ký tự đặc biệt
+def test_register_username_with_special_char(test_client):
+    response = test_client.post('/register', data={
+        'name': 'Nguyễn Khách',
+        'username': 'khach#123',
+        'password': 'Abc@1234',
+        'confirm': 'Abc@1234',
+        'email': 'abc@gmail.com'
+    }, follow_redirects=True)
+
+    assert 'Tên tài khoản không được chứa ký tự đặc biệt!' in response.data.decode('utf-8')
+
 # Test mật khẩu ít hơn 8 ký tự
 def test_register_password_less_than_8(test_client):
     response = test_client.post('/register', data={
