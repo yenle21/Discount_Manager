@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="00a43f5f-c0ab-4975-bcd8-83786c74f2d2" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/discounts/test/selenium/test_sel_home.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/discounts/index.py" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/index.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/discounts/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/templates/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/conftest.py" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/conftest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/selenium/test_sel_applyvoucher.py" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/selenium/test_sel_applyvoucher.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,12 +31,12 @@
     &quot;assignee&quot;: &quot;yenle21&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/yenle21/Discount_Manager.git",
-    "accountId": "fe5b2765-21a6-4902-bea5-2b3844c12163"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/yenle21/Discount_Manager.git&quot;,
+    &quot;accountId&quot;: &quot;fe5b2765-21a6-4902-bea5-2b3844c12163&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 3
@@ -48,6 +49,10 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC02_delete_item_api.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC04_total_api.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC05_apply_voucher_api.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC06_remove_voucher_api.executor": "Run",
     "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC07_name_empty.executor": "Run",
     "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC08_checkout_success.executor": "Run",
     "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC09_text_phone.executor": "Run",
@@ -64,7 +69,12 @@
     "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC21_apply_voucher_by_category.executor": "Run",
     "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC22_voucher_not_applied_wrong_category.executor": "Run",
     "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC22_voucher_not_show_wrong_category.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC23_apply_voucher_min_order_fail.executor": "Run",
     "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC25_switch_voucher_tabs.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC26_replace_voucher.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC27_voucher_not_started.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC28_voucher_valid.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC29_voucher_expired.executor": "Run",
     "Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher.test_create_voucher_no_login.executor": "Run",
     "Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher.test_create_voucher_no_maGG.executor": "Run",
     "Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher.test_create_voucher_start_day_eq_current.executor": "Run",
@@ -103,7 +113,7 @@
     "Python.models.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "NhuY",
+    "git-widget-placeholder": "NguyenNhu",
     "last_opened_file_path": "D:/Discount_Manager"
   }
 }]]></component>
@@ -112,8 +122,8 @@
       <recent name="D:\HK2_2025\KiemThu\Discount_Manager\discounts\static\images" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Python tests for discounts.test.test_register.test_register.test_register_username_with_special_char">
-    <configuration name="Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC21_apply_voucher_by_category" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC02_delete_item_api">
+    <configuration name="Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC02_delete_item_api" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="Discount_Manager" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -124,11 +134,11 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_applyvoucher.test_TC21_apply_voucher_by_category&quot;" />
+      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_applyvoucher.test_TC02_delete_item_api&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC22_voucher_not_applied_wrong_category" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+    <configuration name="Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC04_total_api" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="Discount_Manager" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -139,11 +149,11 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_applyvoucher.test_TC22_voucher_not_applied_wrong_category&quot;" />
+      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_applyvoucher.test_TC04_total_api&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC22_voucher_not_show_wrong_category" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+    <configuration name="Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC05_apply_voucher_api" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="Discount_Manager" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -154,11 +164,11 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_applyvoucher.test_TC22_voucher_not_show_wrong_category&quot;" />
+      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_applyvoucher.test_TC05_apply_voucher_api&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Python tests for discounts.test.test_register.test_register.test_register_username_space" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+    <configuration name="Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC06_remove_voucher_api" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="Discount_Manager" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -169,11 +179,11 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;discounts.test.test_register.test_register.test_register_username_space&quot;" />
+      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_applyvoucher.test_TC06_remove_voucher_api&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Python tests for discounts.test.test_register.test_register.test_register_username_with_special_char" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+    <configuration name="Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC29_voucher_expired" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="Discount_Manager" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -184,17 +194,17 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;discounts.test.test_register.test_register.test_register_username_with_special_char&quot;" />
+      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_applyvoucher.test_TC29_voucher_expired&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python tests.Python tests for discounts.test.test_register.test_register.test_register_username_with_special_char" />
-        <item itemvalue="Python tests.Python tests for discounts.test.test_register.test_register.test_register_username_space" />
-        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC22_voucher_not_applied_wrong_category" />
-        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC21_apply_voucher_by_category" />
-        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC22_voucher_not_show_wrong_category" />
+        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC02_delete_item_api" />
+        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC29_voucher_expired" />
+        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC06_remove_voucher_api" />
+        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC05_apply_voucher_api" />
+        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC04_total_api" />
       </list>
     </recent_temporary>
   </component>
