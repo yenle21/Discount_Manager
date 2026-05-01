@@ -29,3 +29,7 @@ class BasePage:
     def select_dropdown(self, by, value, text):
         dropdown = Select(self.find(by, value))
         dropdown.select_by_visible_text(text)
+
+    def is_element_visible(self, locator):
+        elements = self.driver.find_elements(*locator)
+        return any(e.is_displayed() for e in elements)
