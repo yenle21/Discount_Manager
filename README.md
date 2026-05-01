@@ -28,6 +28,5 @@ pip install -r requirements.txt
 python models.py
 python index.py
 
-### 4. Chạy test
-pytest discounts/test/selenium/
+
 
