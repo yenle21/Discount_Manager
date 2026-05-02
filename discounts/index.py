@@ -70,23 +70,30 @@ def register_routes(app):
             if v.Hinhthuc:
                 hinh_thuc_list.add(v.Hinhthuc)
             now = datetime.now()
+
             if v.TrangThai == 'Inactive':
-                display_status = "pending"  # Do người dùng chủ động tắt
-            elif v.NgayKT and now > v.NgayKT:
-                display_status = "expired"  # Hết hạn theo thời gian
-            elif v.DaSuDung >= v.SoLuong:
-                display_status = "expired"
+                display_status = "pending"
+
             elif v.NgayBD and now < v.NgayBD:
                 display_status = "pending"
+
+            elif v.NgayKT and now > v.NgayKT:
+                display_status = "expired"
+
+            elif v.DaSuDung >= v.SoLuong:
+                display_status = "expired"
+
             else:
                 display_status = "active"
             v.display_status = display_status
+
             # 3. Bộ lọc Search
             if kw and kw.lower() not in (v.MaGG or "").lower() and kw.lower() not in (v.MoTa or "").lower():
                 continue
             # 4. Bộ lọc theo Trạng thái
-            if trang_thai and display_status != trang_thai:
-                continue
+            if trang_thai:
+                if display_status.strip().lower() != trang_thai.strip().lower():
+                    continue
 
             # 5. Bộ lọc theo Hình thức (Khuyến mãi/Vận chuyển)
             if hinh_thuc and str(v.Hinhthuc).strip().lower() != str(hinh_thuc).strip().lower():
