@@ -172,17 +172,33 @@ def test_TC12_pagination(driver):
     home = HomePage(driver)
     home.open_page()
 
+    # click page 2
     home.click_page(2)
 
-    # wait đến khi active page = 2
+    # wait đến khi page active = 2
     WebDriverWait(driver, 10).until(
         lambda d: home.get_active_page() == "2"
     )
 
     assert home.get_active_page() == "2"
+    driver.save_screenshot("discounts/test/screenshots/Home/actual_output_TC12.png")
 
-def test_add_to_cart_success(test_client, app):
-    key = app.config['CART_KEY']
+
+def test_TC13_add_to_cart(driver):
+    home = HomePage(driver)
+    home.open_page()
+
+    before = home.get_cart_count()
+
+    home.add_to_cart()
+
+
+    after = home.get_cart_count()
+    assert after == before + 3
+    driver.save_screenshot("discounts/test/screenshots/Home/actual_output_TC13.png")
+
+def test_TC13_add_to_cart_counter_api(test_client, test_app):
+    key = test_app.config['CART_KEY']
 
     res = test_client.post("/api/cart", json={
         "id": 1,
@@ -203,3 +219,102 @@ def test_add_to_cart_success(test_client, app):
         cart = sess.get(key, {})
         assert "1" in cart
         assert cart["1"]["quantity"] == 1
+
+def test_TC14_click_redirect_cart(driver):
+    home = HomePage(driver)
+    home.open_page()
+    home.click_cart()
+
+    assert driver.current_url == 'http://127.0.0.1:5000/cart'
+
+def test_TC15_cart_persist_after_reload(driver):
+    home = HomePage(driver)
+    home.open_page()
+
+    # lấy số lượng ban đầu
+    before = home.get_cart_count()
+
+    # thêm vào giỏ
+    home.add_to_cart()
+
+    after_add = home.get_cart_count()
+
+    # reload trang
+    driver.refresh()
+
+    # wait load lại
+    home.wait.until(lambda d: home.get_cart_count() == after_add)
+
+    after_reload = home.get_cart_count()
+
+    assert after_reload == after_add
+
+def test_TC16_click_redirect_voucher_list(driver):
+    login = LoginPage(driver)
+    login.open_page()
+    login.login("Khách Hàng", "khachhang", "123")
+
+    home = HomePage(driver)
+    home.open_page()
+    driver.find_element(By.ID, "voucher-manager").click()
+
+    assert driver.current_url == 'http://127.0.0.1:5000/voucher-list'
+
+def test_TC17_access_voucher_without_login(driver):
+    home = HomePage(driver)
+    home.open_page()
+
+    home.logout_if_needed()
+
+    driver.get("http://127.0.0.1:5000/voucher-list")
+
+    # kiểm tra bị chặn
+    assert "login" in driver.current_url.lower() or "401" in driver.page_source.lower()
+    driver.save_screenshot("discounts/test/screenshots/Home/actual_output_TC17.png")
+
+def test_TC17_unauthorized_api(test_client):
+    res = test_client.get('/voucher-list')
+
+    assert res.status_code == 401
+
+def test_TC18_click_vcm_redirect_cart(driver):
+    login = LoginPage(driver)
+    login.open_page()
+    login.login("Khách Hàng", "khachhang", "123")
+
+    home = HomePage(driver)
+    home.open_page()
+    driver.find_element(By.ID, "voucher-manager").click()
+    buttons = driver.find_elements(By.CSS_SELECTOR, ".voucher-card button")
+    buttons[0].click()
+
+    assert driver.current_url == 'http://127.0.0.1:5000/cart?magg=DISCOUNT20'
+
+def test_TC19_display_voucher(driver):
+    login = LoginPage(driver)
+    login.open_page()
+    login.login("Khách Hàng", "khachhang", "123")
+
+    home = HomePage(driver)
+    home.open_page()
+
+    driver.find_element(By.ID, "voucher-manager").click()
+
+    vouchers = driver.find_elements(By.CSS_SELECTOR, ".voucher-card")
+
+    assert len(vouchers) > 0  # phải có voucher
+
+    for v in vouchers:
+        status = v.get_attribute("data-status")
+
+
+        assert status in ["active", "pending"]
+
+        buttons = v.find_elements(By.XPATH, ".//button[contains(text(),'Dùng ngay')]")
+
+        if status == "active":
+            assert len(buttons) == 1  # phải có nút
+
+        elif status == "pending":
+            assert len(buttons) == 0  # không được có nút
+
