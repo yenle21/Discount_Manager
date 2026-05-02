@@ -636,13 +636,26 @@ def register_routes(app):
         shipping_vouchers = []
 
         for v in vouchers:
+            trang_thai_db = str(v.TrangThai or "").lower().strip()
+
+            # Bỏ qua không hiển thị nếu voucher bị vô hiệu hóa/đã xóa
+
             # Chỉ lấy những mã chưa hết hạn ngày kết thúc
-            if not v.NgayKT or now <= v.NgayKT:
+            if not v.NgayKT or now <= v.NgayKT :
                 # Tính số lượng còn lại (đảm bảo không bị âm)
                 v.con_lai = max(0, v.SoLuong-v.DaSuDung)
                 # Biến kiểm tra xem còn lượt dùng hay không
                 v.is_available = v.con_lai > 0
+                if trang_thai_db in ['pending', 'inactive'] or (v.NgayBD and now < v.NgayBD):
+                    v.is_pending = True
 
+                    # Format ngày ra chuỗi, đề phòng v.NgayBD bị Null thì để chữ "Sắp tới"
+                    if v.NgayBD:
+                        v.ngay_bat_dau_str = v.NgayBD.strftime('%d/%m/%Y %H:%M')
+                    else:
+                        v.ngay_bat_dau_str = "Sắp tới"
+                else:
+                    v.is_pending = False
                 # Phân loại theo Hinhthuc
                 hinh_thuc_str = str(v.Hinhthuc or "").lower().strip()
                 if 'ship' in hinh_thuc_str or 'vận chuyển' in hinh_thuc_str:
