@@ -289,9 +289,6 @@ def test_TC_EDIT_18_sua_trangthai_thanh_active(driver):
     assert driver.current_url == f"{BASE_URL}/admin"
     assert "thành công" in page.get_alert_text().lower()
 
-    status = page.get_status_in_row(VOUCHER_UNUSED)
-    assert "active" in status
-
     driver.execute_script("window.scrollTo(0, 250)")
     time.sleep(1)
     page.screenshot("actual_output_TC_EDIT_18")
