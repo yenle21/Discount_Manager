@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-<<<<<<< Updated upstream
-    <list default="true" id="00a43f5f-c0ab-4975-bcd8-83786c74f2d2" name="Changes" comment="" />
-=======
     <list default="true" id="00a43f5f-c0ab-4975-bcd8-83786c74f2d2" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/discounts/test/pages/EditVoucherPage.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/pages/PayPage.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/selenium/test_pay.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/selenium/test_sel_editvoucher.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
->>>>>>> Stashed changes
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -47,10 +47,11 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-<<<<<<< Updated upstream
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python tests.Python tests for discounts.test.selenium.test_pay.test_login_customer.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_pay.test_open_admin.executor": "Run",
     "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC02_delete_item_api.executor": "Run",
     "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC04_total_api.executor": "Run",
     "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC05_apply_voucher_api.executor": "Run",
@@ -80,6 +81,59 @@
     "Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher.test_create_voucher_no_login.executor": "Run",
     "Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher.test_create_voucher_no_maGG.executor": "Run",
     "Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher.test_create_voucher_start_day_eq_current.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_DEL_01_xoa_voucher_chua_dung.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_DEL_32_xoa_voucher_chua_dung.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_DEL_33_xoa_voucher_expired.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_DEL_34_xoa_voucher_da_dung_bi_khoa.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_DEL_35_xoa_voucher_het_so_luong.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_DEL_36_huy_xoa_voucher.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_DEL_37_xoa_voucher_khong_ton_tai.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_EDIT_13_sua_hinhthuc_sang_shipping.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_EDIT_13_sua_hinhthuc_thanh_shipping.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_EDIT_14_sua_hinhthuc_khuyenmai.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_EDIT_14_sua_hinhthuc_thanh_khuyenmai.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_EDIT_15_sua_loaigg_phantram.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_EDIT_15_sua_loaigg_thanh_phantram.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_EDIT_16_sua_loaigg_sotien.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_EDIT_16_sua_loaigg_thanh_sotien.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_EDIT_17_sua_trangthai_thanh_inactive.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_EDIT_18_sua_trangthai_thanh_active.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_EDIT_19_sua_soluong.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_EDIT_20_sua_ngaybd.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_EDIT_21_sua_ngaykt.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_EDIT_22_sua_mota.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_EDIT_23_sua_dieukien_giati.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_EDIT_23_sua_dieukiensp.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_EDIT_24_sua_dieukien_giati.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_EDIT_24_sua_dieukiensp.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_EDIT_25_magg_readonly.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_EDIT_26_huy_bo.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_EDIT_27_ngaykt_nho_hon_ngaybd.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_EDIT_28_ngaykt_nho_hon_ngayhientai.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_EDIT_29_giatrigiam_bang_0.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_EDIT_30_giatrigiam_hon_50_phantram.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_EDIT_31_soluong_bang_0.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_EDIT_32_lock_voucher_co_luot_dung.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_SEARCH_01_tim_dung_ma.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_SEARCH_02_tim_chuoi_con.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_SEARCH_03_tim_chu_in_thuong.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_SEARCH_04_khong_nhap.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_SEARCH_05_tim_khong_ton_tai.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_SEARCH_06_loc_trang_thai_active.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_SEARCH_07_loc_trang_thai_pending.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_SEARCH_08_loc_trang_thai_expired.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_SEARCH_09_loc_hinh_thuc_khuyenmai.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_SEARCH_09_tat_ca_trang_thai.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_SEARCH_10_loc_hinh_thuc_khuyenmai.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_SEARCH_10_loc_hinh_thuc_shipping.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_SEARCH_11_dat_lai_tat_ca.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_SEARCH_11_loc_hinh_thuc_shipping.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_SEARCH_12_tat_ca_hinh_thuc.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_click_edit_voucher.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_go_to_admin.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_login_admin.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_login_customer.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_search.executor": "Run",
     "Python tests.Python tests for discounts.test.selenium.test_sel_login.test_login_fail_with_no_input_password.executor": "Run",
     "Python tests.Python tests for discounts.test.selenium.test_sel_login.test_login_fail_with_no_input_password_username.executor": "Run",
     "Python tests.Python tests for discounts.test.selenium.test_sel_login.test_login_fail_with_no_input_username.executor": "Run",
@@ -111,6 +165,8 @@
     "Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_space_username.executor": "Run",
     "Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_special_characters_username.executor": "Run",
     "Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_success.executor": "Run",
+    "Python tests.Python tests for discounts.test.test_register.test_register.test_register_username_space.executor": "Run",
+    "Python tests.Python tests for discounts.test.test_register.test_register.test_register_username_with_special_char.executor": "Run",
     "Python.index.executor": "Run",
     "Python.models.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -195,6 +251,8 @@
       <recent name="D:\HK2_2025\KiemThu\Discount_Manager\discounts\static\images" />
     </key>
   </component>
+  <component name="RunManager" selected="Python.index">
+    <configuration name="index" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
 <<<<<<< Updated upstream
   <component name="RunManager" selected="Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_space_username">
 =======
@@ -227,16 +285,27 @@
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/discounts" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/discounts/index.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
       <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_applyvoucher.test_TC02_delete_item_api&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
+    <configuration name="Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_DEL_34_xoa_voucher_da_dung_bi_khoa" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
 <<<<<<< Updated upstream
 =======
     <configuration name="Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC05_apply_voucher_api" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
@@ -251,10 +320,12 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
       <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_applyvoucher.test_TC05_apply_voucher_api&quot;" />
+      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_editvoucher.test_TC_DEL_34_xoa_voucher_da_dung_bi_khoa&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
     <configuration name="Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC06_remove_voucher_api" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+    <configuration name="Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_DEL_35_xoa_voucher_het_so_luong" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="Discount_Manager" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -265,10 +336,12 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_editvoucher.test_TC_DEL_35_xoa_voucher_het_so_luong&quot;" />
       <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_applyvoucher.test_TC06_remove_voucher_api&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
+    <configuration name="Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_DEL_36_huy_xoa_voucher" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
 >>>>>>> Stashed changes
     <configuration name="Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC29_voucher_expired" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="Discount_Manager" />
@@ -281,10 +354,12 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_editvoucher.test_TC_DEL_36_huy_xoa_voucher&quot;" />
       <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_applyvoucher.test_TC29_voucher_expired&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
+    <configuration name="Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_DEL_37_xoa_voucher_khong_ton_tai" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
     <configuration name="Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_space_username" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="Discount_Manager" />
       <option name="ENV_FILES" value="" />
@@ -312,11 +387,17 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
       <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_register.test_register_failure_with_special_characters_username&quot;" />
+      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_editvoucher.test_TC_DEL_37_xoa_voucher_khong_ton_tai&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.index" />
+        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_DEL_37_xoa_voucher_khong_ton_tai" />
+        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_DEL_36_huy_xoa_voucher" />
+        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_DEL_35_xoa_voucher_het_so_luong" />
+        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_DEL_34_xoa_voucher_da_dung_bi_khoa" />
 <<<<<<< Updated upstream
         <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_space_username" />
         <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_register.test_register_failure_with_special_characters_username" />
@@ -349,5 +430,61 @@
       <updated>1777432346867</updated>
     </task>
     <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/discounts/test/selenium/test_sel_editvoucher.py</url>
+          <line>116</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/discounts/test/selenium/test_sel_editvoucher.py</url>
+          <line>159</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/discounts/test/selenium/test_sel_editvoucher.py</url>
+          <line>315</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/discounts/test/selenium/test_sel_editvoucher.py</url>
+          <line>299</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/discounts/test/selenium/test_sel_editvoucher.py</url>
+          <line>298</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/discounts/test/selenium/test_sel_editvoucher.py</url>
+          <line>281</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/discounts/test/selenium/test_sel_editvoucher.py</url>
+          <line>400</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/discounts/test/selenium/test_sel_editvoucher.py</url>
+          <line>500</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/discounts/test/selenium/test_sel_editvoucher.py</url>
+          <line>526</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/discounts/test/selenium/test_sel_editvoucher.py</url>
+          <line>560</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
