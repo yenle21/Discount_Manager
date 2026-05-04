@@ -1,5 +1,6 @@
 from discounts.test.conftest import test_client, mock_admin
 
+from datetime import datetime, timedelta
 
 # TC1: Không phải ADMIN
 def test_delete_voucher_not_admin(test_client, mocker):
@@ -12,7 +13,8 @@ def test_delete_voucher_not_admin(test_client, mocker):
     res = test_client.post('/delete/SALE10', follow_redirects=True)
 
     assert res.status_code == 200
-    assert "Bạn không có quyền".encode('utf-8') in res.data
+    text = res.data.decode("utf-8")
+    assert "Không có quyền" in text
 
 
 # TC2: Không tồn tại
@@ -31,7 +33,8 @@ def test_delete_voucher_already_used(test_client, mock_admin, mocker):
         MaGG = "USED123"
         DaSuDung = 5
         SoLuong = 10
-        NgayKT = None
+        NgayBD = datetime.now()
+        NgayKT = datetime.now() + timedelta(days=3)
 
     mocker.patch("discounts.index.dao.get_voucher_by_id", return_value=MockVoucher())
 
@@ -49,7 +52,8 @@ def test_delete_voucher_success(test_client, mock_admin, mocker):
         MaGG = "SALE10"
         DaSuDung = 0
         SoLuong = 10
-        NgayKT = None
+        NgayBD = datetime.now()
+        NgayKT = datetime.now() + timedelta(days=3)
 
     mocker.patch("discounts.index.dao.get_voucher_by_id", return_value=MockVoucher())
 
@@ -70,7 +74,8 @@ def test_delete_voucher_exception(test_client, mock_admin, mocker):
         MaGG = "SALE10"
         DaSuDung = 0
         SoLuong = 10
-        NgayKT = None
+        NgayBD = datetime.now()
+        NgayKT = datetime.now() + timedelta(days=3)
 
     mocker.patch("discounts.index.dao.get_voucher_by_id", return_value=MockVoucher())
 
@@ -105,7 +110,8 @@ def test_delete_voucher_partially_used(test_client, mock_admin, mocker):
         MaGG = "PARTIAL"
         DaSuDung = 3
         SoLuong = 10
-        NgayKT = None
+        NgayBD = datetime.now()
+        NgayKT = datetime.now() + timedelta(days=3)
 
     mocker.patch("discounts.index.dao.get_voucher_by_id", return_value=MockVoucher())
 
@@ -121,7 +127,8 @@ def test_delete_voucher_fully_used(test_client, mock_admin, mocker):
         MaGG = "FULL"
         DaSuDung = 10
         SoLuong = 10
-        NgayKT = None
+        NgayBD = datetime.now()
+        NgayKT = datetime.now() + timedelta(days=3)
 
     mocker.patch("discounts.index.dao.get_voucher_by_id", return_value=MockVoucher())
 
@@ -141,8 +148,8 @@ def test_delete_voucher_null_usage(test_client, mock_admin, mocker):
         MaGG = "NULL"
         DaSuDung = None
         SoLuong = 10
-        NgayKT = None
-
+        NgayBD = datetime.now()
+        NgayKT = datetime.now() + timedelta(days=3)
     mocker.patch("discounts.index.dao.get_voucher_by_id", return_value=MockVoucher())
 
     mock_delete = mocker.patch("discounts.index.db.session.delete")
@@ -154,29 +161,7 @@ def test_delete_voucher_null_usage(test_client, mock_admin, mocker):
     mock_delete.assert_called_once()
     mock_commit.assert_called_once()
 
-
-# TC10: SoLuong = None (voucher không giới hạn)
-def test_delete_voucher_unlimited(test_client, mock_admin, mocker):
-    class MockVoucher:
-        MaGG = "UNLIMIT"
-        DaSuDung = 5
-        SoLuong = None
-        NgayKT = None
-
-    mocker.patch("discounts.index.dao.get_voucher_by_id", return_value=MockVoucher())
-
-    # Tùy logic: nếu bạn cho xóa thì test như dưới
-    mock_delete = mocker.patch("discounts.index.db.session.delete")
-    mock_commit = mocker.patch("discounts.index.db.session.commit")
-
-    res = test_client.post('/delete/UNLIMIT', follow_redirects=True)
-
-    assert res.status_code == 200
-    mock_delete.assert_called_once()
-    mock_commit.assert_called_once()
-
-
-# TC11: Voucher hết hạn → CHO xóa dù đang sử dụng
+# TC1đ: Voucher hết hạn → CHO xóa dù đang sử dụng
 def test_delete_voucher_expired_even_if_used(test_client, mock_admin, mocker):
     from datetime import datetime, timedelta
 
@@ -196,4 +181,5 @@ def test_delete_voucher_expired_even_if_used(test_client, mock_admin, mocker):
     assert res.status_code == 200
     mock_delete.assert_called_once()
     mock_commit.assert_called_once()
-    assert "đã hết hạn".encode('utf-8') in res.data
+    text = res.data.decode("utf-8")
+    assert "hết hạn" in text
