@@ -52,7 +52,7 @@
                                 pending
                             </option>
 
-                            <option value="Active" {% if trang_thai=="Active" %}selected{% endif %}>
+                            <option value="Active" {% if trang_thai=="active" %}selected{% endif %}>
                                 active
                             </option>
 
@@ -156,25 +156,26 @@
 
                         <td class="actions" style="text-align: center;">
 
-                            {% if v.DaSuDung and v.DaSuDung > 0 %}
-                            <button class="btn-icon delete" disabled
-                                    style="opacity: 0.5; cursor: not-allowed;"
-                                    title="Mã này đã có {{ v.DaSuDung }} lượt sử dụng, không thể xóa!">
-                                <i class="fas fa-lock"></i>
-                            </button>
+                            {% if not v.can_delete %}
 
-
-                            {% else %}
-                            <form action="/delete/{{ v.MaGG }}" method="POST" style="display:inline;">
-                                <button onclick="return confirm('Bạn có chắc muốn xóa mã {{ v.MaGG }}?')"
-                                        class="btn-icon delete"
-                                        title="Xóa mã giảm giá">
-                                    <i class="fas fa-trash"></i>
+                                <!-- Không cho xóa -->
+                                <button class="btn-icon delete" disabled
+                                        style="opacity: 0.5; cursor: not-allowed;">
+                                    <i class="fas fa-lock"></i>
                                 </button>
-                            </form>
-                             <a href="/edit/{{ v.MaGG }}" class="btn-icon edit" title="Chỉnh sửa mã này">
-                                <i class="fas fa-edit" style="color: #3b82f6;"></i>
-                            </a>
+                            {% else %}
+                                <!-- Cho xóa -->
+                                <form action="/delete/{{ v.MaGG }}" method="POST" style="display:inline;">
+                                    <button onclick="return confirm('Bạn có chắc muốn xóa mã {{ v.MaGG }}?')"
+                                            class="btn-icon delete"
+                                            title="Xóa mã giảm giá">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+
+                                <a href="/edit/{{ v.MaGG }}" class="btn-icon edit" title="Chỉnh sửa mã này">
+                                    <i class="fas fa-edit" style="color: #3b82f6;"></i>
+                                </a>
                             {% endif %}
 
                         </td>
