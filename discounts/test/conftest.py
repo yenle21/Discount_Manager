@@ -106,7 +106,7 @@ def sample_vouchers(test_session):
     now = datetime.datetime.now()
 
     v = Voucher(
-        MaGG="GIAM10000",
+        MaGG="SALE100",
         LoaiGG="FIXED",
         GiaTri=10000,
         DieuKien=100000,
