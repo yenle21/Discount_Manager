@@ -193,6 +193,9 @@ def register_routes(app):
                 if gia_tri <= 0:
                     flash("Giá trị giảm phải lớn hơn 0!", "danger")
                     return redirect('/create')
+                if gia_tri >= 20000000:
+                    flash("Giá trị giảm phải nhỏ hơn 20.000.000!", "danger")
+                    return redirect('/create')
 
                 # Lưu DB
                 data = {

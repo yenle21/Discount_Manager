@@ -122,22 +122,6 @@
                                     <span>VND</span>
                                 </div>
                             </div>
-
-                            <div class="form-group">
-                                <label>Trạng thái khởi tạo</label>
-                                <div class="radio-group">
-                                    <label class="radio-item">
-                                        <input type="radio" name="TrangThai" value="active" {% if not v_edit or
-                                               v_edit.TrangThai== 'Active' %} checked {% endif %}>
-                                        <span>Kích hoạt ngay</span>
-                                    </label>
-                                    <label class="radio-item">
-                                        <input type="radio" name="TrangThai" value="inactive" {% if v_edit and
-                                               v_edit.TrangThai== 'Inactive' %} checked {% endif %}>
-                                        <span>Chờ kích hoạt</span>
-                                    </label>
-                                </div>
-                            </div>
                         </div>
 
                     </div>
@@ -162,7 +146,7 @@
         if (loaiGG.value === "phantram") {
             unit.innerText = "%";
             giaTri.max = 50;
-        } else {
+        }  else {
             unit.innerText = "VND";
             giaTri.removeAttribute("max");
         }
@@ -175,6 +159,7 @@
         let value = parseFloat(this.value);
         if (value < 0) this.value = 0;
         if (loaiGG.value === "phantram" && value > 50) this.value = 50;
+        if (loaiGG.value === "tien" && value > 20000000) this.value = 20000000;
     });
 
 
