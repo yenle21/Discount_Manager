@@ -1,54 +1,6 @@
-"""
-QUYỀN TRUY CẬP
-  TC_CV_01  Admin tạo voucher thành công (đầy đủ thông tin hợp lệ)
-  TC_CV_02  Khách hàng truy cập /create → bị từ chối
-  TC_CV_03  Chưa đăng nhập truy cập /create → redirect /login
-
-MÃ VOUCHER (MaGG)
-  TC_CV_04  MaGG trống → từ chối
-  TC_CV_05  MaGG trùng → báo "đã tồn tại"
-  TC_CV_06  MaGG có ký tự đặc biệt (@#) → từ chối (pattern HTML5)
-  TC_CV_07  MaGG có khoảng trắng → từ chối
-  TC_CV_08  MaGG quá dài (> 15 ký tự) → bị cắt bớt về 15 ký tự
-  TC_CV_09  MaGG hoa và thường coi là trùng (DISCOUNT10 vs discount10)
-
-GIÁ TRỊ GIẢM (GiaTri)
-  TC_CV_10  GiaTri = 0 (loại tiền) → từ chối
-  TC_CV_11  GiaTri = 0 (loại %) → từ chối
-  TC_CV_12  GiaTri âm (loại tiền) → từ chối
-  TC_CV_13  GiaTri âm (loại %) → từ chối
-  TC_CV_14  GiaTri > 50% → JS tự cap về 50
-  TC_CV_15  GiaTri là chữ → từ chối
-  TC_CV_16  GiaTri quá lớn (loại tiền, > giới hạn) → từ chối
-
-SỐ LƯỢNG (SoLuong)
-  TC_CV_17  SoLuong = 0 → từ chối
-  TC_CV_18  SoLuong âm → từ chối
-  TC_CV_19  SoLuong là chữ → từ chối
-  TC_CV_20  SoLuong là số thập phân → từ chối
-  TC_CV_21  SoLuong quá lớn → từ chối
-
-NGÀY (NgayBD / NgayKT)
-  TC_CV_22  NgayBD trống → từ chối
-  TC_CV_23  NgayKT trống → từ chối
-  TC_CV_24  NgayBD trong quá khứ → từ chối
-  TC_CV_25  NgayKT < NgayBD → từ chối, báo lỗi
-  TC_CV_26  NgayKT = NgayBD → từ chối
-  TC_CV_27  NgayBD = thời điểm hiện tại → thành công
-
-HÌNH THỨC & ĐIỀU KIỆN
-  TC_CV_28  Tạo voucher Shipping thành công
-  TC_CV_29  Tạo voucher có DieuKienSP = "Sữa" → bảng hiển thị đúng
-  TC_CV_30  Tạo voucher không nhập DieuKien (tiền tối thiểu) → thành công
-  TC_CV_31  Tạo voucher trạng thái "Chờ kích hoạt" → bảng hiển thị pending
-─────────────────────────────────────────────────────────────────────────────
-"""
-
 import time
 from datetime import datetime
-
 from selenium.webdriver.common.by import By
-
 from discounts.test.conftest import driver
 from discounts.test.pages.CreateVoucherPage2 import CreateVoucherPage2
 from discounts.test.pages.LoginPage import LoginPage
