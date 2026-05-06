@@ -289,6 +289,9 @@ def test_TC_EDIT_18_sua_trangthai_thanh_active(driver):
     assert driver.current_url == f"{BASE_URL}/admin"
     assert "thành công" in page.get_alert_text().lower()
 
+    status = page.get_status_in_row(VOUCHER_UNUSED)
+    assert "active" in status
+
     driver.execute_script("window.scrollTo(0, 250)")
     time.sleep(1)
     page.screenshot("actual_output_TC_EDIT_18")
@@ -528,7 +531,7 @@ def test_TC_DEL_32_xoa_voucher_chua_dung(driver):
     page.click_delete_voucher(VOUCHER_DELETE)
 
     alert = page.get_alert_text()
-    assert f"Xóa thành công voucher {VOUCHER_DELETE}" in alert
+    assert f"Xóa thành công voucher {VOUCHER_DELETE}!" in alert
 
     time.sleep(1)
     page.screenshot("actual_output_TC_DEL_32")
@@ -553,9 +556,25 @@ def test_TC_DEL_33_xoa_voucher_chua_dung_het_han(driver):
     row = page.get_row_by_magg(VOUCHER_EXPIRED)
     assert row is None
 
+def test_TC_DEL_34_xoa_voucher_het_so_luong(driver):
+    _login_admin(driver)
+    page = EditVoucherPage(driver=driver)
+    page.open_admin()
+
+    page.click_delete_voucher(VOUCHER_FULL)
+
+    time.sleep(1)
+    page.screenshot("actual_output_TC_DEL_34")
+
+    alert = page.get_alert_text()
+    assert f"Xóa thành công voucher {VOUCHER_FULL}!" in alert
+
+    row = page.get_row_by_magg(VOUCHER_FULL)
+    assert row is None
+
 # TEST XÓA VOUCHER KHÔNG THÀNH CÔNG
 
-def test_TC_DEL_34_xoa_voucher_da_dung_bi_khoa(driver):
+def test_TC_DEL_35_xoa_voucher_da_dung_bi_khoa(driver):
     _login_admin(driver)
     page = EditVoucherPage(driver=driver)
     page.open_admin()
@@ -572,25 +591,7 @@ def test_TC_DEL_34_xoa_voucher_da_dung_bi_khoa(driver):
     assert "fa-lock" in icon.get_attribute("class")
 
     time.sleep(1)
-    page.screenshot("actual_output_TC_DEL_34")
-
-def test_TC_DEL_35_xoa_voucher_het_so_luong(driver):
-    _login_admin(driver)
-    page = EditVoucherPage(driver=driver)
-    page.open_admin()
-
-    row = page.get_row_by_magg(VOUCHER_FULL)
-    assert row is not None
-
-    btn = row.find_element(By.CSS_SELECTOR, "button.btn-icon.delete")
-    assert btn.get_attribute("disabled") is not None
-
-    icon = btn.find_element(By.TAG_NAME, "i")
-    assert "fa-lock" in icon.get_attribute("class")
-
-    time.sleep(1)
     page.screenshot("actual_output_TC_DEL_35")
-
 
 def test_TC_DEL_36_huy_xoa_voucher(driver):
     _login_admin(driver)
