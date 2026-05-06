@@ -1,6 +1,8 @@
 import os
 import time
 from datetime import datetime
+
+import pyautogui
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
@@ -227,6 +229,8 @@ def test_TC07_name_empty(cart_ready):
 
     cart.enter_info("","0321277291", "NhaBe TPHCM")
     cart.checkout()
+    time.sleep(0.5)
+    pyautogui.screenshot("discounts/test/screenshots/ApplyVoucher/actual_output_TC07_api.png")
     msgs = cart.get_all_alerts()
 
     assert any("Tên người nhận không hợp lệ" in m for m in msgs)
@@ -243,6 +247,8 @@ def test_TC08_phone_empty(cart_ready):
 
     cart.enter_info("NVA","", "NhaBe TPHCM")
     cart.checkout()
+    time.sleep(0.5)
+    pyautogui.screenshot("discounts/test/screenshots/ApplyVoucher/actual_output_TC08_api.png")
     msgs = cart.get_all_alerts()
 
     assert any("Số điện thoại không đúng" in m for m in msgs)
@@ -260,6 +266,8 @@ def test_TC09_adress_empty(cart_ready):
 
     cart.enter_info("NVA","0321277291", "")
     cart.checkout()
+    time.sleep(0.5)
+    pyautogui.screenshot("discounts/test/screenshots/ApplyVoucher/actual_output_TC09_api.png")
     msgs = cart.get_all_alerts()
 
     assert any("Vui lòng nhập địa chỉ cụ thể" in m for m in msgs)
@@ -277,6 +285,8 @@ def test_TC10_17_18_checkout_success(cart_ready):
 
     cart.enter_info("NVA","0321277291", "NhaBe TPHCM")
     cart.checkout()
+    time.sleep(0.5)
+    pyautogui.screenshot("discounts/test/screenshots/ApplyVoucher/actual_output_TC10_17_18_api.png")
     msgs = cart.get_all_alerts()
 
     assert any("thành công" in m for m in msgs)
@@ -293,6 +303,8 @@ def test_TC11_text_phone(cart_ready):
 
     cart.enter_info("NVA","abcd", "NhaBe TPHCM")
     cart.checkout()
+    time.sleep(0.5)
+    pyautogui.screenshot("discounts/test/screenshots/ApplyVoucher/actual_output_TC11_api.png")
     msgs = cart.get_all_alerts()
 
     assert any("Số điện thoại không đúng" in m for m in msgs)
@@ -310,6 +322,8 @@ def test_TC12_phone_without_zero_first(cart_ready):
 
     cart.enter_info("NVA","1234567890", "NhaBe TPHCM")
     cart.checkout()
+    time.sleep(0.5)
+    pyautogui.screenshot("discounts/test/screenshots/ApplyVoucher/actual_output_TC12_api.png")
     msgs = cart.get_all_alerts()
 
     assert any("Số điện thoại không đúng" in m for m in msgs)
@@ -326,6 +340,8 @@ def test_TC13_phone_gt(cart_ready):
 
     cart.enter_info("NVA","023456789011", "NhaBe TPHCM")
     cart.checkout()
+    time.sleep(0.5)
+    pyautogui.screenshot("discounts/test/screenshots/ApplyVoucher/actual_output_TC13_api.png")
     msgs = cart.get_all_alerts()
 
     assert any("Số điện thoại không đúng" in m for m in msgs)
@@ -342,6 +358,8 @@ def test_TC14_phone_lt(cart_ready):
 
     cart.enter_info("NVA","023456789", "NhaBe TPHCM")
     cart.checkout()
+    time.sleep(0.5)
+    pyautogui.screenshot("discounts/test/screenshots/ApplyVoucher/actual_output_TC14_api.png")
     msgs = cart.get_all_alerts()
 
     assert any("Số điện thoại không đúng" in m for m in msgs)

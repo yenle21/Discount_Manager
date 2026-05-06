@@ -107,7 +107,7 @@
                                 <select name="DieuKienSP">
                                     <option value="">-- Tất cả sản phẩm --</option>
                                     {% for c in categories %}
-                                    <option value="{{ c.id }}" {% if v_edit and v_edit.DieuKienSP== c.name %} selected
+                                    <option value="{{ c.id }}" {% if v_edit and v_edit.DieuKienSP== c.id %} selected
                                             {% endif %}>{{ c.name }}
                                     </option>
                                     {% endfor %}
