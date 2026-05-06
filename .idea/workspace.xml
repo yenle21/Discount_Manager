@@ -5,14 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fdd5c37-f08b-4390-b0c9-4b96bfa49e24" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/discounts/test/pages/CreateVoucherPage2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/discounts/test/selenium/test_sel_createvoucher2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/discounts/test/pages/EditVoucherPage.py" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/pages/EditVoucherPage.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_DEL_34.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_DEL_34.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_DEL_35.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_DEL_35.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_EDIT_24.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_EDIT_24.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/discounts/test/selenium/test_sel_editvoucher.py" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/selenium/test_sel_editvoucher.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,9 +91,13 @@
     "Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher2.test_TC_CV_22_giatri_am_so_tien.executor": "Run",
     "Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher2.test_TC_CV_23_giatri_am_phan_tram.executor": "Run",
     "Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher2.test_TC_CV_23_giatri_lon_hon_50_phan_tram.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher2.test_TC_CV_24_giatri_lon_hon_50_phan_tram.executor": "Run",
     "Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher2.test_TC_CV_24_giatri_qua_lon_loai_tien.executor": "Run",
     "Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher2.test_TC_CV_25_giatri_am_so_tien.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher2.test_TC_CV_25_giatri_qua_lon_loai_tien.executor": "Run",
     "Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher2.test_TC_CV_26_giatri_am_phan_tram.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher2.test_TC_CV_26_giatri_chu_so_tien.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher2.test_TC_CV_27_giatri_chu_phan_tram.executor": "Run",
     "Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher2.test_TC_CV_28_soluong_trong.executor": "Run",
     "Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher2.test_TC_CV_29_soluong_0.executor": "Run",
     "Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher2.test_TC_CV_30_soluong_am.executor": "Run",
@@ -316,6 +313,11 @@
           <url>file://$PROJECT_DIR$/discounts/test/selenium/test_sel_createvoucher2.py</url>
           <line>350</line>
           <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/discounts/test/selenium/test_sel_createvoucher2.py</url>
+          <line>450</line>
+          <option name="timeStamp" value="17" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
