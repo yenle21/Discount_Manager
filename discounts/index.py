@@ -81,17 +81,17 @@ def register_routes(app):
                 hinh_thuc_list.add(v.Hinhthuc)
             now = datetime.now()
 
-            if v.TrangThai == 'Inactive':
-                display_status = "pending"
+            if v.NgayKT and now > v.NgayKT:
+                display_status = "expired"
 
             elif v.NgayBD and now < v.NgayBD:
                 display_status = "pending"
 
-            elif v.NgayKT and now > v.NgayKT:
-                display_status = "expired"
+            elif v.TrangThai == 'Inactive':
+                display_status = "exprired"
 
             elif v.SoLuong and v.DaSuDung >= v.SoLuong:
-                display_status = "expired"
+                display_status = "exprired"
 
             else:
                 display_status = "active"
@@ -193,7 +193,7 @@ def register_routes(app):
                 if gia_tri <= 0:
                     flash("Giá trị giảm phải lớn hơn 0!", "danger")
                     return redirect('/create')
-                if gia_tri >= 20000000:
+                if gia_tri > 20000000:
                     flash("Giá trị giảm phải nhỏ hơn 20.000.000!", "danger")
                     return redirect('/create')
 
@@ -247,7 +247,7 @@ def register_routes(app):
             raw_so_luong = request.form.get('SoLuong')
             loaigg = request.form.get('LoaiGG')
             hinh_thuc = request.form.get('Hinhthuc')
-            dieu_kien_sp = (request.form.get('DieuKienSP')or "")
+            dieu_kien_sp = (request.form.get('DieuKienSP')or None)
             raw_dieu_kien = request.form.get('DieuKien')
             ngay_bd_str = request.form.get('NgayBD')
             ngay_kt_str = request.form.get('NgayKT')
@@ -306,6 +306,19 @@ def register_routes(app):
                 return redirect(f'/edit/{ma_gg}')
 
             # BƯỚC 6: Gom data và gọi DAO
+
+            # Tính TrangThai tự động theo ngày
+            now = datetime.now()
+            if ngay_bd and ngay_kt:
+                if now < ngay_bd:
+                    trang_thai = "Pending"
+                elif now > ngay_kt:
+                    trang_thai = "Expired"
+                else:
+                    trang_thai = "Active"
+            else:
+                trang_thai = "Inactive"
+
             data = {
                 "Hinhthuc": hinh_thuc,
                 "LoaiGG": loaigg,
@@ -313,7 +326,7 @@ def register_routes(app):
                 "SoLuong": so_luong,
                 "NgayBD": ngay_bd,
                 "NgayKT": ngay_kt,
-                "TrangThai": "Active" if request.form.get('TrangThai') == "active" else "Inactive",
+                "TrangThai": trang_thai,
                 "MoTa": request.form.get('MoTa'),
                 "DieuKien": float(request.form.get('DieuKien') or 0),
                 "DieuKienSP": dieu_kien_sp
