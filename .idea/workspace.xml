@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="4fdd5c37-f08b-4390-b0c9-4b96bfa49e24" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/discounts/templates/admin/create_voucher.html" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/templates/admin/create_voucher.html" afterDir="false" />
+    <list default="true" id="4d69a02a-dd49-4dc5-9d72-9eba003c9f68" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Discount_Manager.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/pages/ApplyVoucherPage.py" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/pages/ApplyVoucherPage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/selenium/test_sel_applyvoucher.py" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/selenium/test_sel_applyvoucher.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +34,7 @@
   <component name="ProjectColorInfo"><![CDATA[{
   "associatedIndex": 3
 }]]></component>
-  <component name="ProjectId" id="3DF2l4MymVUqXLhzMuxsTOajx2R" />
+  <component name="ProjectId" id="3DKwZsgHgr0K9gc8NqHoxaGXxOe" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -39,41 +42,11 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.index.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "Yenle"
   }
 }]]></component>
-  <component name="RunManager">
-    <configuration name="index" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Discount_Manager" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/discounts" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/discounts/index.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Python.index" />
-      </list>
-    </recent_temporary>
-  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -83,11 +56,11 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="4fdd5c37-f08b-4390-b0c9-4b96bfa49e24" name="Changes" comment="" />
-      <created>1777863645733</created>
+      <changelist id="4d69a02a-dd49-4dc5-9d72-9eba003c9f68" name="Changes" comment="" />
+      <created>1778044128111</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1777863645733</updated>
+      <updated>1778044128111</updated>
     </task>
     <servers />
   </component>

@@ -1,6 +1,8 @@
 import os
 import time
 from datetime import datetime
+
+import pyautogui
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
@@ -260,9 +262,14 @@ def test_TC09_adress_empty(cart_ready):
 
     cart.enter_info("NVA","0321277291", "")
     cart.checkout()
+    time.sleep(0.5)
+    pyautogui.screenshot("discounts/test/screenshots/ApplyVoucher/actual_output_TC09_1.png")
+
+    # Sau đó mới lấy alert text và dismiss
     msgs = cart.get_all_alerts()
 
     assert any("Vui lòng nhập địa chỉ cụ thể" in m for m in msgs)
+
 
 
 def test_TC10_17_18_checkout_success(cart_ready):
