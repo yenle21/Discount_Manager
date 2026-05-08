@@ -1,3 +1,6 @@
+import time
+
+import pyautogui
 from selenium.webdriver.support import expected_conditions as EC
 
 from selenium.webdriver.common.by import By
@@ -97,6 +100,7 @@ class ApplyVoucherPage(BasePage):
                 msg = alert.text
                 print("ALERT:", msg)
                 alert.accept()
+
                 messages.append(msg)
             except:
                 break
