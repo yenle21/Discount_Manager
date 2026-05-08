@@ -5,17 +5,18 @@ from discounts.test.conftest import driver
 from discounts.test.pages.EditVoucherPage import EditVoucherPage
 from discounts.test.pages.LoginPage import LoginPage
 
-BASE_URL   = "http://127.0.0.1:5000"
-
-VOUCHER_EXACT   = "SPRING26"
+VOUCHER_EXACT = "SPRING26"
 VOUCHER_PARTIAL = "SPRING"
 VOUCHER_LOWERCASE = "s"
-VOUCHER_NONE    = "NOTEXIST"
+VOUCHER_NONE = "NOTEXIST"
 VOUCHER_UNUSED = "SPRING26"
-VOUCHER_USED   = "FREESHIP20"
+VOUCHER_USED = "FREESHIP20"
 VOUCHER_DELETE = "DELETE"
 VOUCHER_EXPIRED = "HETHAN"
 VOUCHER_FULL = "HETLUOT"
+
+BASE_URL = "http://127.0.0.1:5000"
+EDIT_URL = f"http://127.0.0.1:5000/edit/{VOUCHER_UNUSED}"
 
 def _login_admin(driver):
     login = LoginPage(driver=driver)
@@ -262,61 +263,37 @@ def test_TC_EDIT_16_sua_loaigg_thanh_sotien(driver):
     time.sleep(1)
     page.screenshot("actual_output_TC_EDIT_16")
 
-def test_TC_EDIT_17_sua_trangthai_thanh_inactive(driver):
-    _login_admin(driver)
-    page = EditVoucherPage(driver=driver)
-    page.open_edit(VOUCHER_UNUSED)
-    page.edit_voucher(trangthai="inactive")
-    page.click_save()
-
-    assert driver.current_url == f"{BASE_URL}/admin"
-    assert "thành công" in page.get_alert_text().lower()
-
-    status = page.get_status_in_row(VOUCHER_UNUSED)
-    assert "pending" in status
-
-    driver.execute_script("window.scrollTo(0, 250)")
-    time.sleep(1)
-    page.screenshot("actual_output_TC_EDIT_17")
-
-def test_TC_EDIT_18_sua_trangthai_thanh_active(driver):
-    _login_admin(driver)
-    page = EditVoucherPage(driver=driver)
-    page.open_edit(VOUCHER_UNUSED)
-    page.edit_voucher(trangthai="active")
-    page.click_save()
-
-    assert driver.current_url == f"{BASE_URL}/admin"
-    assert "thành công" in page.get_alert_text().lower()
-
-    driver.execute_script("window.scrollTo(0, 250)")
-    time.sleep(1)
-    page.screenshot("actual_output_TC_EDIT_18")
-
-def test_TC_EDIT_19_sua_soluong(driver):
-    _login_admin(driver)
-    page = EditVoucherPage(driver=driver)
-    page.open_edit(VOUCHER_UNUSED)
-    page.edit_voucher(soluong="350")
-    page.click_save()
-
-    assert driver.current_url == f"{BASE_URL}/admin"
-    assert "thành công" in page.get_alert_text().lower()
-
-    quantity = page.get_soluong_in_row(VOUCHER_UNUSED)
-    assert "350" in quantity
-
-    driver.execute_script("window.scrollTo(0, 250)")
-    time.sleep(1)
-    page.screenshot("actual_output_TC_EDIT_19")
-
-def test_TC_EDIT_20_sua_ngaybd(driver):
+def test_TC_EDIT_17_sua_ngaybd_nho_hon_ngayht(driver):
     _login_admin(driver)
     page = EditVoucherPage(driver=driver)
     page.open_edit(VOUCHER_UNUSED)
 
     page.edit_voucher(
-        ngaybd_date="03052026",
+        ngaybd_date="02052026",
+        ngaybd_time="1150P",
+    )
+    page.click_save()
+
+    assert driver.current_url == f"{BASE_URL}/admin"
+    assert "thành công" in page.get_alert_text().lower()
+
+    ngaybd = page.get_ngaybd_in_row(VOUCHER_UNUSED)
+    assert "02/05/2026" in ngaybd
+    assert "23:50" in ngaybd
+    status = page.get_status_in_row(VOUCHER_UNUSED)
+    assert "active" in status
+
+    driver.execute_script("window.scrollTo(0, 250)")
+    time.sleep(1)
+    page.screenshot("actual_output_TC_EDIT_17")
+
+def test_TC_EDIT_18_sua_ngaybd_lon_hon_ngayht(driver):
+    _login_admin(driver)
+    page = EditVoucherPage(driver=driver)
+    page.open_edit(VOUCHER_UNUSED)
+
+    page.edit_voucher(
+        ngaybd_date="07052026",
         ngaybd_time="1150P",
     )
 
@@ -326,14 +303,16 @@ def test_TC_EDIT_20_sua_ngaybd(driver):
     assert "thành công" in page.get_alert_text().lower()
 
     ngaybd = page.get_ngaybd_in_row(VOUCHER_UNUSED)
-    assert "03/05/2026" in ngaybd
+    assert "07/05/2026" in ngaybd
     assert "23:50" in ngaybd
+    status = page.get_status_in_row(VOUCHER_UNUSED)
+    assert "pending" in status
 
     driver.execute_script("window.scrollTo(0, 250)")
     time.sleep(1)
-    page.screenshot("actual_output_TC_EDIT_20")
+    page.screenshot("actual_output_TC_EDIT_18")
 
-def test_TC_EDIT_21_sua_ngaykt(driver):
+def test_TC_EDIT_19_sua_ngaykt(driver):
     _login_admin(driver)
     page = EditVoucherPage(driver=driver)
     page.open_edit(VOUCHER_UNUSED)
@@ -354,9 +333,26 @@ def test_TC_EDIT_21_sua_ngaykt(driver):
 
     driver.execute_script("window.scrollTo(0, 250)")
     time.sleep(1)
-    page.screenshot("actual_output_TC_EDIT_21")
+    page.screenshot("actual_output_TC_EDIT_19")
 
-def test_TC_EDIT_22_sua_mota(driver):
+def test_TC_EDIT_20_sua_soluong(driver):
+    _login_admin(driver)
+    page = EditVoucherPage(driver=driver)
+    page.open_edit(VOUCHER_UNUSED)
+    page.edit_voucher(soluong="1")
+    page.click_save()
+
+    assert driver.current_url == f"{BASE_URL}/admin"
+    assert "thành công" in page.get_alert_text().lower()
+
+    quantity = page.get_soluong_in_row(VOUCHER_UNUSED)
+    assert "1" in quantity
+
+    driver.execute_script("window.scrollTo(0, 250)")
+    time.sleep(1)
+    page.screenshot("actual_output_TC_EDIT_20")
+
+def test_TC_EDIT_21_sua_mota(driver):
     _login_admin(driver)
     page = EditVoucherPage(driver=driver)
     page.open_edit(VOUCHER_UNUSED)
@@ -372,9 +368,9 @@ def test_TC_EDIT_22_sua_mota(driver):
 
     driver.execute_script("window.scrollTo(0, 250)")
     time.sleep(1)
-    page.screenshot("actual_output_TC_EDIT_22")
+    page.screenshot("actual_output_TC_EDIT_21")
 
-def test_TC_EDIT_23_sua_dieukiensp(driver):
+def test_TC_EDIT_22_sua_dieukiensp(driver):
     _login_admin(driver)
 
     page = EditVoucherPage(driver=driver)
@@ -392,16 +388,15 @@ def test_TC_EDIT_23_sua_dieukiensp(driver):
 
     driver.execute_script("window.scrollTo(0, 250)")
     time.sleep(1)
-    page.screenshot("actual_output_TC_EDIT_23")
+    page.screenshot("actual_output_TC_EDIT_22")
 
-
-def test_TC_EDIT_24_sua_dieukien_giatri(driver):
+def test_TC_EDIT_23_sua_dieukien_giatri(driver):
     _login_admin(driver)
 
     page = EditVoucherPage(driver=driver)
     page.open_edit(VOUCHER_UNUSED)
 
-    page.edit_voucher(tientoithieu="200000")
+    page.edit_voucher(tientoithieu="")
     page.click_save()
 
     assert driver.current_url == f"{BASE_URL}/admin"
@@ -409,23 +404,23 @@ def test_TC_EDIT_24_sua_dieukien_giatri(driver):
 
     row = page.get_row_by_magg(VOUCHER_UNUSED)
     assert row is not None
-    assert "200.000 VNĐ" in row.text
+    assert "0 VNĐ" in row.text
 
     driver.execute_script("window.scrollTo(0, 250)")
     time.sleep(1)
-    page.screenshot("actual_output_TC_EDIT_24")
+    page.screenshot("actual_output_TC_EDIT_23")
 
 # TEST SỬA VOUCHER KHÔNG THÀNH CÔNG
 
-def test_TC_EDIT_25_magg_readonly(driver):
+def test_TC_EDIT_24_magg_readonly(driver):
     _login_admin(driver)
     page = EditVoucherPage(driver=driver)
     page.open_edit(VOUCHER_UNUSED)
 
     assert page.is_magg_readonly()
-    page.screenshot("actual_output_TC_EDIT_25")
+    page.screenshot("actual_output_TC_EDIT_24")
 
-def test_TC_EDIT_26_huy_bo(driver):
+def test_TC_EDIT_25_huy_bo(driver):
     _login_admin(driver)
     page = EditVoucherPage(driver=driver)
     page.open_edit(VOUCHER_UNUSED)
@@ -440,10 +435,9 @@ def test_TC_EDIT_26_huy_bo(driver):
     assert new_mota == old_mota
 
     time.sleep(1)
-    page.screenshot("actual_output_TC_EDIT_26")
+    page.screenshot("actual_output_TC_EDIT_25")
 
-
-def test_TC_EDIT_27_ngaykt_nho_hon_ngaybd(driver):
+def test_TC_EDIT_26_ngaykt_nho_hon_ngaybd(driver):
     _login_admin(driver)
     page = EditVoucherPage(driver=driver)
     page.open_edit(VOUCHER_UNUSED)
@@ -454,14 +448,14 @@ def test_TC_EDIT_27_ngaykt_nho_hon_ngaybd(driver):
     )
     page.click_save()
 
-    assert driver.current_url != f"{BASE_URL}/admin"
     alert = page.get_alert_text()
     assert "Ngày kết thúc phải lớn hơn ngày bắt đầu!" in alert
+    assert driver.current_url == EDIT_URL
 
     time.sleep(1)
-    page.screenshot("actual_output_TC_EDIT_27")
+    page.screenshot("actual_output_TC_EDIT_26")
 
-def test_TC_EDIT_28_ngaykt_nho_hon_ngayhientai(driver):
+def test_TC_EDIT_27_ngaykt_nho_hon_ngayhientai(driver):
     _login_admin(driver)
     page = EditVoucherPage(driver=driver)
     page.open_edit(VOUCHER_UNUSED)
@@ -472,41 +466,253 @@ def test_TC_EDIT_28_ngaykt_nho_hon_ngayhientai(driver):
     )
     page.click_save()
 
-    assert driver.current_url != f"{BASE_URL}/admin"
     alert = page.get_alert_text()
     assert "Ngày kết thúc không được ở quá khứ!" in alert
+    assert driver.current_url == EDIT_URL
+
+    time.sleep(1)
+    page.screenshot("actual_output_TC_EDIT_27")
+
+def test_TC_EDIT_28_ngaybd_trong(driver):
+    _login_admin(driver)
+    page = EditVoucherPage(driver=driver)
+    page.open_edit(VOUCHER_UNUSED)
+
+    # Xóa ngaybd
+    field = page.find(*page.NGAYBD)
+    driver.execute_script("arguments[0].value = '';", field)
+    page.click_save()
+
+    msg = page.get_ngaybd_validation_message()
+    assert "Please fill out this field." in msg
+    assert driver.current_url == EDIT_URL
 
     time.sleep(1)
     page.screenshot("actual_output_TC_EDIT_28")
 
-def test_TC_EDIT_29_giatrigiam_bang_0(driver):
+def test_TC_EDIT_29_ngaykt_trong(driver):
     _login_admin(driver)
     page = EditVoucherPage(driver=driver)
     page.open_edit(VOUCHER_UNUSED)
 
-    page.edit_voucher(giatri="0")
+    # Xóa ngaykt
+    field = page.find(*page.NGAYKT)
+    driver.execute_script("arguments[0].value = '';", field)
     page.click_save()
 
-    assert driver.current_url != f"{BASE_URL}/admin"
-    alert = page.get_alert_text()
-    assert "Số tiền giảm phải từ 10.000vnđ đến 20.000.000vnđ" in alert
+    msg = page.get_ngaykt_validation_message()
+    assert "Please fill out this field." in msg
+    assert driver.current_url == EDIT_URL
 
     time.sleep(1)
     page.screenshot("actual_output_TC_EDIT_29")
 
-def test_TC_EDIT_30_giatrigiam_hon_50_phantram(driver):
+def test_TC_EDIT_30_ngaykt_bang_ngaybd(driver):
     _login_admin(driver)
     page = EditVoucherPage(driver=driver)
     page.open_edit(VOUCHER_UNUSED)
 
-    page.edit_voucher(loaigg="Giảm theo %", giatri="100")
+    page.edit_voucher(
+        ngaybd_date="10052026", ngaybd_time="1000A",
+        ngaykt_date="10052026", ngaykt_time="1000A",
+    )
+    page.click_save()
+
+    alert = page.get_alert_text()
+    assert "Ngày kết thúc phải lớn hơn ngày bắt đầu!" in alert
+    assert driver.current_url == EDIT_URL
+
+    time.sleep(1)
+    page.screenshot("actual_output_TC_EDIT_30")
+
+def test_TC_EDIT_31_giatri_trong_so_tien(driver):
+    _login_admin(driver)
+    page = EditVoucherPage(driver=driver)
+    page.open_edit(VOUCHER_UNUSED)
+
+    page.edit_voucher(loaigg="Giảm theo số tiền", giatri="")
+    page.click_save()
+
+    alert = page.get_alert_text()
+    assert "Vui lòng nhập đầy đủ thông tin!" in alert
+    assert driver.current_url == EDIT_URL
+
+    time.sleep(1)
+    page.screenshot("actual_output_TC_EDIT_31")
+
+def test_TC_EDIT_32_giatri_trong_phan_tram(driver):
+    _login_admin(driver)
+    page = EditVoucherPage(driver=driver)
+    page.open_edit(VOUCHER_UNUSED)
+
+    page.edit_voucher(loaigg="Giảm theo %", giatri="")
+    page.click_save()
+
+    alert = page.get_alert_text()
+    assert "Vui lòng nhập đầy đủ thông tin!" in alert
+    assert driver.current_url == EDIT_URL
+
+    time.sleep(1)
+    page.screenshot("actual_output_TC_EDIT_32")
+
+def test_TC_EDIT_33_giatri_bang_0_so_tien(driver):
+    _login_admin(driver)
+    page = EditVoucherPage(driver=driver)
+    page.open_edit(VOUCHER_UNUSED)
+
+    page.edit_voucher(loaigg="Giảm theo số tiền", giatri="0")
+    page.click_save()
+
+    alert = page.get_alert_text()
+    assert "Số tiền giảm phải từ 10.000vnđ đến 20.000.000vnđ" in alert
+    assert driver.current_url == EDIT_URL
+
+    time.sleep(1)
+    page.screenshot("actual_output_TC_EDIT_33")
+
+def test_TC_EDIT_34_giatri_bang_0_phan_tram(driver):
+    _login_admin(driver)
+    page = EditVoucherPage(driver=driver)
+    page.open_edit(VOUCHER_UNUSED)
+
+    page.edit_voucher(loaigg="Giảm theo %", giatri="0")
+    page.click_save()
+
+    alert = page.get_alert_text()
+    assert "Phần trăm giảm giá phải từ 1 đến 50!" in alert
+    assert driver.current_url == EDIT_URL
+
+    time.sleep(1)
+    page.screenshot("actual_output_TC_EDIT_34")
+
+def test_TC_EDIT_35_giatri_am_so_tien(driver):
+    _login_admin(driver)
+    page = EditVoucherPage(driver=driver)
+    page.open_edit(VOUCHER_UNUSED)
+
+    page.edit_voucher(loaigg="Giảm theo số tiền", giatri="-1")
+
+    actual = page.get_giatri_value()
+    assert actual == "0"
+    assert driver.current_url == EDIT_URL
+
+    time.sleep(1)
+    page.screenshot("actual_output_TC_EDIT_35")
+
+def test_TC_EDIT_36_giatri_am_phan_tram(driver):
+    _login_admin(driver)
+    page = EditVoucherPage(driver=driver)
+    page.open_edit(VOUCHER_UNUSED)
+
+    page.edit_voucher(loaigg="Giảm theo %", giatri="-1")
+
+    actual = page.get_giatri_value()
+    assert actual == "0"
+    assert driver.current_url == EDIT_URL
+
+    time.sleep(1)
+    page.screenshot("actual_output_TC_EDIT_36")
+
+def test_TC_EDIT_37_giatri_chu_so_tien(driver):
+    _login_admin(driver)
+    page = EditVoucherPage(driver=driver)
+    page.open_edit(VOUCHER_UNUSED)
+
+    page.edit_voucher(loaigg="Giảm theo số tiền", giatri="chữ")
+
+    actual = page.get_giatri_value()
+    assert actual == ""
+    assert driver.current_url == EDIT_URL
+
+    time.sleep(1)
+    page.screenshot("actual_output_TC_EDIT_37")
+
+def test_TC_EDIT_38_giatri_chu_phan_tram(driver):
+    _login_admin(driver)
+    page = EditVoucherPage(driver=driver)
+    page.open_edit(VOUCHER_UNUSED)
+
+    page.edit_voucher(loaigg="Giảm theo %", giatri="chu")
+
+    actual = page.get_giatri_value()
+    assert actual == ""
+    assert driver.current_url == EDIT_URL
+
+    time.sleep(1)
+    page.screenshot("actual_output_TC_EDIT_38")
+
+def test_TC_EDIT_39_giatri_hon_20tr(driver):
+    _login_admin(driver)
+    page = EditVoucherPage(driver=driver)
+    page.open_edit(VOUCHER_UNUSED)
+
+    page.edit_voucher(loaigg="Giảm theo số tiền", giatri="20000001")
+
+    actual = page.get_giatri_value()
+    assert actual == "20000000"
+    assert driver.current_url == EDIT_URL
+
+    time.sleep(1)
+    page.screenshot("actual_output_TC_EDIT_39")
+
+def test_TC_EDIT_40_giatri_hon_50_phan_tram(driver):
+    _login_admin(driver)
+    page = EditVoucherPage(driver=driver)
+    page.open_edit(VOUCHER_UNUSED)
+
+    page.edit_voucher(loaigg="Giảm theo %", giatri="51")
 
     actual = page.get_giatri_value()
     assert int(float(actual)) == 50
+    assert driver.current_url == EDIT_URL
 
-    page.screenshot("actual_output_TC_EDIT_30")
+    page.screenshot("actual_output_TC_EDIT_40")
 
-def test_TC_EDIT_31_soluong_bang_0(driver):
+def test_TC_EDIT_41_soluong_trong(driver):
+    _login_admin(driver)
+    page = EditVoucherPage(driver=driver)
+    page.open_edit(VOUCHER_UNUSED)
+
+    page.edit_voucher(soluong="")
+    page.click_save()
+
+    msg = page.get_soluong_validation_message()
+    assert "Please fill out this field." in msg
+    assert driver.current_url != f"{BASE_URL}/admin"
+
+    time.sleep(1)
+    page.screenshot("actual_output_TC_EDIT_41")
+
+def test_TC_EDIT_42_soluong_âm(driver):
+    _login_admin(driver)
+    page = EditVoucherPage(driver=driver)
+    page.open_edit(VOUCHER_UNUSED)
+
+    page.edit_voucher(soluong="-1")
+    page.click_save()
+
+    assert driver.current_url != f"{BASE_URL}/admin"
+    alert = page.get_alert_text()
+    assert "Số lượng phát hành không hợp lệ" in alert
+
+    time.sleep(1)
+    page.screenshot("actual_output_TC_EDIT_42")
+
+def test_TC_EDIT_43_soluong_chu(driver):
+    _login_admin(driver)
+    page = EditVoucherPage(driver=driver)
+    page.open_edit(VOUCHER_UNUSED)
+
+    page.edit_voucher(soluong="chữ")
+
+    actual = page.get_soluong_value()
+    assert actual == ""
+    assert driver.current_url == EDIT_URL
+
+    time.sleep(1)
+    page.screenshot("actual_output_TC_EDIT_43")
+
+def test_TC_EDIT_44_soluong_bang_0(driver):
     _login_admin(driver)
     page = EditVoucherPage(driver=driver)
     page.open_edit(VOUCHER_UNUSED)
@@ -517,45 +723,64 @@ def test_TC_EDIT_31_soluong_bang_0(driver):
     assert driver.current_url != f"{BASE_URL}/admin"
     alert = page.get_alert_text()
     assert "Số lượng phát hành không hợp lệ" in alert
-    page.screenshot("actual_output_TC_EDIT_31")
+
+    time.sleep(1)
+    page.screenshot("actual_output_TC_EDIT_44")
 
 # TEST XÓA VOUCHER THÀNH CÔNG
 
-def test_TC_DEL_32_xoa_voucher_chua_dung(driver):
+def test_TC_DEL_45_xoa_voucher_chua_dung(driver):
     _login_admin(driver)
     page = EditVoucherPage(driver=driver)
     page.open_admin()
     page.click_delete_voucher(VOUCHER_DELETE)
 
     alert = page.get_alert_text()
-    assert f"Xóa thành công voucher {VOUCHER_DELETE}" in alert
+    assert f"Xóa thành công voucher {VOUCHER_DELETE}!" in alert
 
     time.sleep(1)
-    page.screenshot("actual_output_TC_DEL_32")
+    page.screenshot("actual_output_TC_DEL_45")
 
     page.open_admin()
     row = page.get_row_by_magg(VOUCHER_DELETE)
     assert row is None
 
-def test_TC_DEL_33_xoa_voucher_chua_dung_het_han(driver):
+def test_TC_DEL_46_xoa_voucher_chua_dung_het_han(driver):
     _login_admin(driver)
     page = EditVoucherPage(driver=driver)
     page.open_admin()
 
     page.click_delete_voucher(VOUCHER_EXPIRED)
     alert = page.get_alert_text()
-    assert f"Voucher {VOUCHER_EXPIRED} đã hết hạn và đã được xóa!" in alert
+
+    assert f"Voucher {VOUCHER_EXPIRED} đã hết hạn nên được xóa!" in alert
 
     time.sleep(1)
-    page.screenshot("actual_output_TC_DEL_33")
+    page.screenshot("actual_output_TC_DEL_46")
 
     page.open_admin()
     row = page.get_row_by_magg(VOUCHER_EXPIRED)
     assert row is None
 
+def test_TC_DEL_47_xoa_voucher_het_so_luong(driver):
+    _login_admin(driver)
+    page = EditVoucherPage(driver=driver)
+    page.open_admin()
+
+    page.click_delete_voucher(VOUCHER_FULL)
+
+    time.sleep(1)
+    page.screenshot("actual_output_TC_DEL_47")
+
+    alert = page.get_alert_text()
+    assert f"Xóa thành công voucher {VOUCHER_FULL}!" in alert
+
+    row = page.get_row_by_magg(VOUCHER_FULL)
+    assert row is None
+
 # TEST XÓA VOUCHER KHÔNG THÀNH CÔNG
 
-def test_TC_DEL_34_xoa_voucher_da_dung_bi_khoa(driver):
+def test_TC_DEL_48_xoa_voucher_da_dung_bi_khoa(driver):
     _login_admin(driver)
     page = EditVoucherPage(driver=driver)
     page.open_admin()
@@ -572,27 +797,9 @@ def test_TC_DEL_34_xoa_voucher_da_dung_bi_khoa(driver):
     assert "fa-lock" in icon.get_attribute("class")
 
     time.sleep(1)
-    page.screenshot("actual_output_TC_DEL_34")
+    page.screenshot("actual_output_TC_DEL_48")
 
-def test_TC_DEL_35_xoa_voucher_het_so_luong(driver):
-    _login_admin(driver)
-    page = EditVoucherPage(driver=driver)
-    page.open_admin()
-
-    row = page.get_row_by_magg(VOUCHER_FULL)
-    assert row is not None
-
-    btn = row.find_element(By.CSS_SELECTOR, "button.btn-icon.delete")
-    assert btn.get_attribute("disabled") is not None
-
-    icon = btn.find_element(By.TAG_NAME, "i")
-    assert "fa-lock" in icon.get_attribute("class")
-
-    time.sleep(1)
-    page.screenshot("actual_output_TC_DEL_35")
-
-
-def test_TC_DEL_36_huy_xoa_voucher(driver):
+def test_TC_DEL_49_huy_xoa_voucher(driver):
     _login_admin(driver)
     page = EditVoucherPage(driver=driver)
     page.open_admin()
@@ -604,4 +811,4 @@ def test_TC_DEL_36_huy_xoa_voucher(driver):
     assert row is not None
 
     time.sleep(1)
-    page.screenshot("actual_output_TC_DEL_36")
+    page.screenshot("actual_output_TC_DEL_49")

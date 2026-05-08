@@ -13,7 +13,7 @@ class EditVoucherPage(BasePage):
 
     MAGG           = (By.NAME,  "MaGG")
     HINHTHUC       = (By.NAME,  "Hinhthuc")
-    LOAIGG         = (By.NAME,    "LoaiGG")
+    LOAIGG         = (By.NAME,  "LoaiGG")
     GIATRI         = (By.NAME,  "GiaTri")
     SOLUONG        = (By.NAME,  "SoLuong")
     NGAYBD         = (By.NAME,  "NgayBD")
@@ -223,6 +223,9 @@ class EditVoucherPage(BasePage):
     def get_mota_value(self) -> str:
         return self.find(*self.MOTA).get_attribute("value")
 
+    def get_soluong_value(self) -> str:
+        return self.find(*self.SOLUONG).get_attribute("value")
+
     def is_magg_readonly(self) -> bool:
         el = self.find(*self.MAGG)
         return el.get_attribute("readonly") is not None
@@ -243,3 +246,17 @@ class EditVoucherPage(BasePage):
             btn = row.find_element(By.CSS_SELECTOR, "button.btn-icon.delete")
             btn.click()
             time.sleep(1)
+
+    def get_magg_validation_message(self) -> str:
+        return self.find(*self.MAGG).get_attribute("validationMessage")
+
+    def get_soluong_validation_message(self) -> str:
+        return self.find(*self.SOLUONG).get_attribute("validationMessage")
+
+    def get_ngaybd_validation_message(self) -> str:
+        return self.find(*self.NGAYBD).get_attribute("validationMessage")
+
+    def get_ngaykt_validation_message(self) -> str:
+        return self.find(*self.NGAYKT).get_attribute("validationMessage")
+
+

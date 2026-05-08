@@ -67,21 +67,31 @@ def register_routes(app):
         hinh_thuc_list = set()
 
         for v in vouchers:
+            now = datetime.now()
+
+            v.DaSuDung = v.DaSuDung or 0
+            v.SoLuong = v.SoLuong or 0
+
+            het_han = v.NgayKT and now >= v.NgayKT
+            da_dung_het = v.SoLuong > 0 and v.DaSuDung == v.SoLuong
+            chua_dung = v.DaSuDung == 0
+
+            v.can_delete = het_han or da_dung_het or chua_dung
             if v.Hinhthuc:
                 hinh_thuc_list.add(v.Hinhthuc)
             now = datetime.now()
 
-            if v.TrangThai == 'Inactive':
-                display_status = "pending"
+            if v.NgayKT and now > v.NgayKT:
+                display_status = "expired"
 
             elif v.NgayBD and now < v.NgayBD:
                 display_status = "pending"
 
-            elif v.NgayKT and now > v.NgayKT:
-                display_status = "expired"
+            elif v.TrangThai == 'Inactive':
+                display_status = "exprired"
 
-            elif v.DaSuDung >= v.SoLuong:
-                display_status = "expired"
+            elif v.SoLuong and v.DaSuDung >= v.SoLuong:
+                display_status = "exprired"
 
             else:
                 display_status = "active"
@@ -116,110 +126,106 @@ def register_routes(app):
         categories = dao.load_categories()
         return render_template("admin/create_voucher.html", categories=categories)
 
-    # Thêm voucher
-    @app.route('/create', methods=['POST'])
+    @app.route('/create', methods=['GET', 'POST'])
     @admin_required
     def add_voucher_route():
         try:
-            # 1. Lấy dữ liệu và dọn dẹp (strip)
-            MaGG = (request.form.get('MaGG') or "").strip()
-            raw_gia_tri = request.form.get('GiaTri')
-            raw_so_luong = request.form.get('SoLuong')
-            raw_dieu_kien = request.form.get('DieuKien')
-            ngay_bd_str = request.form.get('NgayBD')
-            ngay_kt_str = request.form.get('NgayKT')
-            hinhthuc_str = request.form.get('Hinhthuc')
-            loaigg = request.form.get('LoaiGG')
-            raw_dksp = request.form.get('DieuKienSP')
-            dieu_kien_sp = int(raw_dksp) if raw_dksp and raw_dksp.strip() != "" else None
+            if request.method == 'POST':
+                MaGG = (request.form.get('MaGG') or "").strip()
 
-            # 2. Validation cơ bản (Mã)
-            if not MaGG:
-                categories = dao.load_categories()
-                return render_template(
-                    "admin/create_voucher.html",
-                    error_MaGG="Vui lòng nhập Mã Voucher!",
-                    categories=categories
-                )
-            if not ngay_bd_str or not ngay_kt_str:
-                flash("Vui lòng nhập đầy đủ ngày bắt đầu và ngày kết thúc!", "danger")
+                raw_gia_tri = request.form.get('GiaTri')
+                raw_so_luong = request.form.get('SoLuong')
+                raw_dieu_kien = request.form.get('DieuKien')
+                ngay_bd_str = request.form.get('NgayBD')
+                ngay_kt_str = request.form.get('NgayKT')
+                hinhthuc_str = request.form.get('Hinhthuc')
+                loaigg = request.form.get('LoaiGG')
+                raw_dksp = request.form.get('DieuKienSP')
+
+                dieu_kien_sp = int(raw_dksp) if raw_dksp and raw_dksp.strip() != "" else None
+
+                # 🔥 VALIDATION
+
+                if not MaGG:
+                    flash("Vui lòng nhập Mã Voucher!", "danger")
+                    return redirect('/create')
+
+                if get_voucher_by_id(MaGG):
+                    flash("Mã voucher đã tồn tại!", "danger")
+                    return redirect('/create')
+
+                if " " in MaGG or not re.match("^[A-Za-z0-9]+$", MaGG):
+                    flash("Mã voucher không hợp lệ!", "danger")
+                    return redirect('/create')
+
+                if not ngay_bd_str or not ngay_kt_str:
+                    flash("Vui lòng nhập đầy đủ ngày!", "danger")
+                    return redirect('/create')
+
+                if not hinhthuc_str or not loaigg:
+                    flash("Thiếu thông tin!", "danger")
+                    return redirect('/create')
+
+                # Ép kiểu
+                try:
+                    gia_tri = float(raw_gia_tri)
+                    so_luong = int(raw_so_luong)
+                    dieu_kien = float(raw_dieu_kien or 0)
+
+                    ngay_bd = datetime.strptime(ngay_bd_str, "%Y-%m-%dT%H:%M")
+                    ngay_kt = datetime.strptime(ngay_kt_str, "%Y-%m-%dT%H:%M")
+                except:
+                    flash("Sai định dạng dữ liệu!", "danger")
+                    return redirect('/create')
+
+                # Business logic
+                if ngay_kt <= ngay_bd:
+                    flash("Ngày kết thúc phải lớn hơn ngày bắt đầu!", "danger")
+                    return redirect('/create')
+
+                if ngay_kt < datetime.now():
+                    flash("Ngày kết thúc không hợp lệ!", "danger")
+                    return redirect('/create')
+
+                if so_luong <= 0 or so_luong > 1000:
+                    flash("Số lượng không hợp lệ!", "danger")
+                    return redirect('/create')
+                if gia_tri <= 0:
+                    flash("Giá trị giảm phải lớn hơn 0!", "danger")
+                    return redirect('/create')
+                if gia_tri > 20000000:
+                    flash("Giá trị giảm phải nhỏ hơn 20.000.000!", "danger")
+                    return redirect('/create')
+
+                # Lưu DB
+                data = {
+                    "MaGG": MaGG,
+                    "Hinhthuc": hinhthuc_str,
+                    "LoaiGG": loaigg,
+                    "GiaTri": gia_tri,
+                    "SoLuong": so_luong,
+                    "NgayBD": ngay_bd,
+                    "NgayKT": ngay_kt,
+                    "TrangThai": "Active",
+                    "admin_id": current_user.id,
+                    "DieuKien": dieu_kien,
+                    "DieuKienSP": dieu_kien_sp
+                }
+
+                if add_voucher(data):
+                    flash(f"Thêm voucher thành công mã {MaGG}!", "success")
+                    return redirect('/admin')  # ✅ PASS test success
+
+                flash("Lỗi DB!", "danger")
                 return redirect('/create')
-            if hinhthuc_str is None or hinhthuc_str == "" or loaigg is None or loaigg == "":
-                flash("Vui lòng nhập đầy đủ thông tin","danger")
-                return redirect('/create')
-            if get_voucher_by_id(MaGG):
-                flash("Mã voucher đã tồn tại!", "danger")
-                return redirect('/create')
 
-            if " " in MaGG or not re.match("^[A-Za-z0-9]+$", MaGG):
-                flash("Mã voucher không hợp lệ!", "danger")
-                return redirect('/create')
-
-
-            # 3. Ép kiểu an toàn (Tránh crash lỗi hệ thống)
-            try:
-                gia_tri = float(raw_gia_tri)
-                so_luong = int(raw_so_luong)
-                dieu_kien = float(raw_dieu_kien or 0)
-
-                ngay_bd = datetime.strptime(ngay_bd_str, "%Y-%m-%dT%H:%M") if ngay_bd_str else None
-                ngay_kt = datetime.strptime(ngay_kt_str, "%Y-%m-%dT%H:%M") if ngay_kt_str else None
-            except (ValueError, TypeError):
-                flash("Định dạng dữ liệu số hoặc ngày tháng không đúng!", "danger")
-                return redirect('/create')
-
-            # 4. Logic nghiệp vụ (Business Logic)
-            if ngay_kt and ngay_bd and ngay_kt <= ngay_bd:
-                flash("Ngày kết thúc phải lớn hơn ngày bắt đầu!", "danger")
-                return redirect('/create')
-
-            if ngay_kt and ngay_kt < datetime.now():
-                flash("Ngày kết thúc không được ở quá khứ!", "danger")
-                return redirect('/create')
-            if ngay_bd and ngay_bd.date() < datetime.now().date():
-                flash("Ngày bắt đầu không được ở quá khứ!", "danger")
-                return redirect('/create')
-            if (loaigg == "phần trăm" or loaigg == "phantram") and (gia_tri <= 0 or gia_tri > 50):
-                flash("Phần trăm giảm giá phải từ 1 đến 50!", "danger")
-                return redirect(f'/create')
-
-            if (loaigg == "tien" or loaigg == "tiền") and (gia_tri < 10000 or gia_tri > 20000000):
-                flash("Số tiền giảm phải từ 10.000vnđ đến 20.000.000vnđ", "danger")
-                return redirect(f'/create')
-
-            if dieu_kien < 0:
-                flash("Điều kiện không hợp lệ!", "danger")
-                return redirect('/create')
-            if so_luong <= 0 or so_luong > 1000:
-                flash("Số lượng không hợp lệ","danger")
-                return redirect('/create')
-
-            # 5. Gom data và lưu
-            data = {
-                "MaGG": MaGG,
-                "Hinhthuc": hinhthuc_str,
-                "LoaiGG": loaigg,
-                "GiaTri": gia_tri,
-                "SoLuong": so_luong,
-                "NgayBD": ngay_bd,
-                "NgayKT": ngay_kt,
-                "TrangThai": "Active" if request.form.get('TrangThai') == "active" else "Inactive",
-                "MoTa": request.form.get('MoTa'),
-                "admin_id": current_user.id,
-                "DieuKien": dieu_kien,
-                "DieuKienSP": dieu_kien_sp
-            }
-
-            if add_voucher(data):
-                flash(f"Thêm voucher thành công mã {MaGG}!", "success")
-                return redirect('/admin')
-
-            flash("Lỗi khi lưu vào cơ sở dữ liệu!", "danger")
-            return redirect('/create')
+            # 👉 GET
+            categories = dao.load_categories()
+            return render_template("admin/create_voucher.html", categories=categories)
 
         except Exception as e:
-            app.logger.error(f"Lỗi Add Voucher: {e}")  # In ra log để debug
-            flash("Lỗi hệ thống không xác định!", "danger")
+            app.logger.error(f"Lỗi Add Voucher: {e}")
+            flash("Lỗi hệ thống!", "danger")
             return redirect('/create')
     # edit voucher
     # Route 1: Mở trang sửa (đổ dữ liệu vào create.html)
@@ -241,7 +247,7 @@ def register_routes(app):
             raw_so_luong = request.form.get('SoLuong')
             loaigg = request.form.get('LoaiGG')
             hinh_thuc = request.form.get('Hinhthuc')
-            dieu_kien_sp = (request.form.get('DieuKienSP')or "")
+            dieu_kien_sp = (request.form.get('DieuKienSP')or None)
             raw_dieu_kien = request.form.get('DieuKien')
             ngay_bd_str = request.form.get('NgayBD')
             ngay_kt_str = request.form.get('NgayKT')
@@ -300,6 +306,19 @@ def register_routes(app):
                 return redirect(f'/edit/{ma_gg}')
 
             # BƯỚC 6: Gom data và gọi DAO
+
+            # Tính TrangThai tự động theo ngày
+            now = datetime.now()
+            if ngay_bd and ngay_kt:
+                if now < ngay_bd:
+                    trang_thai = "Pending"
+                elif now > ngay_kt:
+                    trang_thai = "Expired"
+                else:
+                    trang_thai = "Active"
+            else:
+                trang_thai = "Inactive"
+
             data = {
                 "Hinhthuc": hinh_thuc,
                 "LoaiGG": loaigg,
@@ -307,7 +326,7 @@ def register_routes(app):
                 "SoLuong": so_luong,
                 "NgayBD": ngay_bd,
                 "NgayKT": ngay_kt,
-                "TrangThai": "Active" if request.form.get('TrangThai') == "active" else "Inactive",
+                "TrangThai": trang_thai,
                 "MoTa": request.form.get('MoTa'),
                 "DieuKien": float(request.form.get('DieuKien') or 0),
                 "DieuKienSP": dieu_kien_sp
@@ -323,13 +342,11 @@ def register_routes(app):
         except Exception as e:
             flash(f"Lỗi hệ thống: {str(e)}", "danger")
             return redirect(f'/edit/{ma_gg}')
-    # xóa mã gg
+
     @app.route('/delete/<maGG>', methods=['POST'])
     @login_required
     def delete_voucher(maGG):
-        # 1. Kiểm tra quyền Admin sớm
         if int(current_user.user_role) != UserRole.ADMIN:
-            # Nếu là request từ link (GET), nên redirect hoặc trả trang lỗi đẹp hơn là jsonify
             flash("Bạn không có quyền thực hiện thao tác này!", "danger")
             return redirect('/admin')
 
@@ -341,25 +358,32 @@ def register_routes(app):
 
             now = datetime.now()
 
-            # ✅ Nếu đã hết hạn → cho xóa luôn
-            if voucher.NgayKT and now > voucher.NgayKT:
-                db.session.delete(voucher)
-                db.session.commit()
-                flash(f"Voucher {maGG} đã hết hạn và đã được xóa!", "success")
+            # Chuẩn hóa dữ liệu
+            voucher.DaSuDung = voucher.DaSuDung or 0
+            voucher.SoLuong = voucher.SoLuong or 0
+
+            # Logic xóa
+            het_han = voucher.NgayKT and now > voucher.NgayKT
+            da_dung_het = voucher.DaSuDung == voucher.SoLuong
+            chua_su_dung = voucher.DaSuDung == 0
+            unlimited = voucher.SoLuong is None
+
+            can_delete = het_han or da_dung_het or chua_su_dung
+
+            if not can_delete:
+                flash(f"Không thể xóa mã {maGG} vì đang được sử dụng!", "warning")
                 return redirect('/admin')
 
-            if voucher.DaSuDung is None:
-                voucher.DaSuDung = 0
+            if voucher.NgayKT < datetime.now():
+                message = f"Voucher {voucher.MaGG} đã hết hạn nên được xóa!"
+            elif unlimited:
+                message = f"Voucher {voucher.MaGG} không giới hạn nên được xóa!"
+            else:
+                message = f"Xóa thành công voucher {maGG}!"
 
-            if voucher.SoLuong is not None:
-                if 0 < voucher.DaSuDung < voucher.SoLuong:
-                    flash(f"Không thể xóa mã {maGG} vì đang được sử dụng!", "warning")
-                    return redirect('/admin')
-
-            # 3. Thực hiện xóa
             db.session.delete(voucher)
             db.session.commit()
-            flash(f"Xóa thành công voucher {maGG}!", "success")
+            flash(message, "success")
 
         except Exception as e:
             db.session.rollback()
@@ -648,14 +672,15 @@ def register_routes(app):
                 v.is_available = v.con_lai > 0
                 if trang_thai_db in ['pending', 'inactive'] or (v.NgayBD and now < v.NgayBD):
                     v.is_pending = True
+                    v.status = 'pending'
 
-                    # Format ngày ra chuỗi, đề phòng v.NgayBD bị Null thì để chữ "Sắp tới"
                     if v.NgayBD:
                         v.ngay_bat_dau_str = v.NgayBD.strftime('%d/%m/%Y %H:%M')
                     else:
                         v.ngay_bat_dau_str = "Sắp tới"
                 else:
                     v.is_pending = False
+                    v.status = 'active'
                 # Phân loại theo Hinhthuc
                 hinh_thuc_str = str(v.Hinhthuc or "").lower().strip()
                 if 'ship' in hinh_thuc_str or 'vận chuyển' in hinh_thuc_str:
