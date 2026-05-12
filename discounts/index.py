@@ -12,7 +12,7 @@ from discounts.dao import load_products, load_categories, add_voucher, get_vouch
 from discounts import app, db, login, dao, utils
 from discounts.decorators import admin_required
 from discounts.models import UserRole, Voucher, CTHD, DonHang, Product, Category,User
-from datetime import datetime
+from datetime import datetime, date
 mail = Mail()
 otp_storage = {}
 
@@ -183,7 +183,7 @@ def register_routes(app):
                     return redirect('/create')
 
                 # Business logic
-                if ngay_bd < datetime.now():
+                if ngay_bd.date() < date.today():
                     flash("Ngày bắt đầu không được ở trong quá khứ!", "danger")
                     return redirect('/create')
 
