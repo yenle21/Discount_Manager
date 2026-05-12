@@ -269,10 +269,13 @@ def test_TC09_adress_empty(cart_ready):
     cart.enter_info("NVA","0321277291", "")
     cart.checkout()
     time.sleep(0.5)
+    # Sau đó mới lấy alert text và dismiss
+
     pyautogui.screenshot("discounts/test/screenshots/ApplyVoucher/actual_output_TC09_api.png")
     msgs = cart.get_all_alerts()
 
     assert any("Vui lòng nhập địa chỉ cụ thể" in m for m in msgs)
+
 
 
 def test_TC10_17_18_checkout_success(cart_ready):

@@ -174,7 +174,7 @@ def update_voucher(ma_gg, data):
             return True
         return False
     except Exception as e:
-        print(e)
+        print("LỖI CỤ THỂ:", e)
         db.session.rollback()
         return False
 ####QNHU

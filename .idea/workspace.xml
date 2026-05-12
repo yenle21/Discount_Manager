@@ -1,10 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="2db0e76c-df3f-4837-b7ed-aeb34e1ee92f" name="Changes" comment="" />
+    <list default="true" id="138ba44d-c5ee-4111-bfb0-56869a87581f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/discounts/test/pages/CreateVoucherPage2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC07_api.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC08_api.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC09_api.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC10_17_18_api.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC11_api.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC12_api.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC13_api.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC14_api.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_07.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_08.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_09.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_12.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_13.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_14.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_15.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_16.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_17.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_18.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_19.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_20.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_21.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_22.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_23.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_24.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_25.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_26.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_27.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_28.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_29.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_30.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_31.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_32.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_33.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_34.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_35.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_36.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_37.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_38.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_CV_30.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_DEL_45.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_DEL_46.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_DEL_47.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_DEL_48.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_DEL_49.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_EDIT_32.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_EDIT_33.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_EDIT_34.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_EDIT_35.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_EDIT_36.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_EDIT_37.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_EDIT_38.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_EDIT_39.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_EDIT_40.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_EDIT_41.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_EDIT_42.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_EDIT_43.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_EDIT_44.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/discounts/test/selenium/test_sel_createvoucher2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BaoCaoTestCase.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/BaoCaoTestCase.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/dao.py" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/dao.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/index.py" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/index.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/templates/admin/admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/templates/admin/admin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/templates/admin/create_voucher.html" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/templates/admin/create_voucher.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/templates/customer/voucher-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/templates/customer/voucher-list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/conftest.py" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/conftest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/locustfile.py" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/locustfile.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/pages/EditVoucherPage.py" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/pages/EditVoucherPage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_DEL_34.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_DEL_34.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_DEL_35.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_DEL_35.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_EDIT_17.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_EDIT_17.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_EDIT_18.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_EDIT_18.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_EDIT_20.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_EDIT_20.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_EDIT_23.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_EDIT_23.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_EDIT_24.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_EDIT_24.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_EDIT_28.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_EDIT_28.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_EDIT_29.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_EDIT_29.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_EDIT_30.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_EDIT_30.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_EDIT_31.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_EDIT_31.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/selenium/test_sel_applyvoucher.py" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/selenium/test_sel_applyvoucher.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/selenium/test_sel_editvoucher.py" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/selenium/test_sel_editvoucher.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/selenium/test_sel_home.py" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/selenium/test_sel_home.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/test_voucher/test_create_voucher.py" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/test_voucher/test_create_voucher.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/test_voucher/test_delete_voucher.py" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/test_voucher/test_delete_voucher.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/test_voucher/test_edit_voucher.py" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/test_voucher/test_edit_voucher.py" afterDir="false" />
+    </list>
+
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

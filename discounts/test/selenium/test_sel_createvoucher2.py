@@ -1,7 +1,6 @@
 import time
 from datetime import datetime
 from selenium.webdriver.common.by import By
-from discounts.test.conftest import driver
 from discounts.test.pages.CreateVoucherPage2 import CreateVoucherPage2
 from discounts.test.pages.LoginPage import LoginPage
 
@@ -14,13 +13,13 @@ LOGIN_URL  = f"{BASE_URL}/login"
 VALID = dict(
     hinhthuc="Mã khuyến mãi",
     loaigg="Giảm theo số tiền",
-    giatri="10000",
-    soluong="100",
+    giatri="20000000",
+    soluong="1",
     ngaybd_date="06052026", ngaybd_time="1000A",
-    ngaykt_date="07052026", ngaykt_time="1159P",
+    ngaykt_date="07052026", ngaykt_time="0906P",
     mota="Voucher test tự động",
     dieukiensp="-- Tất cả sản phẩm --",
-    tientoithieu="50000",
+    tientoithieu="500000",
 )
 
 def _login_admin(driver):
@@ -29,13 +28,11 @@ def _login_admin(driver):
     login.login("Quản Trị Viên", "admin", "123")
     time.sleep(1)
 
-
 def _login_customer(driver):
     login = LoginPage(driver=driver)
     login.open_page()
     login.login("Khách Hàng", "khachhang", "123")
     time.sleep(1)
-
 
 def _create(driver, **kwargs) -> CreateVoucherPage2:
     page = CreateVoucherPage2(driver=driver)
@@ -47,7 +44,7 @@ def _create(driver, **kwargs) -> CreateVoucherPage2:
 
 def test_TC_CV_01_admin_tao_voucher_thanh_cong(driver):
     _login_admin(driver)
-    magg = "ADMINTEST"
+    magg = "SPRING26"
     page = _create(driver, magg= magg, **VALID)
     page.click_save()
 
@@ -70,7 +67,6 @@ def test_TC_CV_02_khach_hang_khong_truy_cap_duoc(driver):
     time.sleep(1)
     page.screenshot("actual_output_TC_CV_02")
 
-
 def test_TC_CV_03_chua_dang_nhap(driver):
     page = CreateVoucherPage2(driver=driver)
     page.open_page()
@@ -85,7 +81,7 @@ def test_TC_CV_03_chua_dang_nhap(driver):
 
 def test_TC_CV_04_hinhthuc_shipping(driver):
     _login_admin(driver)
-    magg = "FREESHIP"
+    magg = "FREESHIP20"
     page = _create(driver, magg=magg, **{**VALID, "hinhthuc": "Miễn phí Ship"})
     page.click_save()
 
@@ -100,7 +96,7 @@ def test_TC_CV_04_hinhthuc_shipping(driver):
 
 def test_TC_CV_05_hinhthuc_khuyenmai(driver):
     _login_admin(driver)
-    magg = "AKHUYENMAI"
+    magg = "DELETE"
     page = _create(driver, magg=magg, **VALID)
     page.click_save()
 
@@ -116,7 +112,7 @@ def test_TC_CV_05_hinhthuc_khuyenmai(driver):
 def test_TC_CV_06_trangthai_pending(driver):
     _login_admin(driver)
     magg = "PENDING"
-    page = _create(driver, magg=magg, **{**VALID, "ngaybd_date": "07052026"})
+    page = _create(driver, magg=magg, **{**VALID, "ngaybd_date": "09052026"})
     page.click_save()
 
     assert driver.current_url == ADMIN_URL
@@ -130,7 +126,7 @@ def test_TC_CV_06_trangthai_pending(driver):
 
 def test_TC_CV_07_trangthai_active(driver):
     _login_admin(driver)
-    magg = "ACTIVE"
+    magg = "HETHAN"
     page = _create(driver, magg=magg, **{**VALID, "ngaybd_date": "05052026"})
     page.click_save()
 
@@ -139,14 +135,15 @@ def test_TC_CV_07_trangthai_active(driver):
     status = page.get_status_in_row(magg)
     assert "active" in status
 
+    driver.execute_script("window.scrollTo(0,250)")
     time.sleep(1)
     page.screenshot("actual_output_TC_CV_07")
 
 def test_TC_CV_08_trangthai_active(driver):
     _login_admin(driver)
-    magg = "ACTIVE2"
+    magg = "HETLUOT"
     page = _create(driver, magg=magg,
-                   **{**VALID, "ngaybd_date": "05052026", "ngaybd_time": "0902P"})
+                   **{**VALID, "ngaybd_date": "06052026", "ngaybd_time": "0902P"})
     page.click_save()
 
     assert driver.current_url == ADMIN_URL
@@ -154,6 +151,7 @@ def test_TC_CV_08_trangthai_active(driver):
     status = page.get_status_in_row(magg)
     assert "active" in status
 
+    driver.execute_script("window.scrollTo(0,250)")
     time.sleep(1)
     page.screenshot("actual_output_TC_CV_08")
 
@@ -205,7 +203,9 @@ def test_TC_CV_11_khong_mota(driver):
     page.screenshot("actual_output_TC_CV_11")
 
 # TEST TẠO VOUCHER KHÔNG THÀNH CÔNG
+
 # MÃ GIẢM GIÁ
+
 def test_TC_CV_12_magg_trong(driver):
     _login_admin(driver)
     page = _create(driver, magg="", **VALID)
@@ -325,7 +325,6 @@ def test_TC_CV_20_giatri_bang_0_so_tien(driver):
     time.sleep(1)
     page.screenshot("actual_output_TC_CV_20")
 
-
 def test_TC_CV_21_giatri_bang_0_phan_tram(driver):
     _login_admin(driver)
     page = _create(driver, magg="GIATRI0PT",
@@ -375,18 +374,17 @@ def test_TC_CV_24_giatri_lon_hon_50_phan_tram(driver):
     time.sleep(1)
     page.screenshot("actual_output_TC_CV_24")
 
-# def test_TC_CV_25_giatri_qua_lon_loai_tien(driver):
-#     _login_admin(driver)
-#     page = _create(driver, magg="GIATRILONVND",
-#                    **{**VALID, "loaigg": "Giảm theo số tiền", "giatri": "20000001"})
-#     page.click_save()
-#
-#     alert = page.get_alert_text()
-#     assert "Giá trị giảm phải nhỏ hơn 20.000.000" in alert
-#     assert driver.current_url == CREATE_URL
-#
-#     time.sleep(1)
-#     page.screenshot("actual_output_TC_CV_25")
+def test_TC_CV_25_giatri_hon_20tr_loai_tien(driver):
+    _login_admin(driver)
+    page = _create(driver, magg="GIATRIHON20TR",
+                   **{**VALID, "loaigg": "Giảm theo số tiền", "giatri": "20000001"})
+
+    actual = page.get_giatri_value()
+    assert actual == "20000000"
+    assert driver.current_url == CREATE_URL
+
+    time.sleep(1)
+    page.screenshot("actual_output_TC_CV_25")
 
 def test_TC_CV_26_giatri_chu_so_tien(driver):
     _login_admin(driver)
