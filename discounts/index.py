@@ -150,6 +150,10 @@ def register_routes(app):
                     flash("Vui lòng nhập Mã Voucher!", "danger")
                     return redirect('/create')
 
+                if len(MaGG) > 15:
+                    flash("Mã voucher không được vượt quá 15 ký tự!", "danger")
+                    return redirect('/create')
+
                 if get_voucher_by_id(MaGG):
                     flash("Mã voucher đã tồn tại!", "danger")
                     return redirect('/create')
@@ -179,6 +183,10 @@ def register_routes(app):
                     return redirect('/create')
 
                 # Business logic
+                if ngay_bd < datetime.now():
+                    flash("Ngày bắt đầu không được ở trong quá khứ!", "danger")
+                    return redirect('/create')
+                
                 if ngay_kt <= ngay_bd:
                     flash("Ngày kết thúc phải lớn hơn ngày bắt đầu!", "danger")
                     return redirect('/create')
