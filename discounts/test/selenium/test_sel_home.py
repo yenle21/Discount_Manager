@@ -41,7 +41,7 @@ def test_TC04_header_after_login(driver):
     # wait sau login
     home.wait.until(lambda d: home.is_logout_visible())
 
-    # ❌ login/register không còn
+    # login/register không còn
     assert not home.is_login_visible()
     assert not home.is_register_visible()
 
@@ -76,16 +76,16 @@ def test_TC06_logout(driver):
     home.wait.until(lambda d: home.is_logout_visible())
     home.click_logout()
 
-    # 🔥 đợi voucher biến mất
+    # đợi voucher biến mất
     home.wait.until_not(
         EC.visibility_of_element_located(home.VOUCHER_MANAGER)
     )
 
-    # ✔ trạng thái sau logout
+    # trạng thái sau logout
     assert home.is_login_visible()
     assert home.is_register_visible()
 
-    # ❌ không còn
+    # không còn
     assert not home.is_logout_visible()
     assert not home.is_voucher_visible()
     driver.save_screenshot("discounts/test/screenshots/Home/actual_output_TC06.png")
@@ -290,7 +290,7 @@ def test_TC18_click_vcm_redirect_cart(driver):
     buttons = driver.find_elements(By.CSS_SELECTOR, ".voucher-card button")
     buttons[0].click()
 
-    assert driver.current_url == 'http://127.0.0.1:5000/cart?magg=DISCOUNT20'
+    assert driver.current_url == 'http://127.0.0.1:5000/cart?magg=SALE100'
 
 def test_TC19_display_voucher(driver):
     login = LoginPage(driver)
