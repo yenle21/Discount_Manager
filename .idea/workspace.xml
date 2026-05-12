@@ -4,10 +4,35 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="09d2edb6-51e9-46c2-accc-e733cc5a0cd7" name="Changes" comment="">
+    <list default="true" id="2db0e76c-df3f-4837-b7ed-aeb34e1ee92f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/discounts/index.py" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/index.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/discounts/templates/admin/create_voucher.html" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/templates/admin/create_voucher.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC01.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC01.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC03.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC03.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC04.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC04.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC05.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC05.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC06_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC06_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC06_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC06_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC07_api.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC07_api.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC08_api.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC08_api.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC09_api.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC09_api.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC10_17_18_api.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC10_17_18_api.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC11_api.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC11_api.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC12_api.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC12_api.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC13_api.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC13_api.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC14_api.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC14_api.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC15.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC15.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC16.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC16.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC20.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC20.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC21.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC21.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC22.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/ApplyVoucher/actual_output_TC22.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/Home/actual_output_TC04.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/Home/actual_output_TC04.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/Home/actual_output_TC06.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/Home/actual_output_TC06.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/Home/actual_output_TC07.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/Home/actual_output_TC07.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/Home/actual_output_TC08.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/Home/actual_output_TC08.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/Home/actual_output_TC09.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/Home/actual_output_TC09.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/Home/actual_output_TC13.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/Home/actual_output_TC13.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/selenium/test_sel_applyvoucher.py" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/selenium/test_sel_applyvoucher.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/selenium/test_sel_home.py" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/selenium/test_sel_home.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,12 +42,181 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="3Dbmv66JUL2VByNVImywlMwy33J" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC01_view_cart.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC02_delete_item.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC02_delete_item_api.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC03_invalid_quantity.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC03_quantity_zero_delete.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC03_update_quantity.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC03_update_quantity_api.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC04_total_api.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC04_total_ui.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC05_apply_voucher.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC05_apply_voucher_api.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC06_remove_voucher.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC06_remove_voucher_api.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC07_name_empty.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC08_phone_empty.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC09_adress_empty.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC10_17_18_checkout_success.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC11_text_phone.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC12_phone_without_zero_first.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC13_phone_gt.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC14_phone_lt.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC15_payment_dropdown.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC16_payment_selected.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC19_after_checkout_success.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC20_voucher_popup.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC21_apply_voucher_by_category.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC22_voucher_not_applied_wrong_category.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC23_apply_voucher_min_order_fail.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC24_apply_voucher_equal_min.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC25_apply_voucher_gt_min.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC26_replace_voucher.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC27_voucher_not_started.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC28_voucher_valid.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_applyvoucher.test_TC29_voucher_expired.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_home.test_TC01_click_logo_redirect_home.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_home.test_TC02_click_login_redirect.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_home.test_TC03_click_register_redirect.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_home.test_TC04_header_after_login.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_home.test_TC05_click_username_no_redirect.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_home.test_TC06_logout.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_home.test_TC07_display_categories.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_home.test_TC08_filter_by_category.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_home.test_TC09_search_exact_product.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_home.test_TC10_search_not_found.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_home.test_TC11_back_to_home.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_home.test_TC12_pagination.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_home.test_TC13_add_to_cart.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_home.test_TC13_add_to_cart_counter_api.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_home.test_TC14_click_redirect_cart.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_home.test_TC15_cart_persist_after_reload.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_home.test_TC16_click_redirect_voucher_list.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_home.test_TC17_access_voucher_without_login.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_home.test_TC17_unauthorized_api.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_home.test_TC18_click_vcm_redirect_cart.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_home.test_TC19_display_voucher.executor": "Run",
+    "Python.index.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "NguyenNhu"
   }
 }]]></component>
+  <component name="RunManager" selected="Python tests.Python tests for discounts.test.selenium.test_sel_home.test_TC19_display_voucher">
+    <configuration name="Python tests for discounts.test.selenium.test_sel_home.test_TC16_click_redirect_voucher_list" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="Discount_Manager" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_home.test_TC16_click_redirect_voucher_list&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for discounts.test.selenium.test_sel_home.test_TC17_access_voucher_without_login" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="Discount_Manager" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_home.test_TC17_access_voucher_without_login&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for discounts.test.selenium.test_sel_home.test_TC17_unauthorized_api" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="Discount_Manager" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_home.test_TC17_unauthorized_api&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for discounts.test.selenium.test_sel_home.test_TC18_click_vcm_redirect_cart" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="Discount_Manager" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_home.test_TC18_click_vcm_redirect_cart&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for discounts.test.selenium.test_sel_home.test_TC19_display_voucher" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="Discount_Manager" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_home.test_TC19_display_voucher&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_home.test_TC19_display_voucher" />
+        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_home.test_TC18_click_vcm_redirect_cart" />
+        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_home.test_TC17_unauthorized_api" />
+        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_home.test_TC17_access_voucher_without_login" />
+        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_home.test_TC16_click_redirect_voucher_list" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-164cda30dcd9-0af03a5fa574-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.26830.99" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2db0e76c-df3f-4837-b7ed-aeb34e1ee92f" name="Changes" comment="" />
+      <created>1778559370534</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1778559370534</updated>
+    </task>
     <servers />
   </component>
 </project>

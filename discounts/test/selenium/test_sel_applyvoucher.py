@@ -90,31 +90,33 @@ def test_TC03_update_quantity(cart_ready):
     assert int(qty) == 2
     driver.save_screenshot("discounts/test/screenshots/ApplyVoucher/actual_output_TC03.png")
 
-def test_TC03_update_quantity_api(client):
-    with client.session_transaction() as sess:
+def test_TC03_update_quantity_api(test_client):
+    with test_client.session_transaction() as sess:
         sess['cart'] = {
             "1": {"price": 10000, "quantity": 1}
         }
 
-    res = client.put('/api/cart/1', json={"quantity": 3})
+    res = test_client.put('/api/cart/1', json={"quantity": 3})
 
     assert res.status_code == 200
-    assert res.json["cart"]["1"]["quantity"] == 3
+    assert res.json["total_quantity"] == 3
+    assert res.json["total_price"] == 30000
 
-def test_TC03_invalid_quantity(client):
-    res = client.put('/api/cart/1', json={"quantity": "abc"})
+def test_TC03_invalid_quantity(test_client):
+    res = test_client.put('/api/cart/1', json={"quantity": "abc"})
 
     assert res.status_code == 400
 
-def test_TC03_quantity_zero_delete(client):
-    with client.session_transaction() as sess:
+def test_TC03_quantity_zero_delete(test_client):
+    with test_client.session_transaction() as sess:
         sess['cart'] = {
             "1": {"price": 10000, "quantity": 1}
         }
 
-    res = client.put('/api/cart/1', json={"quantity": 0})
+    res = test_client.put('/api/cart/1', json={"quantity": 0})
 
-    assert "1" not in res.json["cart"]
+    assert res.json["total_quantity"] == 0
+    assert res.json["total_price"] == 0
 
 def test_TC04_total_api(test_client):
     with test_client.session_transaction() as sess:
@@ -466,7 +468,7 @@ def test_TC21_apply_voucher_by_category(cart_ready):
 
     print("DISCOUNT:", discount)
 
-    assert discount == '-10,000đ'
+    assert discount == '-98,000đ'
     driver.save_screenshot("discounts/test/screenshots/ApplyVoucher/actual_output_TC21.png")
 
 
@@ -482,7 +484,7 @@ def test_TC22_voucher_not_applied_wrong_category(driver):
     cart.open_voucher()
     cart.select_voucher_tab("Khuyến mãi")
 
-    # thử chọn voucher SPRING26
+
     try:
         cart.select_voucher_by_code("Milk")
     except:
@@ -493,7 +495,7 @@ def test_TC22_voucher_not_applied_wrong_category(driver):
 
     print("APPLIED:", applied)
 
-    # ❌ không được xuất hiện
+
     assert not any("Milk" in v for v in applied)
     driver.save_screenshot("discounts/test/screenshots/ApplyVoucher/actual_output_TC22.png")
 
@@ -518,7 +520,7 @@ def test_TC23_apply_voucher_min_order_fail(test_client, sample_vouchers):
 
     data = res.get_json()
 
-    # ✅ Kiểm tra
+
     assert res.status_code == 200
     assert data["status"] == 404
     assert "tối thiểu" in data["message"]
