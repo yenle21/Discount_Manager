@@ -186,7 +186,7 @@ def register_routes(app):
                 if ngay_bd < datetime.now():
                     flash("Ngày bắt đầu không được ở trong quá khứ!", "danger")
                     return redirect('/create')
-                
+
                 if ngay_kt <= ngay_bd:
                     flash("Ngày kết thúc phải lớn hơn ngày bắt đầu!", "danger")
                     return redirect('/create')
@@ -198,12 +198,17 @@ def register_routes(app):
                 if so_luong <= 0 or so_luong > 1000:
                     flash("Số lượng không hợp lệ!", "danger")
                     return redirect('/create')
-                if gia_tri <= 0:
-                    flash("Giá trị giảm phải lớn hơn 0!", "danger")
-                    return redirect('/create')
-                if gia_tri > 20000000:
-                    flash("Giá trị giảm phải nhỏ hơn 20.000.000!", "danger")
-                    return redirect('/create')
+                if loaigg == "phantram":
+                    if gia_tri < 1 or gia_tri > 50:
+                        flash("Giá trị giảm theo % phải từ 1% đến 50%!", "danger")
+                        return redirect('/create')
+                else:
+                    if gia_tri < 10000:
+                        flash("Giá trị giảm theo VNĐ phải từ 10.000 VNĐ trở lên!", "danger")
+                        return redirect('/create')
+                    if gia_tri > 20000000:
+                        flash("Giá trị giảm phải nhỏ hơn 20.000.000!", "danger")
+                        return redirect('/create')
 
                 # Lưu DB
                 data = {
