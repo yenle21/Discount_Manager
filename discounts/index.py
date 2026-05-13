@@ -317,6 +317,9 @@ def register_routes(app):
             if ngay_kt < datetime.now():
                 flash("Ngày kết thúc không được ở quá khứ!", "danger")
                 return redirect(f'/edit/{ma_gg}')
+            if ngay_bd.date() < date.today():
+                flash("Ngày bắt đầu không được ở trong quá khứ!", "danger")
+                return redirect(f'/edit/{ma_gg}')
 
             # BƯỚC 6: Gom data và gọi DAO
 
