@@ -263,7 +263,7 @@ def test_TC_EDIT_16_sua_loaigg_thanh_sotien(driver):
     time.sleep(1)
     page.screenshot("actual_output_TC_EDIT_16")
 
-def test_TC_EDIT_17_sua_ngaybd_nho_hon_ngayht(driver):
+def test_TC_EDIT_17_sua_ngaybd_la_ngayht(driver):
     _login_admin(driver)
     page = EditVoucherPage(driver=driver)
     page.open_edit(VOUCHER_UNUSED)
@@ -455,19 +455,19 @@ def test_TC_EDIT_26_ngaykt_nho_hon_ngaybd(driver):
     time.sleep(1)
     page.screenshot("actual_output_TC_EDIT_26")
 
-def test_TC_EDIT_27_ngaykt_nho_hon_ngayhientai(driver):
+def test_TC_EDIT_27_ngaybd_nho_hon_ngayhientai(driver):
     _login_admin(driver)
     page = EditVoucherPage(driver=driver)
     page.open_edit(VOUCHER_UNUSED)
 
     page.edit_voucher(
         ngaybd_date="22042026", ngaybd_time="1000A",
-        ngaykt_date="02052026", ngaykt_time="1000A",
+        ngaykt_date="15052026", ngaykt_time="1000A",
     )
     page.click_save()
 
     alert = page.get_alert_text()
-    assert "Ngày kết thúc không được ở quá khứ!" in alert
+    assert "Ngày bắt đầu không được ở trong quá khứ!" in alert
     assert driver.current_url == EDIT_URL
 
     time.sleep(1)

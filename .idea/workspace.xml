@@ -6,7 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="97cef41f-9904-4cfe-bda0-2ffb8f4a0fc9" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/discounts/index.py" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/index.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_37.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/CreateVoucher2/actual_output_TC_CV_37.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_EDIT_27.png" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/screenshots/EditVoucher/actual_output_TC_EDIT_27.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/selenium/test_sel_createvoucher2.py" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/selenium/test_sel_createvoucher2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/discounts/test/selenium/test_sel_editvoucher.py" beforeDir="false" afterPath="$PROJECT_DIR$/discounts/test/selenium/test_sel_editvoucher.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,40 +39,43 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python tests.Python tests for discounts.test.Test_Customer.test_apply_voucher.test_apply_voucher_no_cart.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for discounts.test.Test_Customer.test_apply_voucher.test_apply_voucher_success.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher.test_create_voucher_amount_exceeds_limit.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher.test_create_voucher_start_day_eq_current.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for discounts.test.test_admin_required.test_admin_required_forbidden.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests in test_admin_required.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests in test_apply_voucher.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests in test_caculate_mutil_voucher.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests in test_cart.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests in test_cart_route.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests in test_create_route.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests in test_create_voucher.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests in test_delete_voucher.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests in test_edit_voucher.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests in test_index_route.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests in test_pay.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests in test_search_product.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests in test_sel_createvoucher.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests in test_sel_login.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests in test_utils.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests in test_voucher.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests in test_voucher_list.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python.index.executor&quot;: &quot;Run&quot;,
-    &quot;Python.models.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Yenle&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python tests.Python tests for discounts.test.Test_Customer.test_apply_voucher.test_apply_voucher_no_cart.executor": "Run",
+    "Python tests.Python tests for discounts.test.Test_Customer.test_apply_voucher.test_apply_voucher_success.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher.test_create_voucher_amount_exceeds_limit.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher.test_create_voucher_start_day_eq_current.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher2.test_TC_CV_37_ngaybd_nho_hon_ngayhientai.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher2.test_TC_CV_37_ngaykt_nho_hon_ngayhientai.executor": "Run",
+    "Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_EDIT_27_ngaybd_nho_hon_ngayhientai.executor": "Run",
+    "Python tests.Python tests for discounts.test.test_admin_required.test_admin_required_forbidden.executor": "Run",
+    "Python tests.Python tests in test_admin_required.py.executor": "Run",
+    "Python tests.Python tests in test_apply_voucher.py.executor": "Run",
+    "Python tests.Python tests in test_caculate_mutil_voucher.py.executor": "Run",
+    "Python tests.Python tests in test_cart.py.executor": "Run",
+    "Python tests.Python tests in test_cart_route.py.executor": "Run",
+    "Python tests.Python tests in test_create_route.py.executor": "Run",
+    "Python tests.Python tests in test_create_voucher.py.executor": "Run",
+    "Python tests.Python tests in test_delete_voucher.py.executor": "Run",
+    "Python tests.Python tests in test_edit_voucher.py.executor": "Run",
+    "Python tests.Python tests in test_index_route.py.executor": "Run",
+    "Python tests.Python tests in test_pay.py.executor": "Run",
+    "Python tests.Python tests in test_search_product.py.executor": "Run",
+    "Python tests.Python tests in test_sel_createvoucher.py.executor": "Run",
+    "Python tests.Python tests in test_sel_login.py.executor": "Run",
+    "Python tests.Python tests in test_utils.executor": "Run",
+    "Python tests.Python tests in test_voucher.executor": "Run",
+    "Python tests.Python tests in test_voucher_list.py.executor": "Run",
+    "Python.index.executor": "Run",
+    "Python.models.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main"
   }
-}</component>
-  <component name="RunManager" selected="Python.index">
+}]]></component>
+  <component name="RunManager" selected="Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher2.test_TC_CV_37_ngaybd_nho_hon_ngayhientai">
     <configuration name="index" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Discount_Manager" />
       <option name="ENV_FILES" value="" />
@@ -92,7 +98,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Python tests for discounts.test.test_admin_required.test_admin_required_forbidden" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+    <configuration name="Python tests for discounts.test.selenium.test_sel_createvoucher2.test_TC_CV_37_ngaybd_nho_hon_ngayhientai" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="Discount_Manager" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -103,7 +109,37 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;discounts.test.test_admin_required.test_admin_required_forbidden&quot;" />
+      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_createvoucher2.test_TC_CV_37_ngaybd_nho_hon_ngayhientai&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for discounts.test.selenium.test_sel_createvoucher2.test_TC_CV_37_ngaykt_nho_hon_ngayhientai" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="Discount_Manager" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_createvoucher2.test_TC_CV_37_ngaykt_nho_hon_ngayhientai&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_EDIT_27_ngaybd_nho_hon_ngayhientai" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="Discount_Manager" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;discounts.test.selenium.test_sel_editvoucher.test_TC_EDIT_27_ngaybd_nho_hon_ngayhientai&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
@@ -122,43 +158,13 @@
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Python tests in test_create_route.py" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
-      <module name="Discount_Manager" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;$PROJECT_DIR$/discounts/test/test_index/test_create_route.py&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Python tests in test_index_route.py" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
-      <module name="Discount_Manager" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;$PROJECT_DIR$/discounts/test/test_index/test_index_route.py&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher2.test_TC_CV_37_ngaybd_nho_hon_ngayhientai" />
+        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_createvoucher2.test_TC_CV_37_ngaykt_nho_hon_ngayhientai" />
+        <item itemvalue="Python tests.Python tests for discounts.test.selenium.test_sel_editvoucher.test_TC_EDIT_27_ngaybd_nho_hon_ngayhientai" />
         <item itemvalue="Python.index" />
         <item itemvalue="Python tests.Python tests in test_admin_required.py" />
-        <item itemvalue="Python tests.Python tests for discounts.test.test_admin_required.test_admin_required_forbidden" />
-        <item itemvalue="Python tests.Python tests in test_index_route.py" />
-        <item itemvalue="Python tests.Python tests in test_create_route.py" />
       </list>
     </recent_temporary>
   </component>
