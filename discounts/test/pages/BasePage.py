@@ -2,7 +2,7 @@ from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 
 
-class BasePage:
+class BasePage:  # pragma: no cover
     def __init__(self, driver):
         self.driver = driver
         self.wait = WebDriverWait(driver, 10)

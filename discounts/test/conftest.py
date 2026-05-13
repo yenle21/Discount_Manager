@@ -15,7 +15,7 @@ from selenium.webdriver.chrome.service import Service
 from discounts.test.pages.HomePage import HomePage
 
 
-def create_app():
+def create_app():  # pragma: no cover
     base_dir = os.path.abspath(os.path.dirname(__file__))
     template_dir = os.path.join(base_dir, '..', 'templates')
     app = Flask(__name__,template_folder=template_dir)
