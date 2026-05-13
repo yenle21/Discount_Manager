@@ -202,7 +202,7 @@ def test_checkout_phone_not_start_with_zero(test_client, mocker):
     assert "không hợp lệ" in data['message']
 
 
-def test_add_receipt_success(test_session, sample_voucher):
+def test_add_receipt_success(test_session, sample_vouchers):
     from discounts import dao, models
 
     # 1. Chuẩn bị dữ liệu đầu vào giả lập
@@ -218,7 +218,7 @@ def test_add_receipt_success(test_session, sample_voucher):
         "1": {"id": "1", "name": "Sữa", "price": 20000, "quantity": 2}
     }
     fake_vouchers = {
-        "PROMOTION": {"MaGG": sample_voucher.MaGG}
+        "PROMOTION": {"MaGG": sample_vouchers[0].MaGG}
     }
     fake_info = {
         "name": "Bảo Yến",

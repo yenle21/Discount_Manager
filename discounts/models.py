@@ -25,7 +25,6 @@ class User(db.Model, UserMixin):
     __mapper_args__ = {'polymorphic_on': type, 'polymorphic_identity': 'user'}
 
 class KhachHang(User):
-    # Dùng chuỗi 'DonHang' để tránh lỗi Multiple classes found
     don_hangs = db.relationship('DonHang', backref='khach_hang_ref', lazy=True)
     __mapper_args__ = {'polymorphic_identity': 'khachhang'}
 

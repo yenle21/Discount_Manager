@@ -1,7 +1,7 @@
 from locust import HttpUser, task, between, events
 import gevent
 
-class AdminUser(HttpUser):
+class AdminUser(HttpUser):  # pragma: no cover
     """
     Mô phỏng hành vi của Admin:
       - Xem danh sách voucher
